@@ -1,5 +1,10 @@
 Current Todo:
+Skills
 
 Skills
 - Make new classes for new types of abilities, ie toggle
 - Cast the abilities from some other casting manager. has more flexibility (same as old system)
+- Not all skills are castable. Some are passives. Design smartly (you dont need many castables to have a fun class)
+
+General
+- Sound design very important (ie book flipping noise when GUI pages, or playing noise when mobs spawn in dungeon thematically)

@@ -58,7 +58,7 @@ public class PlayerInfoHandler {
      */
     public void updateAll() {
         for (Player p : Bukkit.getOnlinePlayers()) {
-            rpgPlayerMap.get(p).gameplayUpdate();
+            rpgPlayerMap.get(p).updatePlayerInfo();
         }
     }
 

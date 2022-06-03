@@ -1,6 +1,8 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.rpg.archetypes.Warrior;
+import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
+import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,11 +16,15 @@ public class RPGPlayer {
 
     private UUID playerUUID;
     private PlayerClass playerClass;
+    private Skillbar skillbar;
+    private SkillCaster skillCaster;
 
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
         playerClass = new PlayerClass(p, new Warrior(), 1, 0);
+        skillbar = new Skillbar(p);
+        skillCaster = new SkillCaster(playerUUID, playerClass);
     }
 
     /**
@@ -46,10 +52,42 @@ public class RPGPlayer {
     }
 
     /**
+     * Get player's skillbar
+     * @return skillbar
+     */
+    public Skillbar getSkillbar() {
+        return skillbar;
+    }
+
+    /**
+     * Get skill caster
+     * @return skill caster
+     */
+    public SkillCaster getSkillCaster() {
+        return skillCaster;
+    }
+
+    /**
      * Update any gameplay related stats for the player
      */
-    public void gameplayUpdate() {
+    public void updatePlayerInfo() {
         playerClass.updateStats();
+    }
+
+    /**
+     * Enable and update the skillbar
+     */
+    public void enableSkillbar() {
+        skillbar.enable();
+        skillbar.updateSkillbar(getPlayerClass().getCastableSkills());
+    }
+
+    /**
+     * Disable the skillbar
+     */
+    public void disableSkillbar() {
+        skillbar.disable();
+        skillbar.updateSkillbar(getPlayerClass().getCastableSkills());
     }
 
     /**

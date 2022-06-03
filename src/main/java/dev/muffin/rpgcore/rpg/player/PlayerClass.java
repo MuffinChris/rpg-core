@@ -4,10 +4,12 @@ import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
 import dev.muffin.rpgcore.rpg.rpgutils.RPGConstants;
 import dev.muffin.rpgcore.rpg.rpgutils.RPGStats;
+import dev.muffin.rpgcore.rpg.skills.Skill;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -93,5 +95,13 @@ public class PlayerClass {
 
         // Increment mana based on regen
         stats.setMana(Math.min(stats.getMana() + getManaRegen(), getMaxMana()));
+    }
+
+    /**
+     * Get a list of castable skills
+     * @return list of castable skills
+     */
+    public List<Skill> getCastableSkills() {
+        return archetype.getSkillList();
     }
 }
