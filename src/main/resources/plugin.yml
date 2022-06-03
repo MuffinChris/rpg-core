@@ -1,0 +1,7 @@
+name: rpgcore
+version: ${version}
+main: dev.muffin.rpgcore.Main
+author: eMuffin
+api-version: 1.18
+description: RPG functionality core
+prefix: rpgcore
