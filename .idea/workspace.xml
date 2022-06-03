@@ -5,45 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/gradlew.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/chat/ChatColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/chat/ChatMessageListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/chat/CustomChatRenderer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/chat/JoinMessageListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/archetypes/Archetype.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/archetypes/Warrior.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/RPGClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerClass.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerHealthDisplayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerInfoHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerInfoJoinEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/ArchetypeConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGClassStats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGConstants.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGStats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGSymbols.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/EnvironmentalDamageListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/HealthRegenListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/utilities/DecimalFormats.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/utilities/DirectionParser.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/utilities/PluginLogger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/plugin.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Skill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/ArchetypeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/ArchetypeConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGClassStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGClassStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/rpgutils/RPGStats.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/EnvironmentalDamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/EnvironmentalDamageListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/HealthRegenListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/scaling/HealthRegenListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

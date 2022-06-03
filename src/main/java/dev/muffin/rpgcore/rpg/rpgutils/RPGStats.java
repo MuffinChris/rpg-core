@@ -1,21 +1,21 @@
 package dev.muffin.rpgcore.rpg.rpgutils;
 
 public class RPGStats {
-    private double mana;
+    private int mana;
     private double armor;
     private double magicResist;
 
-    public RPGStats(double mana, double armor, double magicResist) {
+    public RPGStats(int mana, double armor, double magicResist) {
         this.mana = mana;
         this.armor = armor;
         this.magicResist = magicResist;
     }
 
-    public double getMana() {
+    public int getMana() {
         return mana;
     }
 
-    public void setMana(double mana) {
+    public void setMana(int mana) {
         this.mana = mana;
     }
 

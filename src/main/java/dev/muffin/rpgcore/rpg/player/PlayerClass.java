@@ -67,7 +67,7 @@ public class PlayerClass {
      * Get a player's maximum Mana based on class, archetype, items, etc
      * @return max mana
      */
-    public double getMaxMana() {
+    public int getMaxMana() {
         return archetype.getStats().mana;
     }
 
@@ -75,7 +75,7 @@ public class PlayerClass {
      * Get a player's mana regen based on class, archetype, items, etc
      * @return mana regen
      */
-    public double getManaRegen() {
+    public int getManaRegen() {
         return archetype.getStats().manaRegen;
     }
 

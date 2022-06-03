@@ -8,6 +8,7 @@ import dev.muffin.rpgcore.rpg.player.PlayerHealthDisplayer;
 import dev.muffin.rpgcore.rpg.player.PlayerInfoHandler;
 import dev.muffin.rpgcore.rpg.player.PlayerInfoJoinEvent;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
+import dev.muffin.rpgcore.rpg.scaling.HealthRegenListener;
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -36,6 +37,7 @@ public final class Main extends JavaPlugin {
 
         getLogger().info("registering rpg damage events");
         getServer().getPluginManager().registerEvents(new EnvironmentalDamageListener(), this);
+        getServer().getPluginManager().registerEvents(new HealthRegenListener(this), this);
     }
 
     @Override
@@ -51,4 +53,7 @@ public final class Main extends JavaPlugin {
         return playerInfoHandler.getRpgPlayerMap().get(p);
     }
 
+    public PlayerHealthDisplayer getPlayerHealthDisplayer() {
+        return playerHealthDisplayer;
+    }
 }
