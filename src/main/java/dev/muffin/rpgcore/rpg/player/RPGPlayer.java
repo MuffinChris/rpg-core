@@ -79,7 +79,7 @@ public class RPGPlayer {
      */
     public void enableSkillbar() {
         skillbar.enable();
-        skillbar.updateSkillbar(getPlayerClass().getCastableSkills());
+        updateSkillbar();
     }
 
     /**
@@ -87,7 +87,11 @@ public class RPGPlayer {
      */
     public void disableSkillbar() {
         skillbar.disable();
-        skillbar.updateSkillbar(getPlayerClass().getCastableSkills());
+        updateSkillbar();
+    }
+
+    public void updateSkillbar() {
+        skillbar.updateSkillbar(getPlayerClass().getCastableSkills(), skillCaster.getCooldownManager());
     }
 
     /**

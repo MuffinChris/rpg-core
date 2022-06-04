@@ -2,6 +2,7 @@ package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.chat.ChatColor;
 import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.utilities.DecimalFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -32,7 +33,7 @@ public class Skillbar {
         skillbarActive = false;
     }
 
-    public void updateSkillbar(List<Skill> castableSkills) {
+    public void updateSkillbar(List<Skill> castableSkills, CooldownManager cooldownManager) {
         if (skillbarActive) {
             Player p = Bukkit.getPlayer(uuid);
             String output = "";
@@ -40,7 +41,11 @@ public class Skillbar {
 
             for (Skill skill : castableSkills) {
                 String skillName = skill.getSkillName();
-                output += "&e" + skillName + " &8<&6" + slot + "&8> || ";
+                if (cooldownManager.isOnCooldown(skill)) {
+                    output += "&7" + skillName + " &8<&f" + DecimalFormats.oneDecimalsZero.format(cooldownManager.getCooldown(skill)) + "s&8> || ";
+                } else {
+                    output += "&e" + skillName + " &8<&6" + slot + "&8> || ";
+                }
                 slot++;
             }
 
