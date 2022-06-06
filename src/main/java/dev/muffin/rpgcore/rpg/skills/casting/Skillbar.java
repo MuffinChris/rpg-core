@@ -44,7 +44,7 @@ public class Skillbar {
                 if (cooldownManager.isOnCooldown(skill)) {
                     output += "&7" + skillName + " &8<&f" + DecimalFormats.oneDecimalsZero.format(cooldownManager.getCooldown(skill)) + "s&8> || ";
                 } else if (skill.getManaCost() > currMana){
-                    output += "&7" + skillName + " &8<&b" + skill.getManaCost() + "M&8> || ";
+                    output += "&7" + skillName + " &8<&b" + DecimalFormats.noDecimals.format(skill.getManaCost()) + "M&8> || ";
                 } else {
                     output += "&e" + skillName + " &8<&6" + slot + "&8> || ";
                 }
