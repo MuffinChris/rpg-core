@@ -93,7 +93,7 @@ public class RPGPlayer {
     }
 
     public void updateSkillbar() {
-        skillbar.updateSkillbar(getPlayerClass().getCastableSkills(), skillCaster.getCooldownManager());
+        skillbar.updateSkillbar(getPlayerClass().getCastableSkills(), skillCaster.getCooldownManager(), getPlayerClass().getStats().getMana());
     }
 
     /**

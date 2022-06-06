@@ -2,6 +2,8 @@ package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,6 +40,12 @@ public class SkillbarListener implements Listener {
             int slot = e.getNewSlot();
             if (slot <= rpgPlayer.getPlayerClass().getCastableSkills().size() && slot != 0) {
                 CastResponse castResponse = rpgPlayer.getSkillCaster().cast(rpgPlayer.getPlayerClass().getCastableSkills().get(slot - 1));
+                switch(castResponse) {
+                    case NO_MANA:{
+                        e.getPlayer().sendMessage(Component.text("Not enough mana to cast skill", NamedTextColor.RED));
+                        break;
+                    }
+                }
             }
         }
     }

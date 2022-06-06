@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -41,9 +42,15 @@ public class LevelBarHandler implements Listener {
 
     @EventHandler
     public void onExpPickup(PlayerPickupExperienceEvent e) {
-        plugin.getRPGPlayer(e.getPlayer()).getPlayerClass().addExp(e.getExperienceOrb().getExperience() * 5.0);
+        double modifier = (Math.random() * 0.2 + 1) * 7.0;
+        plugin.getRPGPlayer(e.getPlayer()).getPlayerClass().addExp(Math.round(e.getExperienceOrb().getExperience() * modifier));
         e.getExperienceOrb().setExperience(0);
         e.getExperienceOrb().remove();
+    }
+
+    @EventHandler
+    public void onExpDrop(PlayerDeathEvent e) {
+        e.setShouldDropExperience(false);
     }
 
 }

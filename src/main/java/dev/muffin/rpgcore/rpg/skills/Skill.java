@@ -7,12 +7,12 @@ public abstract class Skill {
     private final String description;
     private final double cooldown;
 
-    private final int manaCost;
+    private final double manaCost;
 
     private final int levelRequirement;
     private final int skillpointCost;
 
-    public Skill(String skillName, String description, double cooldown, int manaCost, int levelRequirement, int skillpointCost) {
+    public Skill(String skillName, String description, double cooldown, double manaCost, int levelRequirement, int skillpointCost) {
         this.skillName = skillName;
         this.description = description;
         this.cooldown = cooldown;
@@ -33,7 +33,7 @@ public abstract class Skill {
         return cooldown;
     }
 
-    public int getManaCost() {
+    public double getManaCost() {
         return manaCost;
     }
 

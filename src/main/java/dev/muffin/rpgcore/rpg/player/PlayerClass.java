@@ -46,7 +46,7 @@ public class PlayerClass {
         this.archetype = archetype;
         this.level = level;
         this.exp = exp;
-        stats = new RPGStats(getMaxMana(), 0, 0);
+        stats = new RPGStats(0, 0, 0);
 
         player.setHealthScale(RPGConstants.HEALTH_SCALE);
     }
@@ -72,23 +72,23 @@ public class PlayerClass {
      * @return max hp
      */
     public double getMaxHP() {
-        return archetype.getStats().hp;
+        return archetype.getStats().hp + archetype.getStats().hpPerLevel * level;
     }
 
     /**
      * Get a player's maximum Mana based on class, archetype, items, etc
      * @return max mana
      */
-    public int getMaxMana() {
-        return archetype.getStats().mana;
+    public double getMaxMana() {
+        return archetype.getStats().mana + archetype.getStats().manaPerLevel * level;
     }
 
     /**
      * Get a player's mana regen based on class, archetype, items, etc
      * @return mana regen
      */
-    public int getManaRegen() {
-        return archetype.getStats().manaRegen;
+    public double getManaRegen() {
+        return archetype.getStats().manaRegen + archetype.getStats().manaRegenPerLevel * level;
     }
 
     public Archetype getArchetype() {
@@ -141,7 +141,7 @@ public class PlayerClass {
 
         player.showTitle(title);
 
-        fullHeal();
+        //fullHeal();
     }
 
     /**
@@ -167,7 +167,12 @@ public class PlayerClass {
                 player.setHealth(Math.min(previousHPPercent * getMaxHP(), getMaxHP()));
             }
 
-            // Increment mana based on regen
+
+        }
+    }
+
+    public void updateMana() {
+        if (!player.isDead()) {
             stats.setMana(Math.min(stats.getMana() + getManaRegen(), getMaxMana()));
         }
     }

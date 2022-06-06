@@ -21,6 +21,12 @@ public class PlayerInfoHandler {
                 updateAll();
             }
         }.runTaskTimer(plugin, 1L, 5L);
+
+        new BukkitRunnable() {
+            public void run() {
+                manaRegen();
+            }
+        }.runTaskTimer(plugin, 1L, 20L);
     }
 
     public Map<Player, RPGPlayer> getRpgPlayerMap() {
@@ -59,6 +65,12 @@ public class PlayerInfoHandler {
     public void updateAll() {
         for (Player p : Bukkit.getOnlinePlayers()) {
             rpgPlayerMap.get(p).updatePlayerInfo();
+        }
+    }
+
+    public void manaRegen() {
+        for (Player p : Bukkit.getOnlinePlayers()) {
+            rpgPlayerMap.get(p).getPlayerClass().updateMana();
         }
     }
 

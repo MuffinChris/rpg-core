@@ -12,14 +12,23 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.*;
+
+import static dev.muffin.rpgcore.rpg.utils.RPGSymbols.HEART_SYMBOL;
 
 public class PlayerHealthDisplayer implements Listener {
 
     private Main plugin;
+    private Scoreboard healthUnderName;
 
     public PlayerHealthDisplayer(Main plugin) {
         this.plugin = plugin;
+
+        healthUnderName = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
+        Objective health = healthUnderName.registerNewObjective("health", Criterias.HEALTH, HEART_SYMBOL);
+        health.setDisplaySlot(DisplaySlot.BELOW_NAME);
 
         new BukkitRunnable() {
             public void run() {
@@ -28,6 +37,11 @@ public class PlayerHealthDisplayer implements Listener {
                 }
             }
         }.runTaskTimer(plugin, 1L, 2L);
+    }
+
+    @EventHandler
+    public void addToHealthUnderName(PlayerJoinEvent e) {
+        e.getPlayer().setScoreboard(healthUnderName);
     }
 
     @EventHandler (priority = EventPriority.HIGHEST)
@@ -52,7 +66,7 @@ public class PlayerHealthDisplayer implements Listener {
         String z = DecimalFormats.noDecimals.format(p.getLocation().getZ());
 
         Component actionBarMessage = Component
-                .text().append(RPGSymbols.HEART_SYMBOL)
+                .text().append(HEART_SYMBOL)
                 .append(Component.text().content(" " + hp + "    ").color(NamedTextColor.RED))
                 .append(Component.text().content(x).color(NamedTextColor.GRAY))
                 .append(Component.text().content(" " + direction + " ").color(NamedTextColor.WHITE))
