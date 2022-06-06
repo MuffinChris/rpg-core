@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.rpgutils;
+package dev.muffin.rpgcore.rpg.utils;
 
 public class RPGStats {
     private int mana;

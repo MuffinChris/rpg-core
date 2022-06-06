@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
+import static dev.muffin.rpgcore.rpg.utils.RPGConstants.BASE_LEVEL;
+
 /**
  * RPGPlayer is attached to each player. Stores all RPG information
  */
@@ -22,7 +24,7 @@ public class RPGPlayer {
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
-        playerClass = new PlayerClass(p, new Warrior(), 1, 0);
+        playerClass = new PlayerClass(p, new Warrior(), BASE_LEVEL, 0);
         skillbar = new Skillbar(p);
         skillCaster = new SkillCaster(playerUUID, playerClass);
     }

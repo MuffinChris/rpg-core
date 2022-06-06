@@ -4,14 +4,14 @@ import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import org.bukkit.entity.Player;
 
-public class Cleave extends Skill {
+public class Shatterstrike extends Skill {
 
-    public Cleave() {
-        super("Cleave", "Swing powerfully in an arc.", 7.0, 20, 1, 1);
+    public Shatterstrike() {
+        super("Shatterstrike", "Fiercely strike in front of you", 10.0, 40, 1, 1);
     }
 
     @Override
     public void castSkill(Player caster) {
-        caster.sendMessage(RPGSymbols.WATER_DAMAGE);
+        caster.sendMessage(RPGSymbols.EARTH_DAMAGE);
     }
 }

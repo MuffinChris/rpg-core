@@ -1,12 +1,12 @@
 package dev.muffin.rpgcore.rpg.archetypes;
 
-import dev.muffin.rpgcore.rpg.rpgutils.RPGClassStats;
+import dev.muffin.rpgcore.rpg.utils.RPGClassStats;
 
-import static dev.muffin.rpgcore.rpg.rpgutils.ArchetypeConstants.*;
+import static dev.muffin.rpgcore.rpg.utils.ArchetypeConstants.*;
 
 public class Warrior extends Archetype {
 
     public Warrior() {
-        super(new RPGClassStats(WARRIOR_BASE_HP, WARRIOR_BASE_MANA, WARRIOR_BASE_MANA_REGEN), WARRIOR_SKILLS);
+        super(WARRIOR_NAME, new RPGClassStats(WARRIOR_BASE_HP, WARRIOR_BASE_MANA, WARRIOR_BASE_MANA_REGEN), WARRIOR_SKILLS);
     }
 }

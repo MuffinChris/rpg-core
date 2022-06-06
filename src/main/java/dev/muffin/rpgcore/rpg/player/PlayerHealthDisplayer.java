@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.rpgutils.RPGSymbols;
+import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import dev.muffin.rpgcore.utilities.DirectionParser;
 import net.kyori.adventure.text.Component;

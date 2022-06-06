@@ -9,7 +9,7 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 
 import java.util.Objects;
 
-import static dev.muffin.rpgcore.rpg.rpgutils.RPGConstants.HEALTH_SCALE;
+import static dev.muffin.rpgcore.rpg.utils.RPGConstants.HEALTH_SCALE;
 
 public class HealthRegenListener implements Listener {
 
