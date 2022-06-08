@@ -12,16 +12,11 @@ import org.jetbrains.annotations.NotNull;
 
 public class CustomChatRenderer implements ChatRenderer {
 
-    private Main plugin;
-    public CustomChatRenderer(Main plugin) {
-        this.plugin = plugin;
-    }
-
     @Override
     public @NotNull Component render(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
 
-        int level = plugin.getRPGPlayer(source).getPlayerClass().getLevel();
-        Archetype type = plugin.getRPGPlayer(source).getPlayerClass().getArchetype();
+        int level = Main.getInstance().getRPGPlayer(source).getPlayerClass().getLevel();
+        Archetype type = Main.getInstance().getRPGPlayer(source).getPlayerClass().getArchetype();
         HoverEvent<Component> hoverEventLevel = HoverEvent.showText(Component.text().content("Level: ").color(NamedTextColor.YELLOW)
                 .append(Component.text().content(String.valueOf(level)).color(NamedTextColor.WHITE))
                 .append(Component.text().content("\nClass: ").color(NamedTextColor.YELLOW))

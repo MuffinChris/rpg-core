@@ -1,5 +1,9 @@
 package dev.muffin.rpgcore.rpg.skills;
 
+import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
+import dev.muffin.rpgcore.utilities.DecimalFormats;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
 
 public abstract class Skill {
@@ -46,5 +50,14 @@ public abstract class Skill {
     }
 
     public abstract void castSkill(Player caster);
+
+    public Component getStats() {
+        return Component.text("Mana Cost: ", NamedTextColor.GRAY)
+                .append(Component.text(getManaCost() + " ", NamedTextColor.AQUA))
+                .append(RPGSymbols.MANA_SYMBOL)
+                .append(Component.text("Cooldown: ", NamedTextColor.GRAY))
+                .append(Component.text(DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s", NamedTextColor.WHITE))
+                .append(Component.text(getDescription()));
+    }
 
 }

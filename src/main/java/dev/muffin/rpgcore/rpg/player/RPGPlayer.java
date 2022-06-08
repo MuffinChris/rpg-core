@@ -24,7 +24,7 @@ public class RPGPlayer {
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
-        playerClass = new PlayerClass(p, new Warrior(), BASE_LEVEL, 0);
+        playerClass = new PlayerClass(p, new Warrior(), BASE_LEVEL, 0, 1);
         skillbar = new Skillbar(p);
         skillCaster = new SkillCaster(playerUUID, playerClass);
     }

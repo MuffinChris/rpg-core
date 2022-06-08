@@ -7,16 +7,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class CastingRunnables {
 
-    public CastingRunnables(Main plugin) {
+    public CastingRunnables() {
 
         new BukkitRunnable() {
             public void run() {
                 for (Player p : Bukkit.getOnlinePlayers()) {
-                    plugin.getRPGPlayer(p).getSkillCaster().getCooldownManager().updateCooldowns();
-                    plugin.getRPGPlayer(p).updateSkillbar();
+                    Main.getInstance().getRPGPlayer(p).getSkillCaster().getCooldownManager().updateCooldowns();
+                    Main.getInstance().getRPGPlayer(p).updateSkillbar();
                 }
             }
-        }.runTaskTimer(plugin, 1L, 1L);
+        }.runTaskTimer(Main.getInstance(), 1L, 1L);
     }
 
 }

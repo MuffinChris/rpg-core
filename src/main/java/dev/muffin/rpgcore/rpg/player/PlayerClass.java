@@ -39,13 +39,16 @@ public class PlayerClass {
     private Archetype archetype;
     private RPGClass rpgClass;
 
+    private int skillpoints;
+
     private final Player player;
 
-    public PlayerClass(Player player, Archetype archetype, int level, double exp) {
+    public PlayerClass(Player player, Archetype archetype, int level, double exp, int skillpoints) {
         this.player = player;
         this.archetype = archetype;
         this.level = level;
         this.exp = exp;
+        this.skillpoints = skillpoints;
         stats = new RPGStats(0, 0, 0);
 
         player.setHealthScale(RPGConstants.HEALTH_SCALE);
@@ -95,13 +98,21 @@ public class PlayerClass {
         return archetype;
     }
 
+    public int getSkillpoints() {
+        return skillpoints;
+    }
+
+    public void setSkillpoints(int skillpoints) {
+        this.skillpoints = skillpoints;
+    }
+
     /**
      * Add exp to a player
      * @param exp the exp
      */
     public void addExp(double exp) {
         this.exp+=exp;
-        Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + "] XP").color(NamedTextColor.GRAY).build();
+        Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + " XP]").color(NamedTextColor.GRAY).build();
         player.sendMessage(expMessage);
         checkLevelUp();
     }
@@ -116,6 +127,10 @@ public class PlayerClass {
             // player levels up!
             exp = Math.max(0, exp - RPGConstants.LEVEL_EXP_MAP.get(nextLevel));
             nextLevel+=1;
+
+            if (nextLevel % 5 == 0) {
+                skillpoints+=1;
+            }
         }
         if (nextLevel > startLevel) {
             level = nextLevel;

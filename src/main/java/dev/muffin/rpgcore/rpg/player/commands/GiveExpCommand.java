@@ -12,12 +12,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class GiveExpCommand implements CommandExecutor {
 
-    private Main plugin;
-
-    public GiveExpCommand(Main plugin) {
-        this.plugin = plugin;
-    }
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 0 || args.length == 1) {
@@ -27,7 +21,7 @@ public class GiveExpCommand implements CommandExecutor {
                 Player p = Bukkit.getPlayer(args[0]);
                 try {
                     double exp = Double.parseDouble(args[1]);
-                    plugin.getRPGPlayer(p).getPlayerClass().addExp(exp);
+                    Main.getInstance().getRPGPlayer(p).getPlayerClass().addExp(exp);
                     sender.sendMessage(Component.text("Giving player " + p.getName() + " " + exp + " exp.", NamedTextColor.YELLOW));
                     return true;
                 } catch (NumberFormatException e) {

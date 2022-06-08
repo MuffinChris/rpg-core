@@ -20,11 +20,9 @@ import static dev.muffin.rpgcore.rpg.utils.RPGSymbols.HEART_SYMBOL;
 
 public class PlayerHealthDisplayer implements Listener {
 
-    private Main plugin;
     private Scoreboard healthUnderName;
 
-    public PlayerHealthDisplayer(Main plugin) {
-        this.plugin = plugin;
+    public PlayerHealthDisplayer() {
 
         healthUnderName = Bukkit.getServer().getScoreboardManager().getNewScoreboard();
         Objective health = healthUnderName.registerNewObjective("health", Criterias.HEALTH, HEART_SYMBOL);
@@ -36,7 +34,7 @@ public class PlayerHealthDisplayer implements Listener {
                     updateHealthBar(p);
                 }
             }
-        }.runTaskTimer(plugin, 1L, 2L);
+        }.runTaskTimer(Main.getInstance(), 1L, 2L);
     }
 
     @EventHandler
@@ -56,7 +54,7 @@ public class PlayerHealthDisplayer implements Listener {
      * @param p the player
      */
     public void updateHealthBar(Player p) {
-        RPGPlayer rpgPlayer = plugin.getRPGPlayer(p);
+        RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(p);
 
         String hp = DecimalFormats.noDecimals.format(p.getHealth());
         String mana = DecimalFormats.noDecimals.format(rpgPlayer.getPlayerClass().getStats().getMana());

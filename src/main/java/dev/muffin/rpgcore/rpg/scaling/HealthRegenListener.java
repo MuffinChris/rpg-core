@@ -13,11 +13,6 @@ import static dev.muffin.rpgcore.rpg.utils.RPGConstants.HEALTH_SCALE;
 
 public class HealthRegenListener implements Listener {
 
-    private Main plugin;
-    public HealthRegenListener(Main plugin) {
-        this.plugin = plugin;
-    }
-
     @EventHandler
     public void onHealthRegen(EntityRegainHealthEvent e) {
         if (e.getEntity() instanceof Player p) {
@@ -25,7 +20,7 @@ public class HealthRegenListener implements Listener {
                 e.setAmount(0.5 * (e.getAmount() / HEALTH_SCALE) * Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue());
             }
 
-            plugin.getPlayerHealthDisplayer().updateHealthBar(p);
+            Main.getInstance().getPlayerHealthDisplayer().updateHealthBar(p);
         }
     }
 

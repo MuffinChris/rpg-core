@@ -12,28 +12,22 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 
 public class SkillbarListener implements Listener {
 
-    private Main plugin;
-
-    public SkillbarListener(Main plugin) {
-        this.plugin = plugin;
-    }
-
     @EventHandler
     public void toggleSkillBar(PlayerSwapHandItemsEvent e) {
         if (!e.getPlayer().isSneaking()) {
             e.setCancelled(true);
-            if (!plugin.getRPGPlayer(e.getPlayer()).getSkillbar().isActive()) {
-                plugin.getRPGPlayer(e.getPlayer()).enableSkillbar();
+            if (!Main.getInstance().getRPGPlayer(e.getPlayer()).getSkillbar().isActive()) {
+                Main.getInstance().getRPGPlayer(e.getPlayer()).enableSkillbar();
                 e.getPlayer().getInventory().setHeldItemSlot(0);
             } else {
-                plugin.getRPGPlayer(e.getPlayer()).disableSkillbar();
+                Main.getInstance().getRPGPlayer(e.getPlayer()).disableSkillbar();
             }
         }
     }
 
     @EventHandler
     public void castSkillFromBar(PlayerItemHeldEvent e) {
-        RPGPlayer rpgPlayer = plugin.getRPGPlayer(e.getPlayer());
+        RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(e.getPlayer());
         if (rpgPlayer.getSkillbar().isActive()) {
             e.setCancelled(true);
 
