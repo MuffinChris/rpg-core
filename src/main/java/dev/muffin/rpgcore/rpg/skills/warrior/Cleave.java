@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 public class Cleave extends Skill {
 
     public Cleave() {
-        super("Cleave", "Swing powerfully in an arc.", 7.0, 20, 1, 1);
+        super("Cleave", "Swing powerfully in an arc.", 7.0, 20, 1, 1, 10000001);
     }
 
     @Override

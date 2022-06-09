@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 public class Shatterstrike extends Skill {
 
     public Shatterstrike() {
-        super("Shatterstrike", "Fiercely strike in front of you", 10.0, 40, 1, 1);
+        super("Shatterstrike", "Fiercely strike in front of you", 10.0, 40, 1, 1, 10000002);
     }
 
     @Override

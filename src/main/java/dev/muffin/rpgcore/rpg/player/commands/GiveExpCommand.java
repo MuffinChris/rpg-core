@@ -21,6 +21,10 @@ public class GiveExpCommand implements CommandExecutor {
                 Player p = Bukkit.getPlayer(args[0]);
                 try {
                     double exp = Double.parseDouble(args[1]);
+                    if (exp <= 0) {
+                        sender.sendMessage(Component.text("Invalid EXP Argument", NamedTextColor.RED));
+                        return false;
+                    }
                     Main.getInstance().getRPGPlayer(p).getPlayerClass().addExp(exp);
                     sender.sendMessage(Component.text("Giving player " + p.getName() + " " + exp + " exp.", NamedTextColor.YELLOW));
                     return true;

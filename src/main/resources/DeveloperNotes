@@ -1,7 +1,9 @@
 Current Todo:
-Skills
+hard rework skill tree GUI to be less lazy, more modular, easier to work with
 
 Skills
+no damage ticks important for skill damage
+
 - Make new classes for new types of abilities, ie toggle
 - Cast the abilities from some other casting manager. has more flexibility (same as old system)
 - Not all skills are castable. Some are passives. Design smartly (you dont need many castables to have a fun class)

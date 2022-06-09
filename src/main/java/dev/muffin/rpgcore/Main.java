@@ -61,7 +61,7 @@ public final class Main extends JavaPlugin {
         new CastingRunnables();
         skillTree = new SkillTree();
         getServer().getPluginManager().registerEvents(skillTree, this);
-        this.getCommand("skills").setExecutor(skillTree);
+        this.getCommand("class").setExecutor(skillTree);
     }
 
     @Override

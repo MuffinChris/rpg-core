@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static dev.muffin.rpgcore.rpg.utils.RPGConstants.HEALTH_SCALE;
 import static dev.muffin.rpgcore.rpg.utils.RPGConstants.MAX_LEVEL;
 
 /**
@@ -40,6 +41,7 @@ public class PlayerClass {
     private RPGClass rpgClass;
 
     private int skillpoints;
+    private List<Skill> skillsOwned;
 
     private final Player player;
 
@@ -51,7 +53,10 @@ public class PlayerClass {
         this.skillpoints = skillpoints;
         stats = new RPGStats(0, 0, 0);
 
-        player.setHealthScale(RPGConstants.HEALTH_SCALE);
+        skillsOwned = new ArrayList<>();
+
+        player.setHealthScale(HEALTH_SCALE);
+        updateStats();
     }
 
     public RPGStats getStats() {
@@ -106,12 +111,16 @@ public class PlayerClass {
         this.skillpoints = skillpoints;
     }
 
+    public List<Skill> getSkillsOwned() {
+        return skillsOwned;
+    }
+
     /**
      * Add exp to a player
      * @param exp the exp
      */
     public void addExp(double exp) {
-        this.exp+=exp;
+        this.exp+=Math.abs(exp);
         Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + " XP]").color(NamedTextColor.GRAY).build();
         player.sendMessage(expMessage);
         checkLevelUp();
@@ -198,10 +207,9 @@ public class PlayerClass {
      */
     public List<Skill> getCastableSkills() {
         List<Skill> castableSkills = new ArrayList<>();
-        for (Skill s : archetype.getSkillList()) {
-            if (s.getLevelRequirement() <= level) {
-                castableSkills.add(s);
-            }
+        for (Skill s : skillsOwned) {
+            // if s is in the skillbar set of 4 usables?
+            castableSkills.add(s);
         }
         return castableSkills;
     }

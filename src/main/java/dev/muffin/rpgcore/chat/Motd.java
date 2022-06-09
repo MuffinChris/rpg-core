@@ -10,7 +10,7 @@ public class Motd implements Listener {
 
     @EventHandler
     public void motd(ServerListPingEvent e) {
-        e.motd(Component.text("emuffin.dev rpg server", NamedTextColor.GOLD));
+        e.motd(Component.text("      emuffin.dev", NamedTextColor.GOLD).append(Component.text(" rpg development server", NamedTextColor.GRAY)));
     }
 
 }
