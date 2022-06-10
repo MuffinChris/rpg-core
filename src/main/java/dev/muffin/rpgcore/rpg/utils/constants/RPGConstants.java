@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.utils;
+package dev.muffin.rpgcore.rpg.utils.constants;
 
 import java.util.Map;
 

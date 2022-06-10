@@ -1,88 +1,55 @@
 package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.player.RPGPlayer;
+import dev.muffin.rpgcore.rpg.utils.RPGInfo;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-import static dev.muffin.rpgcore.rpg.utils.ArchetypeConstants.WARRIOR_SKILLS;
+import static dev.muffin.rpgcore.rpg.utils.constants.ArchetypeConstants.WARRIOR_SKILLS;
 
-public class SkillTree implements CommandExecutor, Listener {
+public class SkillTree {
 
+    private Inventory warriorInventory;
+    private List<Inventory> inventories;
+    private RPGInfo rpgInfo;
 
-    Current Issue: clicking unnamed inventory will trigger check and fail because title is fake
-            To fix, make SkillTree GUI per player. On listener check if the player clicking inventory is equal to a skill tree inventory. big refactor.
-
-    private Map<Integer, String> warriorTree;
-    private Map<String, Integer> warriorTreeReq;
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (sender instanceof Player) {
-            ((Player) sender).openInventory(generateWarriorInventory((Player) sender));
-        } else {
-            sender.sendMessage(Component.text("Invalid sender.", NamedTextColor.RED));
-            return true;
-        }
-        return false;
+    public SkillTree(RPGInfo rpgInfo) {
+        this.rpgInfo = rpgInfo;
+        warriorInventory = generateWarriorInventory();
+        inventories = new ArrayList<>();
+        inventories.add(warriorInventory);
     }
 
-    @EventHandler
-    public void onGUIDrag (final InventoryDragEvent e) {
-        if (((TextComponent) e.getView().title()).content().equals("Warrior Skill Tree")) {
-            e.setCancelled(true);
-        }
+    public List<Inventory> getInventories() {
+        return inventories;
     }
 
-    @EventHandler
-    public void onGUIClick (final InventoryClickEvent e) {
-        if (((TextComponent) e.getView().title()).content().equals("Warrior Skill Tree")) {
-            e.setCancelled(true);
+    private Inventory generateWarriorInventory() {
+        warriorInventory = Bukkit.createInventory(null, 54, Component.text(""));
 
-            if (e.getRawSlot() == 22) {
-                RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer());
-                if (!rpgPlayer.getPlayerClass().getSkillsOwned().contains(WARRIOR_SKILLS.get(0))) {
-                    if (rpgPlayer.getPlayerClass().getSkillpoints() >= WARRIOR_SKILLS.get(0).getSkillpointCost()) {
-                        rpgPlayer.getPlayerClass().setSkillpoints(rpgPlayer.getPlayerClass().getSkillpoints() - WARRIOR_SKILLS.get(0).getSkillpointCost());
-                        rpgPlayer.getPlayerClass().getSkillsOwned().add(WARRIOR_SKILLS.get(0));
-                        e.getView().getPlayer().sendMessage(Component.text("Unlocked Cleave"));
-                    }
-                }
-            }
-        }
+        warriorInventory
     }
 
-    private void generateWarriorTree() {
-        warriorTree = new HashMap<>();
-        warriorTreeReq = new HashMap<>();
 
-        warriorTree.put(0, "Cleave");
-        warriorTree.put(1, "Shatterstrike");
 
-        warriorTreeReq.put("Cleave", -1);
-        warriorTreeReq.put("Shatterstrike", 0);
-    }
 
-    private Inventory generateWarriorInventory(Player p) {
+
+
+
+
+
+
+
+    private Inventory generateWarriorInventory() {
         Inventory warriorSkillTreeGUI = Bukkit.createInventory(null, 54, Component.text("Warrior Skill Tree", NamedTextColor.YELLOW));
 
         warriorSkillTreeGUI.setItem(4, generateItem(Material.IRON_AXE,
@@ -154,10 +121,6 @@ public class SkillTree implements CommandExecutor, Listener {
         meta.setCustomModelData(WARRIOR_SKILLS.get(1).getTexture());
         item.setItemMeta(meta);
         return item;
-    }
-
-    public SkillTree() {
-        generateWarriorTree();
     }
 
 

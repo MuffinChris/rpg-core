@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-import static dev.muffin.rpgcore.rpg.utils.RPGConstants.BASE_LEVEL;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
 
 /**
  * RPGPlayer is attached to each player. Stores all RPG information

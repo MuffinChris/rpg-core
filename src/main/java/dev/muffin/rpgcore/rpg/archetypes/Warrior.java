@@ -2,7 +2,7 @@ package dev.muffin.rpgcore.rpg.archetypes;
 
 import dev.muffin.rpgcore.rpg.utils.RPGClassStats;
 
-import static dev.muffin.rpgcore.rpg.utils.ArchetypeConstants.*;
+import static dev.muffin.rpgcore.rpg.utils.constants.ArchetypeConstants.*;
 
 public class Warrior extends Archetype {
 

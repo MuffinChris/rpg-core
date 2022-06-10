@@ -1,6 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
-import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import org.bukkit.entity.Player;
 

@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.utils;
+package dev.muffin.rpgcore.rpg.utils.constants;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;

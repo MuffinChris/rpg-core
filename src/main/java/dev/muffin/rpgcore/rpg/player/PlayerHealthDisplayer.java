@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import dev.muffin.rpgcore.utilities.DirectionParser;
 import net.kyori.adventure.text.Component;
@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
-import static dev.muffin.rpgcore.rpg.utils.RPGSymbols.HEART_SYMBOL;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols.HEART_SYMBOL;
 
 public class PlayerHealthDisplayer implements Listener {
 

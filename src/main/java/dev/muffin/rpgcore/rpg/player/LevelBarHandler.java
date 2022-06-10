@@ -2,14 +2,13 @@ package dev.muffin.rpgcore.rpg.player;
 
 import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.utils.RPGConstants;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerExpChangeEvent;
-import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class LevelBarHandler implements Listener {

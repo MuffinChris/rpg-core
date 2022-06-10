@@ -1,6 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills;
 
-import dev.muffin.rpgcore.rpg.utils.RPGSymbols;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

@@ -10,7 +10,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 
 import java.util.Objects;
 
-import static dev.muffin.rpgcore.rpg.utils.RPGConstants.HEALTH_SCALE;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.HEALTH_SCALE;
 
 public class EnvironmentalDamageListener implements Listener {
 

@@ -2,7 +2,9 @@ package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
-import dev.muffin.rpgcore.rpg.utils.RPGConstants;
+import dev.muffin.rpgcore.rpg.skills.SkillTree;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
+import dev.muffin.rpgcore.rpg.utils.RPGInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStats;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import static dev.muffin.rpgcore.rpg.utils.RPGConstants.HEALTH_SCALE;
-import static dev.muffin.rpgcore.rpg.utils.RPGConstants.MAX_LEVEL;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.HEALTH_SCALE;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.MAX_LEVEL;
 
 /**
  * A PlayerClass stores a player's RPG info related to classes and archetypes
@@ -31,29 +33,21 @@ public class PlayerClass {
     // Stats
     private RPGStats stats;
 
-    // Class Numbers
-    private int level;
-    private double exp;
+    private RPGInfo rpgInfo;
 
 
     // Class Info
     private Archetype archetype;
     private RPGClass rpgClass;
-
-    private int skillpoints;
-    private List<Skill> skillsOwned;
+    private SkillTree skillTree;
 
     private final Player player;
 
-    public PlayerClass(Player player, Archetype archetype, int level, double exp, int skillpoints) {
+    public PlayerClass(Player player, Archetype archetype, RPGInfo rpgInfo) {
         this.player = player;
         this.archetype = archetype;
-        this.level = level;
-        this.exp = exp;
-        this.skillpoints = skillpoints;
+        this.rpgInfo = rpgInfo;
         stats = new RPGStats(0, 0, 0);
-
-        skillsOwned = new ArrayList<>();
 
         player.setHealthScale(HEALTH_SCALE);
         updateStats();
@@ -63,16 +57,8 @@ public class PlayerClass {
         return stats;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public double getExp() {
-        return exp;
+    public RPGInfo getRpgInfo() {
+        return rpgInfo;
     }
 
     /**
@@ -80,7 +66,7 @@ public class PlayerClass {
      * @return max hp
      */
     public double getMaxHP() {
-        return archetype.getStats().hp + archetype.getStats().hpPerLevel * level;
+        return archetype.getStats().hp + archetype.getStats().hpPerLevel * rpgInfo.getLevel();
     }
 
     /**
@@ -88,7 +74,7 @@ public class PlayerClass {
      * @return max mana
      */
     public double getMaxMana() {
-        return archetype.getStats().mana + archetype.getStats().manaPerLevel * level;
+        return archetype.getStats().mana + archetype.getStats().manaPerLevel * rpgInfo.getLevel();
     }
 
     /**
@@ -96,23 +82,11 @@ public class PlayerClass {
      * @return mana regen
      */
     public double getManaRegen() {
-        return archetype.getStats().manaRegen + archetype.getStats().manaRegenPerLevel * level;
+        return archetype.getStats().manaRegen + archetype.getStats().manaRegenPerLevel * rpgInfo.getLevel();
     }
 
     public Archetype getArchetype() {
         return archetype;
-    }
-
-    public int getSkillpoints() {
-        return skillpoints;
-    }
-
-    public void setSkillpoints(int skillpoints) {
-        this.skillpoints = skillpoints;
-    }
-
-    public List<Skill> getSkillsOwned() {
-        return skillsOwned;
     }
 
     /**
@@ -120,7 +94,7 @@ public class PlayerClass {
      * @param exp the exp
      */
     public void addExp(double exp) {
-        this.exp+=Math.abs(exp);
+        rpgInfo.setExp(rpgInfo.getExp() + Math.abs(exp));
         Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + " XP]").color(NamedTextColor.GRAY).build();
         player.sendMessage(expMessage);
         checkLevelUp();
@@ -130,24 +104,23 @@ public class PlayerClass {
      * Check if a player should level up
      */
     public void checkLevelUp() {
-        int startLevel = getLevel();
-        int nextLevel = getLevel();
-        while (exp >= RPGConstants.LEVEL_EXP_MAP.get(nextLevel) && nextLevel < 100) {
-            // player levels up!
-            exp = Math.max(0, exp - RPGConstants.LEVEL_EXP_MAP.get(nextLevel));
+        int startLevel = rpgInfo.getLevel();
+        int nextLevel = rpgInfo.getLevel();
+        while (rpgInfo.getExp() >= RPGConstants.LEVEL_EXP_MAP.get(nextLevel) && nextLevel < 100) {
+            rpgInfo.setExp(Math.max(0, rpgInfo.getExp() - RPGConstants.LEVEL_EXP_MAP.get(nextLevel)));
             nextLevel+=1;
 
             if (nextLevel % 5 == 0) {
-                skillpoints+=1;
+                rpgInfo.setSkillpoints(rpgInfo.getSkillpoints() + 1);
             }
         }
         if (nextLevel > startLevel) {
-            level = nextLevel;
+            rpgInfo.setLevel(nextLevel);
             levelUpRewards(startLevel, nextLevel);
         }
 
-        if (level == MAX_LEVEL && exp > RPGConstants.LEVEL_EXP_MAP.get(level)) {
-            exp = RPGConstants.LEVEL_EXP_MAP.get(level);
+        if (rpgInfo.getLevel() == MAX_LEVEL && rpgInfo.getExp() > RPGConstants.LEVEL_EXP_MAP.get(rpgInfo.getLevel())) {
+            rpgInfo.setExp(RPGConstants.LEVEL_EXP_MAP.get(rpgInfo.getLevel()));
         }
     }
 
@@ -207,7 +180,7 @@ public class PlayerClass {
      */
     public List<Skill> getCastableSkills() {
         List<Skill> castableSkills = new ArrayList<>();
-        for (Skill s : skillsOwned) {
+        for (Skill s : rpgInfo.getSkillsList()) {
             // if s is in the skillbar set of 4 usables?
             castableSkills.add(s);
         }
