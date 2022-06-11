@@ -38,7 +38,7 @@ public class LevelBarHandler implements Listener {
     @EventHandler
     public void onExpPickup(PlayerPickupExperienceEvent e) {
         double modifier = (Math.random() * 0.2 + 1) * 7.0;
-        Main.getInstance().getRPGPlayer(e.getPlayer()).getPlayerClass().getRpgInfo().addExp(Math.round(e.getExperienceOrb().getExperience() * modifier));
+        Main.getInstance().getRPGPlayer(e.getPlayer()).getPlayerClass().getRpgInfo().addExp(e.getPlayer(), Math.round(e.getExperienceOrb().getExperience() * modifier));
         e.getExperienceOrb().setExperience(0);
         e.getExperienceOrb().remove();
     }

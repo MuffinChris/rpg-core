@@ -53,6 +53,8 @@ public class Skillbar {
 
             if (!output.isEmpty()) {
                 output = output.substring(0, output.length() - 4);
+            } else {
+                output = "&7No Skills Equipped (&e/skills&7)";
             }
 
             skillbar.setTitle(ChatColor.color(output));

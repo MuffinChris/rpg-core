@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.rpg.player;
 
+import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.archetypes.Warrior;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
 import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
@@ -27,7 +28,7 @@ public class RPGPlayer {
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
-        playerClass = new PlayerClass(p, new Warrior(), new RPGLevelInfo(p, BASE_LEVEL, 0, 1), new ArrayList<>());
+        playerClass = new PlayerClass(p, Main.getInstance().getArchetypeHandler().getWarrior(), new RPGLevelInfo(BASE_LEVEL, 0, 1), new ArrayList<>());
         skillbar = new Skillbar(p);
         skillCaster = new SkillCaster(playerUUID, playerClass);
     }

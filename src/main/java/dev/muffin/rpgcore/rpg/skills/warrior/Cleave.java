@@ -20,7 +20,7 @@ public class Cleave extends Skill {
     public List<String> getDescription(Player caster) {
         List<String> description = new ArrayList<>();
         description.add("&7Swing in a wide arc in front of you.");
-        description.add("&7Deals &c60%% ATK &7as &c" + RPGSymbols.SLASH_DAMAGE.content() + " Slash &7damage.");
+        description.add("&7Deals &c60% ATK &7as &c" + RPGSymbols.SLASH_DAMAGE.content() + " Slash &7damage.");
         return description;
     }
 

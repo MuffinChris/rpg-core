@@ -25,7 +25,7 @@ public class GiveExpCommand implements CommandExecutor {
                         sender.sendMessage(Component.text("Invalid EXP Argument", NamedTextColor.RED));
                         return false;
                     }
-                    Main.getInstance().getRPGPlayer(p).getPlayerClass().getRpgInfo().addExp(exp);
+                    Main.getInstance().getRPGPlayer(p).getPlayerClass().getRpgInfo().addExp(p, exp);
                     sender.sendMessage(Component.text("Giving player " + p.getName() + " " + exp + " exp.", NamedTextColor.YELLOW));
                     return true;
                 } catch (NumberFormatException e) {

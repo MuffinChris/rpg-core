@@ -20,15 +20,12 @@ public class RPGLevelInfo {
     private int level;
     private double exp;
     private int skillpoints;
-    private final Player player;
 
-    public RPGLevelInfo(Player player, int level, double exp, int skillpoints) {
-        this.player = player;
+    public RPGLevelInfo(int level, double exp, int skillpoints) {
         this.level = level;
         this.exp = exp;
         this.skillpoints = skillpoints;
     }
-
 
     public int getLevel() {
         return level;
@@ -62,17 +59,17 @@ public class RPGLevelInfo {
      * Add exp to a player
      * @param exp the exp
      */
-    public void addExp(double exp) {
+    public void addExp(Player player, double exp) {
         setExp(getExp() + Math.abs(exp));
         Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + " XP]").color(NamedTextColor.GRAY).build();
         player.sendMessage(expMessage);
-        checkLevelUp();
+        checkLevelUp(player);
     }
 
     /**
      * Check if a player should level up
      */
-    public void checkLevelUp() {
+    public void checkLevelUp(Player player) {
         int startLevel = getLevel();
         int nextLevel = getLevel();
         while (getExp() >= RPGConstants.LEVEL_EXP_MAP.get(nextLevel) && nextLevel < 100) {
@@ -82,7 +79,7 @@ public class RPGLevelInfo {
         }
         if (nextLevel > startLevel) {
             setLevel(nextLevel);
-            levelUpRewards(startLevel, nextLevel);
+            levelUpRewards(player, startLevel, nextLevel);
         }
 
         if (getLevel() == MAX_LEVEL && getExp() > RPGConstants.LEVEL_EXP_MAP.get(getLevel())) {
@@ -93,7 +90,7 @@ public class RPGLevelInfo {
     /**
      * Celebrate the player leveling up!
      */
-    public void levelUpRewards(int startLevel, int nextLevel) {
+    public void levelUpRewards(Player player, int startLevel, int nextLevel) {
         player.getWorld().playSound(player, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0F, 1.0F);
 
         Component maintitle = Component.text("LEVEL UP", NamedTextColor.YELLOW, TextDecoration.BOLD);

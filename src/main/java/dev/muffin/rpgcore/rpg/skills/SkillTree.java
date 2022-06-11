@@ -2,6 +2,7 @@ package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -21,17 +22,19 @@ import static dev.muffin.rpgcore.rpg.utils.constants.ArchetypeConstants.WARRIOR_
 public class SkillTree {
 
     private Inventory warriorInventory;
-    private List<Inventory> inventories;
-    private Player player;
+    private final List<Inventory> inventories;
+    private final Player player;
 
     public SkillTree(Player player) {
         this.player = player;
-        warriorInventory = generateWarriorInventory();
         inventories = new ArrayList<>();
-        inventories.add(warriorInventory);
     }
 
     public Inventory getWarriorInventory() {
+        warriorInventory = generateWarriorInventory();
+        if (!inventories.contains(warriorInventory)) {
+            inventories.add(warriorInventory);
+        }
         return warriorInventory;
     }
 

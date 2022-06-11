@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.rpg.utils.constants;
 
+import dev.muffin.rpgcore.rpg.archetypes.Warrior;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.rpg.skills.warrior.*;
 

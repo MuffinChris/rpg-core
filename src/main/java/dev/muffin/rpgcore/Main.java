@@ -4,6 +4,8 @@ import dev.muffin.rpgcore.chat.utils.CustomChatRenderer;
 import dev.muffin.rpgcore.chat.ChatMessageListener;
 import dev.muffin.rpgcore.chat.JoinMessageListener;
 import dev.muffin.rpgcore.chat.Motd;
+import dev.muffin.rpgcore.rpg.archetypes.Archetype;
+import dev.muffin.rpgcore.rpg.archetypes.ArchetypeHandler;
 import dev.muffin.rpgcore.rpg.player.*;
 import dev.muffin.rpgcore.rpg.player.commands.GiveExpCommand;
 import dev.muffin.rpgcore.rpg.scaling.EnvironmentalDamageListener;
@@ -26,7 +28,7 @@ public final class Main extends JavaPlugin {
 
     private PlayerInfoHandler playerInfoHandler;
     private PlayerHealthDisplayer playerHealthDisplayer;
-    private SkillTree skillTree;
+    private ArchetypeHandler archetypeHandler;
 
     @Override
     public void onEnable() {
@@ -57,6 +59,9 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EnvironmentalDamageListener(), this);
         getServer().getPluginManager().registerEvents(new HealthRegenListener(), this);
 
+        getLogger().info("registering rpg class events");
+        archetypeHandler = new ArchetypeHandler();
+
         getLogger().info("registering rpg skill events");
         getServer().getPluginManager().registerEvents(new SkillbarListener(), this);
         new CastingRunnables();
@@ -82,7 +87,7 @@ public final class Main extends JavaPlugin {
         return playerHealthDisplayer;
     }
 
-    public SkillTree getSkillTree() {
-        return skillTree;
+    public ArchetypeHandler getArchetypeHandler() {
+        return archetypeHandler;
     }
 }
