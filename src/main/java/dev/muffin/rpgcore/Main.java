@@ -1,6 +1,6 @@
 package dev.muffin.rpgcore;
 
-import dev.muffin.rpgcore.chat.CustomChatRenderer;
+import dev.muffin.rpgcore.chat.utils.CustomChatRenderer;
 import dev.muffin.rpgcore.chat.ChatMessageListener;
 import dev.muffin.rpgcore.chat.JoinMessageListener;
 import dev.muffin.rpgcore.chat.Motd;
@@ -9,6 +9,7 @@ import dev.muffin.rpgcore.rpg.player.commands.GiveExpCommand;
 import dev.muffin.rpgcore.rpg.scaling.EnvironmentalDamageListener;
 import dev.muffin.rpgcore.rpg.scaling.HealthRegenListener;
 import dev.muffin.rpgcore.rpg.skills.SkillTree;
+import dev.muffin.rpgcore.rpg.skills.SkillTreeHandler;
 import dev.muffin.rpgcore.rpg.skills.casting.CastingRunnables;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillbarListener;
 import dev.muffin.rpgcore.utilities.PluginLogger;
@@ -59,9 +60,9 @@ public final class Main extends JavaPlugin {
         getLogger().info("registering rpg skill events");
         getServer().getPluginManager().registerEvents(new SkillbarListener(), this);
         new CastingRunnables();
-        skillTree = new SkillTree();
-        getServer().getPluginManager().registerEvents(skillTree, this);
-        this.getCommand("class").setExecutor(skillTree);
+        SkillTreeHandler skillTreeHandler = new SkillTreeHandler();
+        getServer().getPluginManager().registerEvents(skillTreeHandler, this);
+        this.getCommand("class").setExecutor(skillTreeHandler);
     }
 
     @Override

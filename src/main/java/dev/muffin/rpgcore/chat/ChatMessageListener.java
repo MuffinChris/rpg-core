@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.chat;
 
+import dev.muffin.rpgcore.chat.utils.CustomChatRenderer;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

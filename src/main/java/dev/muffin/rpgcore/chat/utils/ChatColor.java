@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.chat;
+package dev.muffin.rpgcore.chat.utils;
 
 public class ChatColor {
 

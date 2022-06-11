@@ -1,10 +1,11 @@
 package dev.muffin.rpgcore.rpg.player;
 
+import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
 import dev.muffin.rpgcore.rpg.skills.SkillTree;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
-import dev.muffin.rpgcore.rpg.utils.RPGInfo;
+import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStats;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
@@ -32,22 +33,25 @@ public class PlayerClass {
 
     // Stats
     private RPGStats stats;
-
-    private RPGInfo rpgInfo;
-
+    private final RPGLevelInfo rpgInfo;
 
     // Class Info
     private Archetype archetype;
     private RPGClass rpgClass;
-    private SkillTree skillTree;
+
+    // Skill Info
+    private final SkillTree skillTree;
+    private final List<Skill> skillList;
 
     private final Player player;
 
-    public PlayerClass(Player player, Archetype archetype, RPGInfo rpgInfo) {
+    public PlayerClass(Player player, Archetype archetype, RPGLevelInfo rpgInfo, List<Skill> skillList) {
         this.player = player;
         this.archetype = archetype;
         this.rpgInfo = rpgInfo;
+        this.skillList = skillList;
         stats = new RPGStats(0, 0, 0);
+        skillTree = new SkillTree(this.player);
 
         player.setHealthScale(HEALTH_SCALE);
         updateStats();
@@ -57,8 +61,12 @@ public class PlayerClass {
         return stats;
     }
 
-    public RPGInfo getRpgInfo() {
+    public RPGLevelInfo getRpgInfo() {
         return rpgInfo;
+    }
+
+    public List<Skill> getSkillList() {
+        return skillList;
     }
 
     /**
@@ -89,56 +97,8 @@ public class PlayerClass {
         return archetype;
     }
 
-    /**
-     * Add exp to a player
-     * @param exp the exp
-     */
-    public void addExp(double exp) {
-        rpgInfo.setExp(rpgInfo.getExp() + Math.abs(exp));
-        Component expMessage = Component.text().content("    [+" + DecimalFormats.oneDecimals.format(exp) + " XP]").color(NamedTextColor.GRAY).build();
-        player.sendMessage(expMessage);
-        checkLevelUp();
-    }
-
-    /**
-     * Check if a player should level up
-     */
-    public void checkLevelUp() {
-        int startLevel = rpgInfo.getLevel();
-        int nextLevel = rpgInfo.getLevel();
-        while (rpgInfo.getExp() >= RPGConstants.LEVEL_EXP_MAP.get(nextLevel) && nextLevel < 100) {
-            rpgInfo.setExp(Math.max(0, rpgInfo.getExp() - RPGConstants.LEVEL_EXP_MAP.get(nextLevel)));
-            nextLevel+=1;
-
-            if (nextLevel % 5 == 0) {
-                rpgInfo.setSkillpoints(rpgInfo.getSkillpoints() + 1);
-            }
-        }
-        if (nextLevel > startLevel) {
-            rpgInfo.setLevel(nextLevel);
-            levelUpRewards(startLevel, nextLevel);
-        }
-
-        if (rpgInfo.getLevel() == MAX_LEVEL && rpgInfo.getExp() > RPGConstants.LEVEL_EXP_MAP.get(rpgInfo.getLevel())) {
-            rpgInfo.setExp(RPGConstants.LEVEL_EXP_MAP.get(rpgInfo.getLevel()));
-        }
-    }
-
-    /**
-     * Celebrate the player leveling up!
-     */
-    public void levelUpRewards(int startLevel, int nextLevel) {
-        player.getWorld().playSound(player, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0F, 1.0F);
-
-        Component maintitle = Component.text("LEVEL UP", NamedTextColor.YELLOW, TextDecoration.BOLD);
-        Component subtitle = Component.text((startLevel), NamedTextColor.GOLD)
-                .append(Component.text(" -> ", NamedTextColor.GRAY))
-                .append(Component.text((nextLevel), NamedTextColor.GOLD));
-        Title title = Title.title(maintitle, subtitle, Title.Times.times(Ticks.duration(30), Ticks.duration(70), Ticks.duration(40)));
-
-        player.showTitle(title);
-
-        //fullHeal();
+    public SkillTree getSkillTree() {
+        return skillTree;
     }
 
     /**
@@ -163,8 +123,6 @@ public class PlayerClass {
                 hp.setBaseValue(getMaxHP());
                 player.setHealth(Math.min(previousHPPercent * getMaxHP(), getMaxHP()));
             }
-
-
         }
     }
 
@@ -180,7 +138,7 @@ public class PlayerClass {
      */
     public List<Skill> getCastableSkills() {
         List<Skill> castableSkills = new ArrayList<>();
-        for (Skill s : rpgInfo.getSkillsList()) {
+        for (Skill s : skillList) {
             // if s is in the skillbar set of 4 usables?
             castableSkills.add(s);
         }

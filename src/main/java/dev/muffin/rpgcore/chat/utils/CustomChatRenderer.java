@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.chat;
+package dev.muffin.rpgcore.chat.utils;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
@@ -15,7 +15,7 @@ public class CustomChatRenderer implements ChatRenderer {
     @Override
     public @NotNull Component render(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
 
-        int level = Main.getInstance().getRPGPlayer(source).getPlayerClass().getLevel();
+        int level = Main.getInstance().getRPGPlayer(source).getPlayerClass().getRpgInfo().getLevel();
         Archetype type = Main.getInstance().getRPGPlayer(source).getPlayerClass().getArchetype();
         HoverEvent<Component> hoverEventLevel = HoverEvent.showText(Component.text().content("Level: ").color(NamedTextColor.YELLOW)
                 .append(Component.text().content(String.valueOf(level)).color(NamedTextColor.WHITE))

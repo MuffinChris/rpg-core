@@ -2,6 +2,7 @@ Current Todo:
 hard rework skill tree GUI to be less lazy, more modular, easier to work with
 
 Skills
+should have 6 slots
 no damage ticks important for skill damage
 
 - Make new classes for new types of abilities, ie toggle

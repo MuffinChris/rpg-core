@@ -3,28 +3,31 @@ package dev.muffin.rpgcore.rpg.player;
 import dev.muffin.rpgcore.rpg.archetypes.Warrior;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
 import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
+import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.MAX_LEVEL;
 
 /**
  * RPGPlayer is attached to each player. Stores all RPG information
  */
 public class RPGPlayer {
 
-    private UUID playerUUID;
-    private PlayerClass playerClass;
-    private Skillbar skillbar;
-    private SkillCaster skillCaster;
+    private final UUID playerUUID;
+    private final PlayerClass playerClass;
+    private final Skillbar skillbar;
+    private final SkillCaster skillCaster;
 
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
-        playerClass = new PlayerClass(p, new Warrior(), BASE_LEVEL, 0, 1);
+        playerClass = new PlayerClass(p, new Warrior(), new RPGLevelInfo(p, BASE_LEVEL, 0, 1), new ArrayList<>());
         skillbar = new Skillbar(p);
         skillCaster = new SkillCaster(playerUUID, playerClass);
     }

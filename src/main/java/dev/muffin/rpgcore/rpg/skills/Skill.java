@@ -1,5 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills;
 
+import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import net.kyori.adventure.text.Component;
@@ -7,20 +9,21 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+
 public abstract class Skill {
     private final String skillName;
-    private final String description;
     private final double cooldown;
 
     private final double manaCost;
 
+    // technically useless if using skillpoints
     private final int levelRequirement;
     private final int skillpointCost;
     private final int texture;
 
-    public Skill(String skillName, String description, double cooldown, double manaCost, int levelRequirement, int skillpointCost, int texture) {
+    public Skill(String skillName, double cooldown, double manaCost, int levelRequirement, int skillpointCost, int texture) {
         this.skillName = skillName;
-        this.description = description;
         this.cooldown = cooldown;
         this.manaCost = manaCost;
         this.levelRequirement = levelRequirement;
@@ -32,9 +35,7 @@ public abstract class Skill {
         return skillName;
     }
 
-    public String getDescription() {
-        return description;
-    }
+    public abstract List<String> getDescription(Player caster);
 
     public double getCooldown() {
         return cooldown;
@@ -58,20 +59,19 @@ public abstract class Skill {
 
     public abstract void castSkill(Player caster);
 
-    public Component[] getStats() {
-        Component[] stats = new Component[5];
-        stats[0] = Component.text("Mana Cost: ", NamedTextColor.GRAY)
-                .append(Component.text(getManaCost(), NamedTextColor.AQUA))
-                .append(RPGSymbols.MANA_SYMBOL).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-        stats[1] = Component.text("Cooldown: ", NamedTextColor.GRAY)
-                .append(Component.text(DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s", NamedTextColor.WHITE))
-                .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-        stats[2] = Component.text("Skillpoint Cost: ", NamedTextColor.GRAY)
-                .append(Component.text(skillpointCost, NamedTextColor.GOLD))
-                .decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-        stats[3] = Component.text("");
-        stats[4] = Component.text(getDescription(), NamedTextColor.GRAY).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-        return stats;
+    public List<Component> getSkillDescription(Player caster) {
+        List<String> description = getDescription(caster);
+        description.add("");
+        description.add("&7Mana Cost: &b" + DecimalFormats.noDecimals.format(getManaCost()) + " " + RPGSymbols.MANA_SYMBOL.content());
+        description.add("&7Cooldown: &f" + DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s");
+        description.add("");
+
+        if (Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList().contains(this)) {
+            description.add("&aSkill Unlocked");
+        } else {
+            description.add("&7Skillpoint Cost: &e" + getSkillpointCost());
+        }
+        return ComponentConverter.getComponentListFromStringList(description);
     }
 
 }

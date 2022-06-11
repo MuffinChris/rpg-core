@@ -25,8 +25,8 @@ public class LevelBarHandler implements Listener {
 
     public void updateLevelBar(Player p) {
         RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(p);
-        p.setLevel(rpgPlayer.getPlayerClass().getLevel());
-        double percent = rpgPlayer.getPlayerClass().getExp() / RPGConstants.LEVEL_EXP_MAP.get(rpgPlayer.getPlayerClass().getLevel());
+        p.setLevel(rpgPlayer.getPlayerClass().getRpgInfo().getLevel());
+        double percent = rpgPlayer.getPlayerClass().getRpgInfo().getExp() / RPGConstants.LEVEL_EXP_MAP.get(rpgPlayer.getPlayerClass().getRpgInfo().getLevel());
         p.setExp(Math.min((float) percent, 0.999999999f));
     }
 
@@ -38,7 +38,7 @@ public class LevelBarHandler implements Listener {
     @EventHandler
     public void onExpPickup(PlayerPickupExperienceEvent e) {
         double modifier = (Math.random() * 0.2 + 1) * 7.0;
-        Main.getInstance().getRPGPlayer(e.getPlayer()).getPlayerClass().addExp(Math.round(e.getExperienceOrb().getExperience() * modifier));
+        Main.getInstance().getRPGPlayer(e.getPlayer()).getPlayerClass().getRpgInfo().addExp(Math.round(e.getExperienceOrb().getExperience() * modifier));
         e.getExperienceOrb().setExperience(0);
         e.getExperienceOrb().remove();
     }

@@ -1,6 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
-import dev.muffin.rpgcore.chat.ChatColor;
+import dev.muffin.rpgcore.chat.utils.ChatColor;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import org.bukkit.Bukkit;

@@ -1,15 +1,27 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
 import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Cleave extends Skill {
 
     public Cleave() {
-        super("Cleave", "Swing powerfully in an arc.", 7.0, 20, 1, 1, 10000001);
+        super("Cleave", 7.0, 20, 1, 1, 10000001);
+    }
+
+    @Override
+    public List<String> getDescription(Player caster) {
+        List<String> description = new ArrayList<>();
+        description.add("&7Swing in a wide arc in front of you.");
+        description.add("&7Deals &c60%% ATK &7as &c" + RPGSymbols.SLASH_DAMAGE.content() + " Slash &7damage.");
+        return description;
     }
 
     @Override
