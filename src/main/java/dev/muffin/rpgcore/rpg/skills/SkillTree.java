@@ -2,8 +2,6 @@ package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
-import dev.muffin.rpgcore.rpg.player.RPGPlayer;
-import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -17,7 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-import static dev.muffin.rpgcore.rpg.utils.constants.ArchetypeConstants.WARRIOR_SKILLS;
+import static dev.muffin.rpgcore.rpg.classes.ClassConstants.WARRIOR_SKILLS;
 
 public class SkillTree {
 
@@ -49,11 +47,11 @@ public class SkillTree {
 
         warriorInventory.setItem(13, generateDownArrow());
 
-        warriorInventory.setItem(22, generateSkillItem(WARRIOR_SKILLS.get(0), player));
+        warriorInventory.setItem(22, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0), player));
 
         warriorInventory.setItem(31, generateDownArrow());
 
-        warriorInventory.setItem(40, generateSkillItem(WARRIOR_SKILLS.get(1), player));
+        warriorInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
 
         return warriorInventory;
     }

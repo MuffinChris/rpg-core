@@ -1,7 +1,8 @@
-package dev.muffin.rpgcore.rpg.player;
+package dev.muffin.rpgcore.rpg.player.handlers;
 
 import com.destroystokyo.paper.event.player.PlayerPickupExperienceEvent;
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;

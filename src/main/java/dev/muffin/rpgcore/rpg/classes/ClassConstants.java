@@ -1,13 +1,12 @@
-package dev.muffin.rpgcore.rpg.utils.constants;
+package dev.muffin.rpgcore.rpg.classes;
 
-import dev.muffin.rpgcore.rpg.archetypes.Warrior;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.rpg.skills.warrior.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArchetypeConstants {
+public class ClassConstants {
 
     // Warrior
     public static final String WARRIOR_NAME = "Warrior";

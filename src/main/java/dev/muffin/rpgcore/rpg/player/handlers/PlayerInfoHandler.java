@@ -1,5 +1,6 @@
-package dev.muffin.rpgcore.rpg.player;
+package dev.muffin.rpgcore.rpg.player.handlers;
 
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;

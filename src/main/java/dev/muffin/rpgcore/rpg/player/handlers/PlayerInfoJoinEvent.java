@@ -1,5 +1,6 @@
-package dev.muffin.rpgcore.rpg.player;
+package dev.muffin.rpgcore.rpg.player.handlers;
 
+import dev.muffin.rpgcore.rpg.player.handlers.PlayerInfoHandler;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;

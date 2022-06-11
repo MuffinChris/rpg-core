@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.chat.utils;
 
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.archetypes.Archetype;
+import dev.muffin.rpgcore.rpg.classes.RPGClass;
 import io.papermc.paper.chat.ChatRenderer;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
@@ -16,7 +16,7 @@ public class CustomChatRenderer implements ChatRenderer {
     public @NotNull Component render(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
 
         int level = Main.getInstance().getRPGPlayer(source).getPlayerClass().getRpgInfo().getLevel();
-        Archetype type = Main.getInstance().getRPGPlayer(source).getPlayerClass().getArchetype();
+        RPGClass type = Main.getInstance().getRPGPlayer(source).getPlayerClass().getRpgClass();
         HoverEvent<Component> hoverEventLevel = HoverEvent.showText(Component.text().content("Level: ").color(NamedTextColor.YELLOW)
                 .append(Component.text().content(String.valueOf(level)).color(NamedTextColor.WHITE))
                 .append(Component.text().content("\nClass: ").color(NamedTextColor.YELLOW))

@@ -1,20 +1,11 @@
 package dev.muffin.rpgcore.rpg.player;
 
-import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
 import dev.muffin.rpgcore.rpg.skills.SkillTree;
-import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStats;
 import dev.muffin.rpgcore.rpg.skills.Skill;
-import dev.muffin.rpgcore.utilities.DecimalFormats;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
-import net.kyori.adventure.title.Title;
-import net.kyori.adventure.util.Ticks;
-import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -24,7 +15,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.HEALTH_SCALE;
-import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.MAX_LEVEL;
 
 /**
  * A PlayerClass stores a player's RPG info related to classes and archetypes
@@ -36,8 +26,8 @@ public class PlayerClass {
     private final RPGLevelInfo rpgInfo;
 
     // Class Info
-    private Archetype archetype;
     private RPGClass rpgClass;
+    private Archetype archetype;
 
     // Skill Info
     private final SkillTree skillTree;
@@ -45,9 +35,9 @@ public class PlayerClass {
 
     private final Player player;
 
-    public PlayerClass(Player player, Archetype archetype, RPGLevelInfo rpgInfo, List<Skill> skillList) {
+    public PlayerClass(Player player, RPGClass rpgClass, RPGLevelInfo rpgInfo, List<Skill> skillList) {
         this.player = player;
-        this.archetype = archetype;
+        this.rpgClass = rpgClass;
         this.rpgInfo = rpgInfo;
         this.skillList = skillList;
         stats = new RPGStats(0, 0, 0);
@@ -74,7 +64,7 @@ public class PlayerClass {
      * @return max hp
      */
     public double getMaxHP() {
-        return archetype.getStats().hp + archetype.getStats().hpPerLevel * rpgInfo.getLevel();
+        return rpgClass.getStats().hp + rpgClass.getStats().hpPerLevel * rpgInfo.getLevel();
     }
 
     /**
@@ -82,7 +72,7 @@ public class PlayerClass {
      * @return max mana
      */
     public double getMaxMana() {
-        return archetype.getStats().mana + archetype.getStats().manaPerLevel * rpgInfo.getLevel();
+        return rpgClass.getStats().mana + rpgClass.getStats().manaPerLevel * rpgInfo.getLevel();
     }
 
     /**
@@ -90,11 +80,11 @@ public class PlayerClass {
      * @return mana regen
      */
     public double getManaRegen() {
-        return archetype.getStats().manaRegen + archetype.getStats().manaRegenPerLevel * rpgInfo.getLevel();
+        return rpgClass.getStats().manaRegen + rpgClass.getStats().manaRegenPerLevel * rpgInfo.getLevel();
     }
 
-    public Archetype getArchetype() {
-        return archetype;
+    public RPGClass getRpgClass() {
+        return rpgClass;
     }
 
     public SkillTree getSkillTree() {
@@ -139,7 +129,6 @@ public class PlayerClass {
     public List<Skill> getCastableSkills() {
         List<Skill> castableSkills = new ArrayList<>();
         for (Skill s : skillList) {
-            // if s is in the skillbar set of 4 usables?
             castableSkills.add(s);
         }
         return castableSkills;

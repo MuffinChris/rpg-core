@@ -1,6 +1,7 @@
-package dev.muffin.rpgcore.rpg.player;
+package dev.muffin.rpgcore.rpg.player.handlers;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import dev.muffin.rpgcore.utilities.DirectionParser;

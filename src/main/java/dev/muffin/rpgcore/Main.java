@@ -4,13 +4,16 @@ import dev.muffin.rpgcore.chat.utils.CustomChatRenderer;
 import dev.muffin.rpgcore.chat.ChatMessageListener;
 import dev.muffin.rpgcore.chat.JoinMessageListener;
 import dev.muffin.rpgcore.chat.Motd;
-import dev.muffin.rpgcore.rpg.archetypes.Archetype;
-import dev.muffin.rpgcore.rpg.archetypes.ArchetypeHandler;
+import dev.muffin.rpgcore.rpg.classes.ClassHandler;
 import dev.muffin.rpgcore.rpg.player.*;
 import dev.muffin.rpgcore.rpg.player.commands.GiveExpCommand;
+import dev.muffin.rpgcore.rpg.player.handlers.PlayerHealthDisplayer;
+import dev.muffin.rpgcore.rpg.player.handlers.PlayerInfoJoinEvent;
+import dev.muffin.rpgcore.rpg.player.handlers.LevelBarHandler;
+import dev.muffin.rpgcore.rpg.player.handlers.PlayerInfoHandler;
+import dev.muffin.rpgcore.rpg.player.handlers.PlayerRespawnHandler;
 import dev.muffin.rpgcore.rpg.scaling.EnvironmentalDamageListener;
 import dev.muffin.rpgcore.rpg.scaling.HealthRegenListener;
-import dev.muffin.rpgcore.rpg.skills.SkillTree;
 import dev.muffin.rpgcore.rpg.skills.SkillTreeHandler;
 import dev.muffin.rpgcore.rpg.skills.casting.CastingRunnables;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillbarListener;
@@ -28,7 +31,7 @@ public final class Main extends JavaPlugin {
 
     private PlayerInfoHandler playerInfoHandler;
     private PlayerHealthDisplayer playerHealthDisplayer;
-    private ArchetypeHandler archetypeHandler;
+    private ClassHandler classHandler;
 
     @Override
     public void onEnable() {
@@ -60,7 +63,7 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new HealthRegenListener(), this);
 
         getLogger().info("registering rpg class events");
-        archetypeHandler = new ArchetypeHandler();
+        classHandler = new ClassHandler();
 
         getLogger().info("registering rpg skill events");
         getServer().getPluginManager().registerEvents(new SkillbarListener(), this);
@@ -87,7 +90,7 @@ public final class Main extends JavaPlugin {
         return playerHealthDisplayer;
     }
 
-    public ArchetypeHandler getArchetypeHandler() {
-        return archetypeHandler;
+    public ClassHandler getClassHandler() {
+        return classHandler;
     }
 }
