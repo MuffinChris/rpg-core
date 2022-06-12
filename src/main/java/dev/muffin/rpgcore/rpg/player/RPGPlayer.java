@@ -1,6 +1,8 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.casting.CastResponse;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
 import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
@@ -14,7 +16,7 @@ import java.util.UUID;
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
 
 /**
- * RPGPlayer is attached to each player. Stores all RPG information
+ * RPGPlayer is attached to each player. Stores all rpg-core related information
  */
 public class RPGPlayer {
 
@@ -23,12 +25,16 @@ public class RPGPlayer {
     private final Skillbar skillbar;
     private final SkillCaster skillCaster;
 
+    private final InventoryManager inventoryManager;
+
     public RPGPlayer(Player p) {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
-        playerClass = new PlayerClass(p, Main.getInstance().getClassHandler().getWarrior(), new RPGLevelInfo(BASE_LEVEL, 0, 1), new ArrayList<>());
+        playerClass = new PlayerClass(p, Main.getInstance().getClassHandler().getWarrior(),
+                new RPGLevelInfo(BASE_LEVEL, 0, 1), new ArrayList<>());
         skillbar = new Skillbar(p);
-        skillCaster = new SkillCaster(playerUUID, playerClass);
+        skillCaster = new SkillCaster(p);
+        inventoryManager = new InventoryManager(p);
     }
 
     /**
@@ -78,17 +84,38 @@ public class RPGPlayer {
         playerClass.updateStats();
     }
 
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
     /**
-     * Enable and update the skillbar
+     * Safe-close of RPGPlayer (save data, etc)
      */
+    public void close() {
+        inventoryManager.restoreFromBottomInventory();
+        //TODO: close
+    }
+
+    // Mediated Functions
+
+    // GUI Related
+    public void preloadFullGUI() {
+        inventoryManager.saveBottomInventory();
+        inventoryManager.clearPlayerBottomInventory();
+    }
+
+    public void showWarriorInventory() {
+        preloadFullGUI();
+        getPlayer().openInventory(getPlayerClass().getSkillTree().getWarriorInventory());
+    }
+
+    // Skillbar Related
+
     public void enableSkillbar() {
         skillbar.enable();
         updateSkillbar();
     }
 
-    /**
-     * Disable the skillbar
-     */
     public void disableSkillbar() {
         skillbar.disable();
         updateSkillbar();
@@ -98,12 +125,11 @@ public class RPGPlayer {
         skillbar.updateSkillbar(getPlayerClass().getCastableSkills(), skillCaster.getCooldownManager(), getPlayerClass().getStats().getMana());
     }
 
-    /**
-     * Safe-close of RPGPlayer (save data, etc)
-     */
-    public void close() {
-        getPlayerClass().getSkillTree().restoreFromBottomInventory();
-        //TODO: close
+    // Skill Related
+
+    public CastResponse castSkill(Skill skill) {
+        CastResponse castResponse = getSkillCaster().cast(skill, playerClass);
+        return castResponse;
     }
 
 }

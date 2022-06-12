@@ -33,10 +33,10 @@ public class SkillbarListener implements Listener {
 
             int slot = e.getNewSlot();
             if (slot <= rpgPlayer.getPlayerClass().getCastableSkills().size() && slot != 0) {
-                CastResponse castResponse = rpgPlayer.getSkillCaster().cast(rpgPlayer.getPlayerClass().getCastableSkills().get(slot - 1));
+                CastResponse castResponse = rpgPlayer.castSkill(rpgPlayer.getPlayerClass().getCastableSkills().get(slot - 1));
                 switch(castResponse) {
                     case NO_MANA:{
-                        e.getPlayer().sendMessage(Component.text("Not enough mana to cast skill", NamedTextColor.RED));
+                        e.getPlayer().sendMessage(Component.text("Not enough mana to cast", NamedTextColor.RED));
                         break;
                     }
                 }

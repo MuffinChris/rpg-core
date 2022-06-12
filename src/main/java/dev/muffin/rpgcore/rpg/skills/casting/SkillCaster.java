@@ -3,18 +3,17 @@ package dev.muffin.rpgcore.rpg.skills.casting;
 import dev.muffin.rpgcore.rpg.player.PlayerClass;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
 public class SkillCaster {
 
-    private UUID uuid;
-    private PlayerClass playerClass;
-    private CooldownManager cooldownManager;
+    private final Player player;
+    private final CooldownManager cooldownManager;
 
-    public SkillCaster(UUID uuid, PlayerClass playerClass) {
-        this.uuid = uuid;
-        this.playerClass = playerClass;
+    public SkillCaster(Player player) {
+        this.player = player;
         cooldownManager = new CooldownManager();
     }
 
@@ -27,7 +26,7 @@ public class SkillCaster {
      * @param skill the skill to cast
      * @return status of cast
      */
-    public CastResponse cast(Skill skill) {
+    public CastResponse cast(Skill skill, PlayerClass playerClass) {
         if (cooldownManager.isOnCooldown(skill)) {
             return CastResponse.ON_COOLDOWN;
         }
@@ -35,7 +34,7 @@ public class SkillCaster {
             return CastResponse.NO_MANA;
         }
         playerClass.getStats().setMana(playerClass.getStats().getMana() - skill.getManaCost());
-        skill.castSkill(Bukkit.getPlayer(uuid));
+        skill.castSkill(player);
         cooldownManager.putOnCooldown(skill);
         return CastResponse.SUCCESS;
     }

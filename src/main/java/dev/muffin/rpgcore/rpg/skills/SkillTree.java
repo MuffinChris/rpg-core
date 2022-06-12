@@ -23,47 +23,10 @@ public class SkillTree {
     private Inventory warriorInventory;
     private final List<Inventory> inventories;
     private final Player player;
-    private final List<ItemStack> playerBottomInventory;
 
     public SkillTree(Player player) {
         this.player = player;
         inventories = new ArrayList<>();
-        playerBottomInventory = new ArrayList<>();
-    }
-
-    public void saveBottomInventory() {
-        playerBottomInventory.clear();
-        for (int i = 9; i < 36; i++) {
-            playerBottomInventory.add(player.getInventory().getContents()[i]);
-        }
-    }
-    public void restoreFromBottomInventory() {
-        if (!playerBottomInventory.isEmpty()) {
-            for (int i = 9; i < 36; i++) {
-                player.getInventory().setItem(i, null);
-            }
-
-            int slot = 9;
-            for (ItemStack i : playerBottomInventory) {
-                if (i != null) {
-                    player.getInventory().setItem(slot, i);
-                }
-                slot += 1;
-            }
-        }
-        playerBottomInventory.clear();
-    }
-
-    public void showWarriorInventory() {
-        saveBottomInventory();
-        clearPlayerBottomInventory();
-        player.openInventory(getWarriorInventory());
-    }
-
-    public void clearPlayerBottomInventory() {
-        for (int i = 9; i < 36; i++) {
-            player.getInventory().setItem(i, null);
-        }
     }
 
     public Inventory getWarriorInventory() {

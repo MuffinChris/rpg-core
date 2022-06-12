@@ -20,7 +20,7 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player p) {
-            Main.getInstance().getRPGPlayer(p).getPlayerClass().getSkillTree().showWarriorInventory();
+            Main.getInstance().getRPGPlayer(p).showWarriorInventory();
             p.playSound(p.getLocation(), Sound.ITEM_BOOK_PAGE_TURN, 1.0F, 1.0F);
         } else {
             sender.sendMessage(Component.text("Invalid Sender Type", NamedTextColor.RED));
@@ -47,7 +47,7 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
     public void onInventoryClose(InventoryCloseEvent e) {
         if (Main.getInstance().getRPGPlayer((Player) e.getPlayer()) != null
                 && Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getPlayerClass().getSkillTree().getInventories().contains(e.getInventory())) {
-            Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getPlayerClass().getSkillTree().restoreFromBottomInventory();
+            Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getInventoryManager().restoreFromBottomInventory();
         }
     }
 
