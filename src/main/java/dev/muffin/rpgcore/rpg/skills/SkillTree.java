@@ -9,23 +9,61 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
-import static dev.muffin.rpgcore.rpg.classes.ClassConstants.WARRIOR_SKILLS;
+import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
 
 public class SkillTree {
 
     private Inventory warriorInventory;
     private final List<Inventory> inventories;
     private final Player player;
+    private final List<ItemStack> playerBottomInventory;
 
     public SkillTree(Player player) {
         this.player = player;
         inventories = new ArrayList<>();
+        playerBottomInventory = new ArrayList<>();
+    }
+
+    public void saveBottomInventory() {
+        playerBottomInventory.clear();
+        for (int i = 9; i < 36; i++) {
+            playerBottomInventory.add(player.getInventory().getContents()[i]);
+        }
+    }
+    public void restoreFromBottomInventory() {
+        if (!playerBottomInventory.isEmpty()) {
+            for (int i = 9; i < 36; i++) {
+                player.getInventory().setItem(i, null);
+            }
+
+            int slot = 9;
+            for (ItemStack i : playerBottomInventory) {
+                if (i != null) {
+                    player.getInventory().setItem(slot, i);
+                }
+                slot += 1;
+            }
+        }
+        playerBottomInventory.clear();
+    }
+
+    public void showWarriorInventory() {
+        saveBottomInventory();
+        clearPlayerBottomInventory();
+        player.openInventory(getWarriorInventory());
+    }
+
+    public void clearPlayerBottomInventory() {
+        for (int i = 9; i < 36; i++) {
+            player.getInventory().setItem(i, null);
+        }
     }
 
     public Inventory getWarriorInventory() {
@@ -52,6 +90,8 @@ public class SkillTree {
         warriorInventory.setItem(31, generateDownArrow());
 
         warriorInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
+
+        player.getInventory().setItem(13, generateDownArrow());
 
         return warriorInventory;
     }
@@ -81,18 +121,6 @@ public class SkillTree {
         lore.add("&7They can handle any melee fight,");
         lore.add("&7but struggle with ranged combat.");
         return generateItem(Material.IRON_AXE, Component.text("The Path of the Warrior"),ComponentConverter.getComponentListFromStringList(lore));
-    }
-
-    public ItemStack generateItem(Material material, Component displayName, List<Component> lore) {
-        ItemStack item = new ItemStack(material, 1);
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.displayName(displayName.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
-        itemMeta.lore(lore);
-        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-
-        item.setItemMeta(itemMeta);
-
-        return item;
     }
 
 }

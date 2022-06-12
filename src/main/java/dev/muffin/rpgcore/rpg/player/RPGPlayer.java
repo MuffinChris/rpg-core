@@ -102,6 +102,7 @@ public class RPGPlayer {
      * Safe-close of RPGPlayer (save data, etc)
      */
     public void close() {
+        getPlayerClass().getSkillTree().restoreFromBottomInventory();
         //TODO: close
     }
 
