@@ -77,15 +77,15 @@ public class RPGPlayer {
         return skillCaster;
     }
 
+    public InventoryManager getInventoryManager() {
+        return inventoryManager;
+    }
+
     /**
      * Update any gameplay related stats for the player
      */
     public void updatePlayerInfo() {
         playerClass.updateStats();
-    }
-
-    public InventoryManager getInventoryManager() {
-        return inventoryManager;
     }
 
     /**
@@ -106,7 +106,7 @@ public class RPGPlayer {
 
     public void showWarriorInventory() {
         preloadFullGUI();
-        getPlayer().openInventory(getPlayerClass().getSkillTree().getWarriorInventory());
+        getPlayer().openInventory(getPlayerClass().getSkillTree().getWarriorInventory(playerClass));
     }
 
     // Skillbar Related

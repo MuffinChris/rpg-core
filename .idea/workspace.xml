@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/InventoryManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTree.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillCaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillCaster.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillbarListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillbarListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

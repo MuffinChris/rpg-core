@@ -2,6 +2,7 @@ package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.PlayerClass;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -29,8 +30,8 @@ public class SkillTree {
         inventories = new ArrayList<>();
     }
 
-    public Inventory getWarriorInventory() {
-        warriorInventory = generateWarriorInventory();
+    public Inventory getWarriorInventory(PlayerClass playerClass) {
+        warriorInventory = generateWarriorInventory(playerClass);
         if (!inventories.contains(warriorInventory)) {
             inventories.add(warriorInventory);
         }
@@ -41,7 +42,7 @@ public class SkillTree {
         return inventories;
     }
 
-    private Inventory generateWarriorInventory() {
+    private Inventory generateWarriorInventory(PlayerClass playerClass) {
         warriorInventory = Bukkit.createInventory(null, 54, Component.text(""));
 
         warriorInventory.setItem(4, getWarriorDescriptionItem());
@@ -54,7 +55,7 @@ public class SkillTree {
 
         warriorInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
 
-        player.getInventory().setItem(13, generateDownArrow());
+        player.getInventory().setItem(13, getSkillpointCountItem(playerClass));
 
         return warriorInventory;
     }
@@ -78,12 +79,23 @@ public class SkillTree {
         return item;
     }
 
+    public ItemStack getSkillpointCountItem(PlayerClass playerClass) {
+        List<String> lore = new ArrayList<>();
+        lore.add("&7You have &e" + playerClass.getRpgInfo().getSkillpoints() + " Skillpoints");
+        lore.add("&7Click a skill to unlock it.");
+        lore.add("&7Skillpoints are gained from leveling up (+1/Level)");
+        lore.add("&7Spend them wisely!");
+        return generateItem(Material.EMERALD,
+                Component.text("Skillpoints", NamedTextColor.WHITE), ComponentConverter.getComponentListFromStringList(lore));
+    }
+
     public ItemStack getWarriorDescriptionItem() {
         List<String> lore = new ArrayList<>();
         lore.add("&7Warriors are strong and fierce fighters");
         lore.add("&7They can handle any melee fight,");
         lore.add("&7but struggle with ranged combat.");
-        return generateItem(Material.IRON_AXE, Component.text("The Path of the Warrior"),ComponentConverter.getComponentListFromStringList(lore));
+        return generateItem(Material.IRON_AXE,
+                Component.text("The Path of the Warrior"),ComponentConverter.getComponentListFromStringList(lore));
     }
 
 }
