@@ -45,7 +45,7 @@ public class RPGPlayer {
         inventoryManager = new InventoryManager(p);
         skillTree = new SkillTree(p);
         skillsGUI = new SkillsGUI(p);
-        skillList = new SkillList(new Skill[NUM_USABLE_SKILLS], new ArrayList<>(Main.getInstance().getClassHandler().getWarrior().getSkillList()));
+        skillList = new SkillList(new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
     }
 
     /**
@@ -128,12 +128,18 @@ public class RPGPlayer {
         inventoryManager.clearPlayerBottomInventory();
     }
 
+    // Skilltree Related
+
     public void showWarriorInventory() {
         if (getInventoryManager().isOpen()) {
             getPlayer().closeInventory();
         }
         preloadFullGUI();
         getSkillTree().openWarriorInventory(getPlayerClass().getRpgInfo().getSkillpoints());
+    }
+
+    public void unlockSkill(int skillSlot) {
+        getSkillTree().unlockSkill(skillSlot, skillList.getUnlockedSkills(), playerClass.getRpgInfo());
     }
 
     // Skills GUI

@@ -16,8 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.PAGE_DOWN_SLOT;
-import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.PAGE_UP_SLOT;
+import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.*;
 
 public class SkillTreeHandler implements CommandExecutor, Listener {
 
@@ -42,6 +41,7 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
             switch (slot) {
                 case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
                 case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
+                default -> rpgPlayer.unlockSkill(e.getSlot());
             }
         }
     }

@@ -3,12 +3,14 @@ package dev.muffin.rpgcore.rpg.skills;
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.player.PlayerClass;
+import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.utilities.GUIItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
@@ -42,6 +44,38 @@ public class SkillTree {
         return inventories;
     }
 
+    public void unlockSkill(int skillSlot, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+        if (warriorInventory.equals(currentInventory)) {
+            unlockWarriorSkill(skillSlot, unlockedSkills, rpgInfo);
+        }
+    }
+
+    public void unlockWarriorSkill(int skillSlot, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+        if (skillSlot == CLEAVE_SKILL_SLOT) {
+            Skill skill = Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0);
+            attemptUnlockSkill(skill, unlockedSkills, rpgInfo);
+        }
+        else if (skillSlot == SHATTERSTRIKE_SKILL_SLOT) {
+            Skill skill = Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1);
+            attemptUnlockSkill(skill, unlockedSkills, rpgInfo);
+        }
+    }
+
+    public void attemptUnlockSkill(Skill skill, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+        if (!unlockedSkills.contains(skill)) {
+            if (rpgInfo.getSkillpoints() >= skill.getSkillpointCost()) {
+                rpgInfo.setSkillpoints(rpgInfo.getSkillpoints() - skill.getSkillpointCost());
+                unlockedSkills.add(skill);
+                player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+                player.sendMessage(Component.text("Unlocked " + skill.getSkillName(), NamedTextColor.GREEN));
+
+                refreshInventory(rpgInfo.getSkillpoints());
+            } else {
+                player.sendMessage(Component.text("Not enough skillpoints", NamedTextColor.RED));
+            }
+        }
+    }
+
     public void openWarriorInventory(int skillpoints) {
         currentInventory = warriorInventory;
         player.openInventory(warriorInventory);
@@ -55,11 +89,11 @@ public class SkillTree {
 
             topInventory.setItem(13, generateDownArrow());
 
-            topInventory.setItem(22, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0), player));
+            topInventory.setItem(CLEAVE_SKILL_SLOT, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0), player));
 
             topInventory.setItem(31, generateDownArrow());
 
-            topInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
+            topInventory.setItem(SHATTERSTRIKE_SKILL_SLOT, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
         } else if (page == 2) {
             topInventory.setItem(4, getWarriorDescriptionItem());
         }
@@ -74,7 +108,7 @@ public class SkillTree {
     }
 
     public void refreshInventory(int skillpoints) {
-        if (warriorInventory.equals(currentInventory)) {
+        if (currentInventory.equals(warriorInventory)) {
             player.getOpenInventory().getTopInventory().clear();
             setWarriorInventory(skillpoints);
         }
