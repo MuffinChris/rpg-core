@@ -2,8 +2,8 @@ package dev.muffin.rpgcore.rpg.skills;
 
 public class SkillsGUIConstants {
 
-    public static final int UNEQUIPPED_TEXTURE = 100001;
-    public static final int UNEQUIP_SKILL_TEXTURE = 100002;
+    public static final int UNEQUIPPED_TEXTURE = 10001;
+    public static final int UNEQUIP_SKILL_TEXTURE = 10001;
 
     public static final int UNEQUIP_SLOT = 26;
 
