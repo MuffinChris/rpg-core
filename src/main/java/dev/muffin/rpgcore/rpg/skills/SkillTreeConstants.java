@@ -5,9 +5,12 @@ public class SkillTreeConstants {
     public static final int DOWN_ARROW_TEXTURE = 100000;
     public static final int PAGE_DOWN_TEXTURE = 100000;
     public static final int PAGE_UP_TEXTURE = 100000;
+    public static final int SKILLPOINTS_TEXTURE = 100001;
+    public static final int SKILL_EQUIP_TEXTURE = 100001;
 
     public static final int PAGE_UP_SLOT = 12;
     public static final int PAGE_DOWN_SLOT = 14;
+    public static final int SKILL_EQUIP_SLOT = 22;
 
     public static final int CLEAVE_SKILL_SLOT = 22;
 

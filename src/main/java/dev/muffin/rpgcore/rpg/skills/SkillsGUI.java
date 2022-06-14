@@ -60,11 +60,12 @@ public class SkillsGUI {
 
         currentInventory.clear();
 
-        currentInventory.setItem(11, getSkill(skillList, 1));
-        currentInventory.setItem(12, getSkill(skillList, 2));
-        currentInventory.setItem(13, getSkill(skillList, 3));
-        currentInventory.setItem(14, getSkill(skillList, 4));
-        currentInventory.setItem(15, getSkill(skillList, 5));
+        currentInventory.setItem(SKILLTREE_SLOT, generateSkillTreeItem());
+        currentInventory.setItem(SKILL_ONE_SLOT, getSkill(skillList, 1));
+        currentInventory.setItem(SKILL_TWO_SLOT, getSkill(skillList, 2));
+        currentInventory.setItem(SKILL_THREE_SLOT, getSkill(skillList, 3));
+        currentInventory.setItem(SKILL_FOUR_SLOT, getSkill(skillList, 4));
+        currentInventory.setItem(SKILL_FIVE_SLOT, getSkill(skillList, 5));
     }
 
     public void setSkillSelectGui(List<Skill> unlockedSkills, int slot) {
@@ -113,6 +114,12 @@ public class SkillsGUI {
         List<String> lore = new ArrayList<>();
         lore.add("&7Click to unequip skill.");
         return GUIItems.generateItem(Material.EMERALD, Component.text("Unequip Skill"), ComponentConverter.getComponentListFromStringList(lore), UNEQUIP_SKILL_TEXTURE);
+    }
+
+    public ItemStack generateSkillTreeItem() {
+        List<String> lore = new ArrayList<>();
+        lore.add("&7Click to unlock new skills.");
+        return GUIItems.generateItem(Material.EMERALD, Component.text("Open Skill Tree"), ComponentConverter.getComponentListFromStringList(lore), SKILLTREE_TEXTURE);
     }
 
 }

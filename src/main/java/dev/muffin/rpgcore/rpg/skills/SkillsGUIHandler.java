@@ -49,6 +49,7 @@ public class SkillsGUIHandler implements CommandExecutor, Listener {
                     case SKILL_THREE_SLOT -> rpgPlayer.showSelectableSkillsGUI(3);
                     case SKILL_FOUR_SLOT -> rpgPlayer.showSelectableSkillsGUI(4);
                     case SKILL_FIVE_SLOT -> rpgPlayer.showSelectableSkillsGUI(5);
+                    case SKILLTREE_SLOT -> rpgPlayer.showWarriorInventory();
                 }
             }
         }

@@ -6,11 +6,12 @@
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillTreeHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

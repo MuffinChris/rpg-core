@@ -105,6 +105,7 @@ public class SkillTree {
         player.getInventory().setItem(PAGE_UP_SLOT, getPageUpItem());
         player.getInventory().setItem(13, getSkillpointCountItem(skillpoints));
         player.getInventory().setItem(PAGE_DOWN_SLOT, getPageDownItem());
+        player.getInventory().setItem(SKILL_EQUIP_SLOT, getSkillEquipItem());
     }
 
     public void refreshInventory(int skillpoints) {
@@ -135,7 +136,14 @@ public class SkillTree {
         lore.add("&7Skillpoints are gained from leveling up (+1/Level)");
         lore.add("&7Spend them wisely!");
         return generateItem(Material.EMERALD,
-                Component.text("Skillpoints", NamedTextColor.WHITE), ComponentConverter.getComponentListFromStringList(lore));
+                Component.text("Skillpoints", NamedTextColor.WHITE), ComponentConverter.getComponentListFromStringList(lore), SKILLPOINTS_TEXTURE);
+    }
+
+    public ItemStack getSkillEquipItem() {
+        List<String> lore = new ArrayList<>();
+        lore.add("&7Click to open the skill selector");
+        return generateItem(Material.EMERALD,
+                Component.text("Equip Skills", NamedTextColor.WHITE), ComponentConverter.getComponentListFromStringList(lore), SKILL_EQUIP_TEXTURE);
     }
 
     public ItemStack getPageDownItem() {
