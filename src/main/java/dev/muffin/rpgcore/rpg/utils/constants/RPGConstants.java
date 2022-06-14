@@ -11,6 +11,8 @@ public class RPGConstants {
     public static final int BASE_LEVEL = 1;
     public static final int MAX_LEVEL = 100;
 
+    public static final int NUM_USABLE_SKILLS = 5;
+
     public static final Map<Integer, Double> LEVEL_EXP_MAP = Map.<Integer, Double>ofEntries(
             entry(1, 500.0),
             entry(2, 750.0),

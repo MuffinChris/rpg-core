@@ -3,6 +3,7 @@ package dev.muffin.rpgcore.rpg.player;
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
 import dev.muffin.rpgcore.rpg.skills.SkillTree;
+import dev.muffin.rpgcore.rpg.skills.SkillsGUI;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStats;
 import dev.muffin.rpgcore.rpg.skills.Skill;
@@ -31,17 +32,21 @@ public class PlayerClass {
 
     // Skill Info
     private final SkillTree skillTree;
-    private final List<Skill> skillList;
+    private final SkillsGUI skillsGUI;
+    private final Skill[] skillList;
+    private final List<Skill> unlockedSkills;
 
     private final Player player;
 
-    public PlayerClass(Player player, RPGClass rpgClass, RPGLevelInfo rpgInfo, List<Skill> skillList) {
+    public PlayerClass(Player player, RPGClass rpgClass, RPGLevelInfo rpgInfo, Skill[] skillList, List<Skill> unlockedSkills) {
         this.player = player;
         this.rpgClass = rpgClass;
         this.rpgInfo = rpgInfo;
         this.skillList = skillList;
+        this.unlockedSkills = unlockedSkills;
         stats = new RPGStats(0, 0, 0);
         skillTree = new SkillTree(this.player);
+        skillsGUI = new SkillsGUI(this.player);
 
         player.setHealthScale(HEALTH_SCALE);
         updateStats();
@@ -55,8 +60,12 @@ public class PlayerClass {
         return rpgInfo;
     }
 
-    public List<Skill> getSkillList() {
+    public Skill[] getSkillList() {
         return skillList;
+    }
+
+    public List<Skill> getUnlockedSkills() {
+        return unlockedSkills;
     }
 
     /**
@@ -89,6 +98,10 @@ public class PlayerClass {
 
     public SkillTree getSkillTree() {
         return skillTree;
+    }
+
+    public SkillsGUI getSkillsGUI() {
+        return skillsGUI;
     }
 
     /**
@@ -129,7 +142,9 @@ public class PlayerClass {
     public List<Skill> getCastableSkills() {
         List<Skill> castableSkills = new ArrayList<>();
         for (Skill s : skillList) {
-            castableSkills.add(s);
+            if (s != null) {
+                castableSkills.add(s);
+            }
         }
         return castableSkills;
     }

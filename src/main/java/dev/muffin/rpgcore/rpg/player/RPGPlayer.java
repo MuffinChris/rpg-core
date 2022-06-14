@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
+import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.NUM_USABLE_SKILLS;
 
 /**
  * RPGPlayer is attached to each player. Stores all rpg-core related information
@@ -31,7 +32,7 @@ public class RPGPlayer {
         PluginLogger.getLogger().info("Creating RPGPlayer for " + p.getName() + ".");
         playerUUID = p.getUniqueId();
         playerClass = new PlayerClass(p, Main.getInstance().getClassHandler().getWarrior(),
-                new RPGLevelInfo(BASE_LEVEL, 0, 1), new ArrayList<>());
+                new RPGLevelInfo(BASE_LEVEL, 0, 1), new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
         skillbar = new Skillbar(p);
         skillCaster = new SkillCaster(p);
         inventoryManager = new InventoryManager(p);
@@ -111,6 +112,15 @@ public class RPGPlayer {
         }
         preloadFullGUI();
         getPlayerClass().getSkillTree().openWarriorInventory(playerClass);
+    }
+
+    // Skills GUI
+
+    public void showSkillsGUI() {
+        if (getInventoryManager().isOpen()) {
+            getPlayer().closeInventory();
+        }
+        getPlayerClass().getSkillsGUI().openSkillsGui(playerClass);
     }
 
     // Skillbar Related

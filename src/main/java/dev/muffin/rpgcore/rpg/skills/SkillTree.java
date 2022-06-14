@@ -3,6 +3,7 @@ package dev.muffin.rpgcore.rpg.skills;
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.player.PlayerClass;
+import dev.muffin.rpgcore.utilities.GUIItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -19,6 +20,7 @@ import java.util.*;
 
 import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.*;
 import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
+import static dev.muffin.rpgcore.utilities.GUIItems.generateSkillItem;
 
 public class SkillTree {
 
@@ -31,7 +33,7 @@ public class SkillTree {
     public SkillTree(Player player) {
         page = 1;
         this.player = player;
-        warriorInventory = Bukkit.createInventory(null, 54, Component.text(""));
+        warriorInventory = Bukkit.createInventory(null, 54, Component.text("Warrior Skill Tree"));
         inventories = new ArrayList<>();
         inventories.add(warriorInventory);
     }
@@ -89,22 +91,7 @@ public class SkillTree {
     }
 
     public ItemStack generateDownArrow() {
-        ItemStack item = new ItemStack(Material.EMERALD, 1);
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.displayName(Component.text(""));
-        itemMeta.setCustomModelData(DOWN_ARROW_TEXTURE);
-        item.setItemMeta(itemMeta);
-        return item;
-    }
-
-    public ItemStack generateSkillItem(Skill skill, Player p) {
-        ItemStack item = generateItem(Material.EMERALD,
-                Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW),
-                skill.getSkillDescription(p));
-        ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(skill.getTexture());
-        item.setItemMeta(meta);
-        return item;
+        return GUIItems.generateCustomIcon("", DOWN_ARROW_TEXTURE);
     }
 
     public ItemStack getSkillpointCountItem(PlayerClass playerClass) {
@@ -118,21 +105,11 @@ public class SkillTree {
     }
 
     public ItemStack getPageDownItem() {
-        ItemStack item = new ItemStack(Material.EMERALD, 1);
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.displayName(Component.text("Page Down").decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
-        itemMeta.setCustomModelData(PAGE_DOWN_TEXTURE);
-        item.setItemMeta(itemMeta);
-        return item;
+        return GUIItems.generateCustomIcon("Page Down", PAGE_DOWN_TEXTURE);
     }
 
     public ItemStack getPageUpItem() {
-        ItemStack item = new ItemStack(Material.EMERALD, 1);
-        ItemMeta itemMeta = item.getItemMeta();
-        itemMeta.displayName(Component.text("Page Up").decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
-        itemMeta.setCustomModelData(PAGE_UP_TEXTURE);
-        item.setItemMeta(itemMeta);
-        return item;
+        return GUIItems.generateCustomIcon("Page Up", PAGE_UP_TEXTURE);
     }
 
     public ItemStack getWarriorDescriptionItem() {

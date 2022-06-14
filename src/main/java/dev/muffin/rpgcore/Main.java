@@ -55,9 +55,6 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerRespawnHandler(), this);
         getServer().getPluginManager().registerEvents(new LevelBarHandler(), this);
 
-        getLogger().info("registering rpg player commands");
-        this.getCommand("giveexp").setExecutor(new GiveExpCommand());
-
         getLogger().info("registering rpg damage events");
         getServer().getPluginManager().registerEvents(new EnvironmentalDamageListener(), this);
         getServer().getPluginManager().registerEvents(new HealthRegenListener(), this);
@@ -70,7 +67,10 @@ public final class Main extends JavaPlugin {
         new CastingRunnables();
         SkillTreeHandler skillTreeHandler = new SkillTreeHandler();
         getServer().getPluginManager().registerEvents(skillTreeHandler, this);
-        this.getCommand("class").setExecutor(skillTreeHandler);
+
+        getLogger().info("registering commands");
+        this.getCommand("giveexp").setExecutor(new GiveExpCommand());
+        this.getCommand("skilltree").setExecutor(skillTreeHandler);
     }
 
     @Override

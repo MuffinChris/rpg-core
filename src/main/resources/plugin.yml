@@ -10,5 +10,5 @@ commands:
   giveexp:
     description: Give a player exp
     permission: rpgcore.admin
-  class:
+  skilltree:
     description: View your class skilltree

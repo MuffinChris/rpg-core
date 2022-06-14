@@ -9,6 +9,7 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class Skill {
@@ -66,7 +67,9 @@ public abstract class Skill {
         description.add("&7Cooldown: &f" + DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s");
         description.add("");
 
-        if (Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList().contains(this)) {
+        if (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList()).contains(this)) {
+            description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList()).indexOf(this) + 1) + "&7)");
+        } else if (Main.getInstance().getRPGPlayer(caster).getPlayerClass().getUnlockedSkills().contains(this)) {
             description.add("&aSkill Unlocked");
         } else {
             description.add("&7Skillpoint Cost: &e" + getSkillpointCost());
