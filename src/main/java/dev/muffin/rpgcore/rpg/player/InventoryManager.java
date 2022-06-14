@@ -11,13 +11,24 @@ public class InventoryManager {
 
     private final List<ItemStack> playerBottomInventory;
     private final Player player;
+    private boolean isOpen;
 
     public InventoryManager(Player player) {
         playerBottomInventory = new ArrayList<>();
         this.player = player;
+        isOpen = false;
+    }
+
+    public boolean isOpen() {
+        return isOpen;
+    }
+
+    public void setIsOpen(boolean open) {
+        isOpen = open;
     }
 
     public void saveBottomInventory() {
+        setIsOpen(true);
         playerBottomInventory.clear();
         for (int i = 9; i < 36; i++) {
             playerBottomInventory.add(player.getInventory().getContents()[i]);
@@ -25,6 +36,7 @@ public class InventoryManager {
     }
 
     public void restoreFromBottomInventory() {
+        setIsOpen(false);
         if (!playerBottomInventory.isEmpty()) {
             for (int i = 9; i < 36; i++) {
                 player.getInventory().setItem(i, null);

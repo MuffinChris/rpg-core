@@ -92,8 +92,9 @@ public class RPGPlayer {
      * Safe-close of RPGPlayer (save data, etc)
      */
     public void close() {
+        PluginLogger.getLogger().info("Closing RPGPlayer for " + getPlayer().getName());
+
         inventoryManager.restoreFromBottomInventory();
-        //TODO: close
     }
 
     // Mediated Functions
@@ -105,8 +106,11 @@ public class RPGPlayer {
     }
 
     public void showWarriorInventory() {
+        if (getInventoryManager().isOpen()) {
+            getPlayer().closeInventory();
+        }
         preloadFullGUI();
-        getPlayer().openInventory(getPlayerClass().getSkillTree().getWarriorInventory(playerClass));
+        getPlayerClass().getSkillTree().openWarriorInventory(playerClass);
     }
 
     // Skillbar Related

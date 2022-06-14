@@ -17,54 +17,82 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.*;
 
+import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.*;
 import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
 
 public class SkillTree {
 
-    private Inventory warriorInventory;
+    private final Inventory warriorInventory;
+    private int page;
     private final List<Inventory> inventories;
     private final Player player;
+    private Inventory currentInventory;
 
     public SkillTree(Player player) {
+        page = 1;
         this.player = player;
+        warriorInventory = Bukkit.createInventory(null, 54, Component.text(""));
         inventories = new ArrayList<>();
-    }
-
-    public Inventory getWarriorInventory(PlayerClass playerClass) {
-        warriorInventory = generateWarriorInventory(playerClass);
-        if (!inventories.contains(warriorInventory)) {
-            inventories.add(warriorInventory);
-        }
-        return warriorInventory;
+        inventories.add(warriorInventory);
     }
 
     public List<Inventory> getInventories() {
         return inventories;
     }
 
-    private Inventory generateWarriorInventory(PlayerClass playerClass) {
-        warriorInventory = Bukkit.createInventory(null, 54, Component.text(""));
+    public void openWarriorInventory(PlayerClass playerClass) {
+        currentInventory = warriorInventory;
+        player.openInventory(warriorInventory);
+        setWarriorInventory(playerClass);
+    }
 
-        warriorInventory.setItem(4, getWarriorDescriptionItem());
+    private void setWarriorInventory(PlayerClass playerClass) {
+        Inventory topInventory = player.getOpenInventory().getTopInventory();
+        if (page == 1) {
+            topInventory.setItem(4, getWarriorDescriptionItem());
 
-        warriorInventory.setItem(13, generateDownArrow());
+            topInventory.setItem(13, generateDownArrow());
 
-        warriorInventory.setItem(22, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0), player));
+            topInventory.setItem(22, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0), player));
 
-        warriorInventory.setItem(31, generateDownArrow());
+            topInventory.setItem(31, generateDownArrow());
 
-        warriorInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
+            topInventory.setItem(40, generateSkillItem(Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1), player));
+        } else if (page == 2) {
+            topInventory.setItem(4, getWarriorDescriptionItem());
+        }
 
+        setBottomInventory(playerClass);
+    }
+
+    public void setBottomInventory(PlayerClass playerClass) {
+        player.getInventory().setItem(PAGE_UP_SLOT, getPageUpItem());
         player.getInventory().setItem(13, getSkillpointCountItem(playerClass));
+        player.getInventory().setItem(PAGE_DOWN_SLOT, getPageDownItem());
+    }
 
-        return warriorInventory;
+    public void refreshInventory(PlayerClass playerClass) {
+        if (warriorInventory.equals(currentInventory)) {
+            player.getOpenInventory().getTopInventory().clear();
+            setWarriorInventory(playerClass);
+        }
+    }
+
+    public void pageDown(PlayerClass playerClass) {
+        page = Math.min(WARRIOR_MAX_PAGE, page + 1);
+        refreshInventory(playerClass);
+    }
+
+    public void pageUp(PlayerClass playerClass) {
+        page = Math.max(1, page - 1);
+        refreshInventory(playerClass);
     }
 
     public ItemStack generateDownArrow() {
         ItemStack item = new ItemStack(Material.EMERALD, 1);
         ItemMeta itemMeta = item.getItemMeta();
         itemMeta.displayName(Component.text(""));
-        itemMeta.setCustomModelData(100000);
+        itemMeta.setCustomModelData(DOWN_ARROW_TEXTURE);
         item.setItemMeta(itemMeta);
         return item;
     }
@@ -87,6 +115,24 @@ public class SkillTree {
         lore.add("&7Spend them wisely!");
         return generateItem(Material.EMERALD,
                 Component.text("Skillpoints", NamedTextColor.WHITE), ComponentConverter.getComponentListFromStringList(lore));
+    }
+
+    public ItemStack getPageDownItem() {
+        ItemStack item = new ItemStack(Material.EMERALD, 1);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.displayName(Component.text("Page Down").decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        itemMeta.setCustomModelData(PAGE_DOWN_TEXTURE);
+        item.setItemMeta(itemMeta);
+        return item;
+    }
+
+    public ItemStack getPageUpItem() {
+        ItemStack item = new ItemStack(Material.EMERALD, 1);
+        ItemMeta itemMeta = item.getItemMeta();
+        itemMeta.displayName(Component.text("Page Up").decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        itemMeta.setCustomModelData(PAGE_UP_TEXTURE);
+        item.setItemMeta(itemMeta);
+        return item;
     }
 
     public ItemStack getWarriorDescriptionItem() {

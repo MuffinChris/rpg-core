@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
@@ -14,6 +15,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
+
+import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.PAGE_DOWN_SLOT;
+import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.PAGE_UP_SLOT;
 
 public class SkillTreeHandler implements CommandExecutor, Listener {
 
@@ -33,6 +37,12 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
     public void cancelClick(InventoryClickEvent e) {
         if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getPlayerClass().getSkillTree().getInventories().contains(e.getInventory())) {
             e.setCancelled(true);
+            RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer());
+            int slot = e.getSlot();
+            switch (slot) {
+                case PAGE_UP_SLOT -> rpgPlayer.getPlayerClass().getSkillTree().pageUp(rpgPlayer.getPlayerClass());
+                case PAGE_DOWN_SLOT -> rpgPlayer.getPlayerClass().getSkillTree().pageDown(rpgPlayer.getPlayerClass());
+            }
         }
     }
 
