@@ -5,8 +5,6 @@ import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
@@ -67,9 +65,9 @@ public abstract class Skill {
         description.add("&7Cooldown: &f" + DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s");
         description.add("");
 
-        if (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList()).contains(this)) {
-            description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getPlayerClass().getSkillList()).indexOf(this) + 1) + "&7)");
-        } else if (Main.getInstance().getRPGPlayer(caster).getPlayerClass().getUnlockedSkills().contains(this)) {
+        if (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).contains(this)) {
+            description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).indexOf(this) + 1) + "&7)");
+        } else if (Main.getInstance().getRPGPlayer(caster).getSkillList().getUnlockedSkills().contains(this)) {
             description.add("&aSkill Unlocked");
         } else {
             description.add("&7Skillpoint Cost: &e" + getSkillpointCost());

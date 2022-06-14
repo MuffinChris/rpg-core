@@ -16,7 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillsGUIConstants.SKILL_ONE_SLOT;
+import static dev.muffin.rpgcore.rpg.skills.SkillsGUIConstants.*;
 
 public class SkillsGUIHandler implements CommandExecutor, Listener {
 
@@ -34,20 +34,39 @@ public class SkillsGUIHandler implements CommandExecutor, Listener {
 
     @EventHandler
     public void cancelClick(InventoryClickEvent e) {
-        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getPlayerClass().getSkillsGUI().getInventories().contains(e.getInventory())) {
+        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillsGUI().getInventories().contains(e.getInventory())) {
             e.setCancelled(true);
             RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer());
             int slot = e.getSlot();
-            switch (slot) {
-                case SKILL_ONE_SLOT -> rpgPlayer.getPlayerClass().getSkillTree().pageUp(rpgPlayer.getPlayerClass());
+            if (rpgPlayer.getSkillsGUI().isSelecting()) {
+                rpgPlayer.equipSkill(slot);
+                rpgPlayer.getSkillsGUI().close();
+                rpgPlayer.getSkillsGUI().setSkillsGui(rpgPlayer.getSkillList().getEquippedSkills());
+            } else {
+                switch (slot) {
+                    case SKILL_ONE_SLOT -> rpgPlayer.showSelectableSkillsGUI(1);
+                    case SKILL_TWO_SLOT -> rpgPlayer.showSelectableSkillsGUI(2);
+                    case SKILL_THREE_SLOT -> rpgPlayer.showSelectableSkillsGUI(3);
+                    case SKILL_FOUR_SLOT -> rpgPlayer.showSelectableSkillsGUI(4);
+                    case SKILL_FIVE_SLOT -> rpgPlayer.showSelectableSkillsGUI(5);
+                }
             }
         }
     }
 
     @EventHandler
     public void cancelDrag(InventoryDragEvent e) {
-        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getPlayerClass().getSkillsGUI().getInventories().contains(e.getInventory())) {
+        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillsGUI().getInventories().contains(e.getInventory())) {
             e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void inventoryClose(InventoryCloseEvent e) {
+        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()) != null
+                && Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillsGUI().getInventories().contains(e.getInventory())
+                && Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillsGUI().isSelecting()) {
+            Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillsGUI().close();
         }
     }
 }

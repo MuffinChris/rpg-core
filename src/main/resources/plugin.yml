@@ -12,3 +12,5 @@ commands:
     permission: rpgcore.admin
   skilltree:
     description: View your class skilltree
+  skills:
+    description: Edit your castable skills

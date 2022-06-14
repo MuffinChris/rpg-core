@@ -27,6 +27,9 @@ public class SkillCaster {
      * @return status of cast
      */
     public CastResponse cast(Skill skill, PlayerClass playerClass) {
+        if (skill == null) {
+            return CastResponse.NOT_EQUIPPED;
+        }
         if (cooldownManager.isOnCooldown(skill)) {
             return CastResponse.ON_COOLDOWN;
         }

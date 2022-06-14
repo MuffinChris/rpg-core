@@ -9,6 +9,7 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,22 +34,25 @@ public class Skillbar {
         skillbarActive = false;
     }
 
-    public void updateSkillbar(List<Skill> castableSkills, CooldownManager cooldownManager, double currMana) {
+    public void updateSkillbar(Skill[] skillList, CooldownManager cooldownManager, double currMana) {
         if (skillbarActive) {
             Player p = Bukkit.getPlayer(uuid);
             String output = "";
-            int slot = 2;
 
-            for (Skill skill : castableSkills) {
-                String skillName = skill.getSkillName();
-                if (cooldownManager.isOnCooldown(skill)) {
-                    output += "&7" + skillName + " &8<&f" + DecimalFormats.oneDecimalsZero.format(cooldownManager.getCooldown(skill)) + "s&8> || ";
-                } else if (skill.getManaCost() > currMana){
-                    output += "&7" + skillName + " &8<&b" + DecimalFormats.noDecimals.format(skill.getManaCost()) + "M&8> || ";
-                } else {
-                    output += "&e" + skillName + " &8<&6" + slot + "&8> || ";
+            int index = 0;
+            for (Skill skill : skillList) {
+                if (skill != null) {
+                    String skillName = skill.getSkillName();
+                    int skillSlot = index + 2;
+                    if (cooldownManager.isOnCooldown(skill)) {
+                        output += "&7" + skillName + " &8<&f" + DecimalFormats.oneDecimalsZero.format(cooldownManager.getCooldown(skill)) + "s&8> || ";
+                    } else if (skill.getManaCost() > currMana) {
+                        output += "&7" + skillName + " &8<&b" + DecimalFormats.noDecimals.format(skill.getManaCost()) + "M&8> || ";
+                    } else {
+                        output += "&e" + skillName + " &8<&6" + skillSlot + "&8> || ";
+                    }
                 }
-                slot++;
+                index++;
             }
 
             if (!output.isEmpty()) {

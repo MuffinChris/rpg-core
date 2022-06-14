@@ -42,13 +42,13 @@ public class SkillTree {
         return inventories;
     }
 
-    public void openWarriorInventory(PlayerClass playerClass) {
+    public void openWarriorInventory(int skillpoints) {
         currentInventory = warriorInventory;
         player.openInventory(warriorInventory);
-        setWarriorInventory(playerClass);
+        setWarriorInventory(skillpoints);
     }
 
-    private void setWarriorInventory(PlayerClass playerClass) {
+    private void setWarriorInventory(int skillpoints) {
         Inventory topInventory = player.getOpenInventory().getTopInventory();
         if (page == 1) {
             topInventory.setItem(4, getWarriorDescriptionItem());
@@ -64,39 +64,39 @@ public class SkillTree {
             topInventory.setItem(4, getWarriorDescriptionItem());
         }
 
-        setBottomInventory(playerClass);
+        setBottomInventory(skillpoints);
     }
 
-    public void setBottomInventory(PlayerClass playerClass) {
+    public void setBottomInventory(int skillpoints) {
         player.getInventory().setItem(PAGE_UP_SLOT, getPageUpItem());
-        player.getInventory().setItem(13, getSkillpointCountItem(playerClass));
+        player.getInventory().setItem(13, getSkillpointCountItem(skillpoints));
         player.getInventory().setItem(PAGE_DOWN_SLOT, getPageDownItem());
     }
 
-    public void refreshInventory(PlayerClass playerClass) {
+    public void refreshInventory(int skillpoints) {
         if (warriorInventory.equals(currentInventory)) {
             player.getOpenInventory().getTopInventory().clear();
-            setWarriorInventory(playerClass);
+            setWarriorInventory(skillpoints);
         }
     }
 
-    public void pageDown(PlayerClass playerClass) {
+    public void pageDown(int skillpoints) {
         page = Math.min(WARRIOR_MAX_PAGE, page + 1);
-        refreshInventory(playerClass);
+        refreshInventory(skillpoints);
     }
 
-    public void pageUp(PlayerClass playerClass) {
+    public void pageUp(int skillpoints) {
         page = Math.max(1, page - 1);
-        refreshInventory(playerClass);
+        refreshInventory(skillpoints);
     }
 
     public ItemStack generateDownArrow() {
         return GUIItems.generateCustomIcon("", DOWN_ARROW_TEXTURE);
     }
 
-    public ItemStack getSkillpointCountItem(PlayerClass playerClass) {
+    public ItemStack getSkillpointCountItem(int skillpoints) {
         List<String> lore = new ArrayList<>();
-        lore.add("&7You have &e" + playerClass.getRpgInfo().getSkillpoints() + " Skillpoints");
+        lore.add("&7You have &e" + skillpoints + " Skillpoints");
         lore.add("&7Click a skill to unlock it.");
         lore.add("&7Skillpoints are gained from leveling up (+1/Level)");
         lore.add("&7Spend them wisely!");

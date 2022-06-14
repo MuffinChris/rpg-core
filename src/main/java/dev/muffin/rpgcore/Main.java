@@ -15,6 +15,7 @@ import dev.muffin.rpgcore.rpg.player.handlers.PlayerRespawnHandler;
 import dev.muffin.rpgcore.rpg.scaling.EnvironmentalDamageListener;
 import dev.muffin.rpgcore.rpg.scaling.HealthRegenListener;
 import dev.muffin.rpgcore.rpg.skills.SkillTreeHandler;
+import dev.muffin.rpgcore.rpg.skills.SkillsGUIHandler;
 import dev.muffin.rpgcore.rpg.skills.casting.CastingRunnables;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillbarListener;
 import dev.muffin.rpgcore.utilities.PluginLogger;
@@ -67,10 +68,13 @@ public final class Main extends JavaPlugin {
         new CastingRunnables();
         SkillTreeHandler skillTreeHandler = new SkillTreeHandler();
         getServer().getPluginManager().registerEvents(skillTreeHandler, this);
+        SkillsGUIHandler skillsGUIHandler = new SkillsGUIHandler();
+        getServer().getPluginManager().registerEvents(skillsGUIHandler, this);
 
         getLogger().info("registering commands");
         this.getCommand("giveexp").setExecutor(new GiveExpCommand());
         this.getCommand("skilltree").setExecutor(skillTreeHandler);
+        this.getCommand("skills").setExecutor(skillsGUIHandler);
     }
 
     @Override

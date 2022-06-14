@@ -35,20 +35,20 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
 
     @EventHandler
     public void cancelClick(InventoryClickEvent e) {
-        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getPlayerClass().getSkillTree().getInventories().contains(e.getInventory())) {
+        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillTree().getInventories().contains(e.getInventory())) {
             e.setCancelled(true);
             RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer());
             int slot = e.getSlot();
             switch (slot) {
-                case PAGE_UP_SLOT -> rpgPlayer.getPlayerClass().getSkillTree().pageUp(rpgPlayer.getPlayerClass());
-                case PAGE_DOWN_SLOT -> rpgPlayer.getPlayerClass().getSkillTree().pageDown(rpgPlayer.getPlayerClass());
+                case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
+                case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
             }
         }
     }
 
     @EventHandler
     public void cancelDrag(InventoryDragEvent e) {
-        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getPlayerClass().getSkillTree().getInventories().contains(e.getInventory())) {
+        if (Main.getInstance().getRPGPlayer((Player) e.getView().getPlayer()).getSkillTree().getInventories().contains(e.getInventory())) {
             e.setCancelled(true);
         }
     }
@@ -56,7 +56,7 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent e) {
         if (Main.getInstance().getRPGPlayer((Player) e.getPlayer()) != null
-                && Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getPlayerClass().getSkillTree().getInventories().contains(e.getInventory())) {
+                && Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getSkillTree().getInventories().contains(e.getInventory())) {
             Main.getInstance().getRPGPlayer((Player) e.getPlayer()).getInventoryManager().restoreFromBottomInventory();
         }
     }

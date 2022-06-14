@@ -30,23 +30,13 @@ public class PlayerClass {
     private RPGClass rpgClass;
     private Archetype archetype;
 
-    // Skill Info
-    private final SkillTree skillTree;
-    private final SkillsGUI skillsGUI;
-    private final Skill[] skillList;
-    private final List<Skill> unlockedSkills;
-
     private final Player player;
 
-    public PlayerClass(Player player, RPGClass rpgClass, RPGLevelInfo rpgInfo, Skill[] skillList, List<Skill> unlockedSkills) {
+    public PlayerClass(Player player, RPGClass rpgClass, RPGLevelInfo rpgInfo) {
         this.player = player;
         this.rpgClass = rpgClass;
         this.rpgInfo = rpgInfo;
-        this.skillList = skillList;
-        this.unlockedSkills = unlockedSkills;
         stats = new RPGStats(0, 0, 0);
-        skillTree = new SkillTree(this.player);
-        skillsGUI = new SkillsGUI(this.player);
 
         player.setHealthScale(HEALTH_SCALE);
         updateStats();
@@ -58,14 +48,6 @@ public class PlayerClass {
 
     public RPGLevelInfo getRpgInfo() {
         return rpgInfo;
-    }
-
-    public Skill[] getSkillList() {
-        return skillList;
-    }
-
-    public List<Skill> getUnlockedSkills() {
-        return unlockedSkills;
     }
 
     /**
@@ -94,14 +76,6 @@ public class PlayerClass {
 
     public RPGClass getRpgClass() {
         return rpgClass;
-    }
-
-    public SkillTree getSkillTree() {
-        return skillTree;
-    }
-
-    public SkillsGUI getSkillsGUI() {
-        return skillsGUI;
     }
 
     /**
@@ -133,19 +107,5 @@ public class PlayerClass {
         if (!player.isDead()) {
             stats.setMana(Math.min(stats.getMana() + getManaRegen(), getMaxMana()));
         }
-    }
-
-    /**
-     * Get a list of castable skills
-     * @return list of castable skills
-     */
-    public List<Skill> getCastableSkills() {
-        List<Skill> castableSkills = new ArrayList<>();
-        for (Skill s : skillList) {
-            if (s != null) {
-                castableSkills.add(s);
-            }
-        }
-        return castableSkills;
     }
 }
