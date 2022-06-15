@@ -13,8 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.DOWN_ARROW_TEXTURE;
-
 public class GUIItems {
 
     public static ItemStack generateItem(Material material, Component displayName, List<Component> lore) {
@@ -56,7 +54,7 @@ public class GUIItems {
                 Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW),
                 skill.getSkillDescription(p));
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(skill.getTexture());
+        meta.setCustomModelData(skill.getTexture(p, true));
         item.setItemMeta(meta);
         return item;
     }

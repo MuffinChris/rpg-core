@@ -19,15 +19,19 @@ public abstract class Skill {
     // technically useless if using skillpoints
     private final int levelRequirement;
     private final int skillpointCost;
-    private final int texture;
+    private final int unlockedTexture;
+    private final int unlockableTexture;
+    private final int lockedTexture;
 
-    public Skill(String skillName, double cooldown, double manaCost, int levelRequirement, int skillpointCost, int texture) {
+    public Skill(String skillName, double cooldown, double manaCost, int levelRequirement, int skillpointCost, int unlockedTexture, int unlockableTexture, int lockedTexture) {
         this.skillName = skillName;
         this.cooldown = cooldown;
         this.manaCost = manaCost;
         this.levelRequirement = levelRequirement;
         this.skillpointCost = skillpointCost;
-        this.texture = texture;
+        this.unlockedTexture = unlockedTexture;
+        this.unlockableTexture = unlockableTexture;
+        this.lockedTexture = lockedTexture;
     }
 
     public String getSkillName() {
@@ -52,8 +56,26 @@ public abstract class Skill {
         return skillpointCost;
     }
 
-    public int getTexture() {
-        return texture;
+    public int getUnlockedTexture() {
+        return unlockedTexture;
+    }
+
+    public int getUnlockableTexture() {
+        return unlockableTexture;
+    }
+
+    public int getLockedTexture() {
+        return lockedTexture;
+    }
+
+    public int getTexture(Player caster, boolean unlockable) {
+        if (Main.getInstance().getRPGPlayer(caster).getSkillList().getUnlockedSkills().contains(this)) {
+            return unlockedTexture;
+        } else if (unlockable) {
+            return unlockableTexture;
+        } else {
+            return lockedTexture;
+        }
     }
 
     public abstract void castSkill(Player caster);

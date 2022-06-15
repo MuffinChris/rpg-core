@@ -14,7 +14,7 @@ import dev.muffin.rpgcore.rpg.player.handlers.PlayerInfoHandler;
 import dev.muffin.rpgcore.rpg.player.handlers.PlayerRespawnHandler;
 import dev.muffin.rpgcore.rpg.scaling.EnvironmentalDamageListener;
 import dev.muffin.rpgcore.rpg.scaling.HealthRegenListener;
-import dev.muffin.rpgcore.rpg.skills.SkillTreeHandler;
+import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTreeHandler;
 import dev.muffin.rpgcore.rpg.skills.SkillsGUIHandler;
 import dev.muffin.rpgcore.rpg.skills.casting.CastingRunnables;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillbarListener;

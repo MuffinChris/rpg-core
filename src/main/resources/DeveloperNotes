@@ -1,8 +1,10 @@
 Current Todo:
-unlocking skills through skill tree
+Swapping Classes change level / stats
+
+SkillTree connections as actual objects.
+Not all unlockables are Skills. Refactor by making SkillTree entry with slot and corresponding connections. Graph
 
 Skills
-should have 6 slots? 5 slots?
 no damage ticks important for skill damage
 
 - Make new classes for new types of abilities, ie toggle

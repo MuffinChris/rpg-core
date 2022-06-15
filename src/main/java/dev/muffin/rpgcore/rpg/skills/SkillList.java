@@ -39,7 +39,7 @@ public class SkillList {
             skillList[Arrays.asList(skillList).indexOf(unlockedSkills.get(slot))] = null;
         }
         skillList[slotToEquip - 1] = unlockedSkills.get(slot);
-        player.sendMessage(Component.text("Equipped " + unlockedSkills.get(slot).getSkillName() + " in slot " + slotToEquip + ".", NamedTextColor.GREEN));
+        player.sendMessage(Component.text("Equipped " + unlockedSkills.get(slot).getSkillName() + " in slot " + slotToEquip, NamedTextColor.GREEN));
         player.playSound(player.getLocation(), Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1.0F, 1.0F);
     }
 

@@ -10,10 +10,13 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+import static dev.muffin.rpgcore.rpg.skills.warrior.WarriorSkillTextures.*;
+
 public class Cleave extends Skill {
 
     public Cleave() {
-        super("Cleave", 7.0, 20, 1, 1, 10000001);
+        super("Cleave", 7.0, 20, 1, 1,
+                CLEAVE_TEXTURE_UNLOCKED, CLEAVE_TEXTURE_UNLOCKABLE, CLEAVE_TEXTURE_LOCKED);
     }
 
     @Override

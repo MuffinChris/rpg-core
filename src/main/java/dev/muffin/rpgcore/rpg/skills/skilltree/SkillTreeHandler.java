@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.skilltree;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
@@ -16,7 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillTreeConstants.*;
+import static dev.muffin.rpgcore.rpg.skills.skilltree.SkillTreeConstants.*;
 
 public class SkillTreeHandler implements CommandExecutor, Listener {
 
@@ -40,8 +40,8 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
             int slot = e.getSlot();
             if (e.getClickedInventory() == e.getView().getBottomInventory()) {
                 switch (slot) {
-                    case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
-                    case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
+                    case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints(), rpgPlayer.getSkillList().getUnlockedSkills());
+                    case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints(), rpgPlayer.getSkillList().getUnlockedSkills());
                     case SKILL_EQUIP_SLOT -> rpgPlayer.showSkillsGUI();
                 }
             } else {

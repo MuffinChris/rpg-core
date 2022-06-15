@@ -3,7 +3,7 @@ package dev.muffin.rpgcore.rpg.player;
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.rpg.skills.SkillList;
-import dev.muffin.rpgcore.rpg.skills.SkillTree;
+import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTree;
 import dev.muffin.rpgcore.rpg.skills.SkillsGUI;
 import dev.muffin.rpgcore.rpg.skills.casting.CastResponse;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
@@ -14,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
@@ -120,7 +119,9 @@ public class RPGPlayer {
         inventoryManager.restoreFromBottomInventory();
     }
 
+    //
     // Mediated Functions
+    //
 
     // GUI Related
     public void preloadFullGUI() {
@@ -135,7 +136,7 @@ public class RPGPlayer {
             getPlayer().closeInventory();
         }
         preloadFullGUI();
-        getSkillTree().openWarriorInventory(getPlayerClass().getRpgInfo().getSkillpoints());
+        getSkillTree().openWarriorInventory(getPlayerClass().getRpgInfo().getSkillpoints(), getSkillList().getUnlockedSkills());
     }
 
     public void unlockSkill(int skillSlot) {
