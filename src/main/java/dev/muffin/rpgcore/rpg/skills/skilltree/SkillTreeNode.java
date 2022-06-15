@@ -11,30 +11,36 @@ import java.util.List;
 
 import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
 
-public class SkillNode {
+public class SkillTreeNode {
 
     private final Skill skill;
-    private final List<SkillNode> requirements;
+    private final List<SkillTreeNode> requirements;
     private final int slot;
     private final List<PathItem> pathItems;
+    private final boolean unlocked;
 
-    public SkillNode(Skill skill, List<SkillNode> requirements, int slot, List<PathItem> pathItems) {
+    public SkillTreeNode(Skill skill, List<SkillTreeNode> requirements, int slot, List<PathItem> pathItems) {
         this.skill = skill;
         this.requirements = requirements;
         this.slot = slot;
         this.pathItems = pathItems;
+        unlocked = false;
     }
 
     public Skill getSkill() {
         return skill;
     }
 
-    public List<SkillNode> getRequirements() {
+    public List<SkillTreeNode> getRequirements() {
         return requirements;
     }
 
     public int getSlot() {
         return slot;
+    }
+
+    public boolean isUnlocked() {
+        return unlocked;
     }
 
     public boolean isUnlocked(List<Skill> unlockedSkills) {
@@ -60,7 +66,7 @@ public class SkillNode {
     }
 
     public boolean isUnlockable(List<Skill> unlockedSkills) {
-        for (SkillNode skillNode : requirements) {
+        for (SkillTreeNode skillNode : requirements) {
             if (!skillNode.isUnlocked(unlockedSkills)) {
                 return false;
             }

@@ -27,7 +27,7 @@ public class SkillTree {
     private final Player player;
     private Inventory currentInventory;
 
-    private final List<List<SkillNode>> warriorSkillTreePages;
+    private final List<List<SkillTreeNode>> warriorSkillTreePages;
 
     public SkillTree(Player player) {
         page = 1;
@@ -48,7 +48,7 @@ public class SkillTree {
     }
 
     private void generateWarriorSkillTree() {
-        SkillNode cleave = new SkillNode(
+        SkillTreeNode cleave = new SkillTreeNode(
                 Main.getInstance().getClassHandler().getWarrior().getSkillList().get(0),
                 new ArrayList<>(),
                 CLEAVE_SKILL_SLOT,
@@ -56,7 +56,7 @@ public class SkillTree {
         );
         warriorSkillTreePages.get(0).add(cleave);
 
-        SkillNode shatterstrike = new SkillNode(
+        SkillTreeNode shatterstrike = new SkillTreeNode(
                 Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1),
                 new ArrayList<>(List.of(cleave)),
                 SHATTERSTRIKE_SKILL_SLOT,
@@ -83,7 +83,7 @@ public class SkillTree {
     }
 
     private void openPage(List<Skill> unlockedSkills) {
-        for (SkillNode node : warriorSkillTreePages.get(page - 1)) {
+        for (SkillTreeNode node : warriorSkillTreePages.get(page - 1)) {
             node.loadSkillNodeItem(player, unlockedSkills);
             node.loadPaths(player, unlockedSkills);
         }
@@ -120,8 +120,8 @@ public class SkillTree {
     }
 
     private void unlockWarriorSkill(int skillSlot, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
-        SkillNode skillNodeToUnlock = null;
-        for (SkillNode skillNode : warriorSkillTreePages.get(page - 1)) {
+        SkillTreeNode skillNodeToUnlock = null;
+        for (SkillTreeNode skillNode : warriorSkillTreePages.get(page - 1)) {
             if (skillNode.getSlot() == skillSlot) {
                 skillNodeToUnlock = skillNode;
                 break;
@@ -132,7 +132,7 @@ public class SkillTree {
         }
     }
 
-    private void attemptUnlockSkill(SkillNode skillNode, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+    private void attemptUnlockSkill(SkillTreeNode skillNode, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
         if (unlockedSkills.contains(skillNode.getSkill())) {
             player.sendMessage(Component.text("Skill already unlocked", NamedTextColor.RED));
             return;
