@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.abstracts;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
@@ -73,10 +73,15 @@ public abstract class Skill extends Unlockable {
 
     public List<Component> getSkillDescription(Player caster) {
         List<String> description = getDescription(caster);
-        description.add("");
-        description.add("&7Mana Cost: &b" + DecimalFormats.noDecimals.format(getManaCost()) + " " + RPGSymbols.MANA_SYMBOL.content());
-        description.add("&7Cooldown: &f" + DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s");
-        description.add("");
+
+        if (this instanceof PassiveSkill) {
+            description.add("");
+        } else {
+            description.add("");
+            description.add("&7Mana Cost: &b" + DecimalFormats.noDecimals.format(getManaCost()) + " " + RPGSymbols.MANA_SYMBOL.content());
+            description.add("&7Cooldown: &f" + DecimalFormats.oneDecimalsZero.format(getCooldown()) + "s");
+            description.add("");
+        }
 
         if (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).contains(this)) {
             description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).indexOf(this) + 1) + "&7)");

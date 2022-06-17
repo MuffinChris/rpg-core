@@ -2,10 +2,11 @@ package dev.muffin.rpgcore.rpg.skills.skilltree;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
-import dev.muffin.rpgcore.rpg.skills.AugmentedSkill;
-import dev.muffin.rpgcore.rpg.skills.Skill;
-import dev.muffin.rpgcore.rpg.skills.StatShard;
-import dev.muffin.rpgcore.rpg.skills.Unlockable;
+import dev.muffin.rpgcore.rpg.skills.*;
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedPassiveSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Unlockable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
@@ -22,14 +23,12 @@ public class SkillTreeNode {
     private final List<SkillTreeNode> requirements;
     private final int slot;
     private final List<PathItem> pathItems;
-    private final boolean unlocked;
 
     public SkillTreeNode(Unlockable unlockable, List<SkillTreeNode> requirements, int slot, List<PathItem> pathItems) {
         this.unlockable = unlockable;
         this.requirements = requirements;
         this.slot = slot;
         this.pathItems = pathItems;
-        unlocked = false;
     }
 
     public Unlockable getUnlockable() {
@@ -44,16 +43,16 @@ public class SkillTreeNode {
         return slot;
     }
 
-    public boolean isUnlocked() {
-        return unlocked;
-    }
-
     public boolean isUnlocked(RPGPlayer rpgPlayer) {
 
         if (unlockable instanceof Skill skill) {
             for (Skill sk : rpgPlayer.getSkillList().getUnlockedSkills()) {
                 if (sk instanceof AugmentedSkill augmentedSkill) {
                     if (augmentedSkill.getToModify().equals(skill)) {
+                        return true;
+                    }
+                } else if (sk instanceof AugmentedPassiveSkill augmentedPassiveSkill) {
+                    if (augmentedPassiveSkill.getToModify().equals(skill)) {
                         return true;
                     }
                 }

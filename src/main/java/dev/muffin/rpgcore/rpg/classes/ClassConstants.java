@@ -1,11 +1,5 @@
 package dev.muffin.rpgcore.rpg.classes;
 
-import dev.muffin.rpgcore.rpg.skills.Skill;
-import dev.muffin.rpgcore.rpg.skills.warrior.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class ClassConstants {
 
     // Warrior

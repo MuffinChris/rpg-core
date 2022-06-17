@@ -1,11 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.skilltree;
 
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
-import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.utilities.GUIItems;
-import org.bukkit.entity.Player;
-
-import java.util.List;
 
 import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
 

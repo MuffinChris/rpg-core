@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.skillgui;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
@@ -16,7 +16,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.jetbrains.annotations.NotNull;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillsGUIConstants.*;
+import static dev.muffin.rpgcore.rpg.skills.skillgui.SkillsGUIConstants.*;
 
 public class SkillsGUIHandler implements CommandExecutor, Listener {
 

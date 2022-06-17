@@ -1,10 +1,10 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.skills.SkillList;
 import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTree;
-import dev.muffin.rpgcore.rpg.skills.SkillsGUI;
+import dev.muffin.rpgcore.rpg.skills.skillgui.SkillsGUI;
 import dev.muffin.rpgcore.rpg.skills.casting.CastResponse;
 import dev.muffin.rpgcore.rpg.skills.casting.SkillCaster;
 import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
@@ -32,6 +32,7 @@ public class RPGPlayer {
     private final SkillsGUI skillsGUI;
     private final SkillList skillList;
 
+
     private final InventoryManager inventoryManager;
 
     public RPGPlayer(Player p) {
@@ -44,7 +45,7 @@ public class RPGPlayer {
         inventoryManager = new InventoryManager(p);
         skillTree = new SkillTree(p);
         skillsGUI = new SkillsGUI(p);
-        skillList = new SkillList(new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
+        skillList = new SkillList(p, new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
     }
 
     /**
@@ -115,7 +116,9 @@ public class RPGPlayer {
      */
     public void close() {
         PluginLogger.getLogger().info("Closing RPGPlayer for " + getPlayer().getName());
+        skillList.getPassiveManager().close();
 
+        PluginLogger.getLogger().info("Restoring bottom Inventory if applicable for " + getPlayer().getName());
         inventoryManager.restoreFromBottomInventory();
     }
 

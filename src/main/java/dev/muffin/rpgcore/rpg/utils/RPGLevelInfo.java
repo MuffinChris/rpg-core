@@ -1,6 +1,5 @@
 package dev.muffin.rpgcore.rpg.utils;
 
-import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import net.kyori.adventure.text.Component;
@@ -10,8 +9,6 @@ import net.kyori.adventure.title.Title;
 import net.kyori.adventure.util.Ticks;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
-
-import java.util.List;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.MAX_LEVEL;
 

@@ -1,6 +1,8 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.skillgui;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.utilities.GUIItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -14,7 +16,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.List;
 
-import static dev.muffin.rpgcore.rpg.skills.SkillsGUIConstants.*;
+import static dev.muffin.rpgcore.rpg.skills.skillgui.SkillsGUIConstants.*;
 
 public class SkillsGUI {
 
@@ -88,9 +90,14 @@ public class SkillsGUI {
     public ItemStack generateSlotSelectSkillItem(Skill skill, int slot) {
         ItemStack item = GUIItems.generateSkillItem(skill, player, true);
         ItemMeta meta = item.getItemMeta();
-        meta.lore().add(Component.text(""));
-        meta.lore().add(Component.text("Click to equip to slot ", NamedTextColor.GRAY)
-                .append(Component.text(slot, NamedTextColor.WHITE)));
+        if (skill instanceof PassiveSkill) {
+            meta.lore().add(Component.text(""));
+            meta.lore().add(Component.text("Not Equippable (Passive)", NamedTextColor.DARK_GRAY));
+        } else {
+            meta.lore().add(Component.text(""));
+            meta.lore().add(Component.text("Click to equip to slot ", NamedTextColor.GRAY)
+                    .append(Component.text(slot, NamedTextColor.WHITE)));
+        }
         item.setItemMeta(meta);
         return item;
     }

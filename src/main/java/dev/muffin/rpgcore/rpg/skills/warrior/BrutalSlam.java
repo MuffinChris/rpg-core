@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
-import dev.muffin.rpgcore.rpg.skills.AugmentedSkill;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import org.bukkit.Sound;
 import org.bukkit.entity.Entity;
@@ -13,9 +13,9 @@ import java.util.List;
 
 import static dev.muffin.rpgcore.rpg.skills.warrior.WarriorSkillTextures.*;
 
-public class BluntForceSwing extends AugmentedSkill {
-    public BluntForceSwing(Skill toModify) {
-        super(toModify,"Blunt Force Swing", 8.0, 35, 1, 3,
+public class BrutalSlam extends AugmentedSkill {
+    public BrutalSlam(Skill toModify) {
+        super(toModify,"Brutal Slam", 8.0, 35, 1, 3,
                 CLEAVE_TEXTURE_UNLOCKED, CLEAVE_TEXTURE_UNLOCKABLE, CLEAVE_TEXTURE_LOCKED);
     }
 

@@ -1,8 +1,9 @@
 package dev.muffin.rpgcore.utilities;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
-import dev.muffin.rpgcore.rpg.skills.AugmentedSkill;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
@@ -52,9 +53,11 @@ public class GUIItems {
 
     public static ItemStack generateSkillItem(Skill skill, Player p, boolean unlockable) {
         Component itemName;
-        if (skill instanceof AugmentedSkill augmentedSkill) {
+        if (skill instanceof PassiveSkill) {
+            itemName = Component.text("Passive: " + skill.getSkillName(), NamedTextColor.GOLD);
+        } else if (skill instanceof AugmentedSkill) {
         //    itemName = Component.text(augmentedSkill.getToModify().getSkillName() +  " Augment: " + skill.getSkillName(), NamedTextColor.GOLD);
-            itemName = Component.text("Skill: " + skill.getSkillName(), NamedTextColor.GOLD);
+            itemName = Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW);
         } else {
             itemName = Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW);
         }

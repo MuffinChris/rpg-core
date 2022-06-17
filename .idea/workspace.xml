@@ -5,32 +5,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/AugmentedSkill.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/StatShard.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Unlockable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/BluntForceSwing.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/RPGStatShard.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/PassiveManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/abstracts/AugmentedPassiveSkill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/abstracts/PassiveSkill.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Fortitude.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Resistance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/ClassConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/ClassConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/ClassHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/ClassHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/RPGClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/RPGClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/Warrior.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/classes/Warrior.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/PlayerClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerHealthDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerHealthDisplayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerRespawnHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerRespawnHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Skill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/AugmentedSkill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/abstracts/AugmentedSkill.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Skill.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/abstracts/Skill.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillList.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skillgui/SkillsGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skillgui/SkillsGUIConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/SkillsGUIHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skillgui/SkillsGUIHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/StatShard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/StatShard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/Unlockable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/abstracts/Unlockable.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/CooldownManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/CooldownManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillCaster.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillCaster.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/Skillbar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/Skillbar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillbarListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/SkillbarListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/PathItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/PathItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTree.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTree.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeConstants.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/skilltree/SkillTreeNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/RPGStats.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/RPGStats.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/constants/RPGSymbols.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/constants/RPGSymbols.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/BluntForceSwing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/BrutalSlam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Cleave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Cleave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Shatterstrike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/warrior/Shatterstrike.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/RPGLevelInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/utils/RPGLevelInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/utilities/GUIItems.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/utilities/GUIItems.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -3,11 +3,8 @@ package dev.muffin.rpgcore.rpg.skills.skilltree;
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
-import dev.muffin.rpgcore.rpg.skills.Skill;
-import dev.muffin.rpgcore.rpg.skills.SkillList;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.skills.StatShard;
-import dev.muffin.rpgcore.rpg.skills.Unlockable;
-import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStatShard;
 import dev.muffin.rpgcore.utilities.GUIItems;
 import net.kyori.adventure.text.Component;
@@ -61,6 +58,22 @@ public class SkillTree {
         );
         warriorSkillTreePages.get(0).add(cleave);
 
+        SkillTreeNode resistance = new SkillTreeNode(
+                Main.getInstance().getClassHandler().getWarrior().getPassiveList().get(0),
+                new ArrayList<>(List.of(cleave)),
+                15,
+                new ArrayList<>(List.of(new PathItem(PathDirection.RIGHT, 14, cleave)))
+        );
+        warriorSkillTreePages.get(0).add(resistance);
+
+        SkillTreeNode fortitude = new SkillTreeNode(
+                Main.getInstance().getClassHandler().getWarrior().getModifiedPassiveList().get(0),
+                new ArrayList<>(List.of(resistance)),
+                33,
+                new ArrayList<>(List.of(new PathItem(PathDirection.DOWN, 24, resistance)))
+        );
+        warriorSkillTreePages.get(0).add(fortitude);
+
         SkillTreeNode shatterstrike = new SkillTreeNode(
                 Main.getInstance().getClassHandler().getWarrior().getSkillList().get(1),
                 new ArrayList<>(List.of(cleave)),
@@ -79,13 +92,13 @@ public class SkillTree {
         );
         warriorSkillTreePages.get(0).add(statUpgrade);
 
-        SkillTreeNode bluntForceSwing = new SkillTreeNode(
+        SkillTreeNode brutalSlam = new SkillTreeNode(
                 Main.getInstance().getClassHandler().getWarrior().getModifiedSkillList().get(0),
                 new ArrayList<>(List.of(shatterstrike)),
-                BLUNTFORCESWING_SKILL_SLOT,
+                BRUTALSLAM_SKILL_SLOT,
                 new ArrayList<>(List.of(new PathItem(PathDirection.DOWN, 40, shatterstrike)))
         );
-        warriorSkillTreePages.get(0).add(bluntForceSwing);
+        warriorSkillTreePages.get(0).add(brutalSlam);
     }
 
     public void openWarriorInventory(RPGPlayer rpgPlayer) {

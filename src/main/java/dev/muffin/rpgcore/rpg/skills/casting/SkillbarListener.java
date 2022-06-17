@@ -2,11 +2,9 @@ package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
-import dev.muffin.rpgcore.rpg.skills.SkillsGUIConstants;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGConstants;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerItemHeldEvent;

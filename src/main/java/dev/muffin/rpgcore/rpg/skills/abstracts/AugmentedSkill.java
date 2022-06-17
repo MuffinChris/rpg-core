@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.abstracts;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
 import net.kyori.adventure.text.Component;

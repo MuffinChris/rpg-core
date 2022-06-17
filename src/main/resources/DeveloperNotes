@@ -1,7 +1,6 @@
 Current Todo:
 
-Class "Upgrades", stat shards or whatnot. Need to make skilltree nodes accept upgrades and function off unlocked variable?
-Or function off just checking list of unlocked upgrades
+PassiveSkill
 
 Swapping Classes change level / stats
 SkillTree different classes
@@ -11,6 +10,9 @@ no damage ticks important for skill damage
 
 - Make new classes for new types of abilities, ie toggle
 - Not all skills are castable. Some are passives. Design smartly (you dont need many castables to have a fun class)
+
+GUI
+- Save to database last inventory just incase
 
 General
 - Sound design very important (ie book flipping noise when GUI pages, or playing noise when mobs spawn in dungeon thematically)

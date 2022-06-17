@@ -1,5 +1,10 @@
 package dev.muffin.rpgcore.rpg.skills;
 
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedPassiveSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
+import dev.muffin.rpgcore.rpg.skills.skillgui.SkillsGUIConstants;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
@@ -12,10 +17,16 @@ public class SkillList {
 
     private final Skill[] skillList;
     private final List<Skill> unlockedSkills;
+    private final PassiveManager passiveManager;
 
-    public SkillList(Skill[] skillList, List<Skill> unlockedSkills) {
+    public SkillList(Player p, Skill[] skillList, List<Skill> unlockedSkills) {
         this.skillList = skillList;
         this.unlockedSkills = unlockedSkills;
+        passiveManager = new PassiveManager(p);
+    }
+
+    public PassiveManager getPassiveManager() {
+        return passiveManager;
     }
 
     public Skill[] getEquippedSkills() {
@@ -26,34 +37,38 @@ public class SkillList {
         return unlockedSkills;
     }
 
+    public void sortSkillList() {
+        unlockedSkills.sort((s2, s1) -> Double.compare(s2.getCooldown(), s1.getCooldown()));
+    }
+
 
     /**
      * Add a skill. If it's a modified skill, replace the skill it replaces. Relies on SkillTree proper design
      * @param skill the skill
      */
     public void addSkill(Skill skill) {
-        if (skill instanceof AugmentedSkill modifiedSkill) {
-            for (int i = unlockedSkills.size() - 1; i >= 0; i--) {
-                if (unlockedSkills.get(i).equals(modifiedSkill.getToModify())) {
-                    unlockedSkills.set(i, modifiedSkill);
-                    if (Arrays.asList(skillList).contains(modifiedSkill.getToModify())) {
-                        for (int z = 0; z < skillList.length; z++) {
-                            if (skillList[z] == modifiedSkill.getToModify()) {
-                                skillList[z] = modifiedSkill;
-                            }
-                        }
+        if (skill instanceof AugmentedPassiveSkill augmentedPassiveSkill) {
+            unlockedSkills.set(unlockedSkills.indexOf(augmentedPassiveSkill.getToModify()), augmentedPassiveSkill);
+            passiveManager.removePassive(augmentedPassiveSkill.getToModify());
+            passiveManager.addPassive(augmentedPassiveSkill);
+        } else if (skill instanceof PassiveSkill passiveSkill) {
+            unlockedSkills.add(passiveSkill);
+            passiveManager.addPassive(passiveSkill);
+        } else if (skill instanceof AugmentedSkill augmentedSkill) {
+            unlockedSkills.set(unlockedSkills.indexOf(augmentedSkill.getToModify()), augmentedSkill);
+            if (Arrays.asList(skillList).contains(augmentedSkill.getToModify())) {
+                for (int z = 0; z < skillList.length; z++) {
+                    if (skillList[z] == augmentedSkill.getToModify()) {
+                        skillList[z] = augmentedSkill;
                     }
-                    break;
                 }
             }
         } else {
             unlockedSkills.add(skill);
         }
-        //unlockedSkills.add(skill);
-    }
 
-    public void removeSkill(Skill skill) {
-        unlockedSkills.remove(skill);
+        sortSkillList();
+        //unlockedSkills.add(skill);
     }
 
     public void equipSkill(Player player, int slotToEquip, int slot) {
@@ -65,6 +80,11 @@ public class SkillList {
         } else if (slot >= unlockedSkills.size()) {
             return;
         }
+        if (unlockedSkills.get(slot) instanceof PassiveSkill) {
+            player.sendMessage(Component.text("Can't equip a Passive", NamedTextColor.RED));
+            return;
+        }
+
         if (Arrays.asList(skillList).contains(unlockedSkills.get(slot))) {
             skillList[Arrays.asList(skillList).indexOf(unlockedSkills.get(slot))] = null;
         }

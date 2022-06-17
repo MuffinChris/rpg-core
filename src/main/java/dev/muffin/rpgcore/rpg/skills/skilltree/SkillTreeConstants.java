@@ -29,7 +29,7 @@ public class SkillTreeConstants {
 
     public static final int SHATTERSTRIKE_SKILL_SLOT = 31;
 
-    public static final int BLUNTFORCESWING_SKILL_SLOT = 49;
+    public static final int BRUTALSLAM_SKILL_SLOT = 49;
 
 
     public static final int WARRIOR_MAX_PAGE = 2;

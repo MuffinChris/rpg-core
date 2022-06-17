@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

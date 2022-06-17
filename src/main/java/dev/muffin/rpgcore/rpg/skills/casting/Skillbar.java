@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.chat.utils.ChatColor;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
@@ -9,8 +9,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 public class Skillbar {

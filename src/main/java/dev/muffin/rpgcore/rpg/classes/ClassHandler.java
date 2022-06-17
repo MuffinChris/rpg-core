@@ -1,12 +1,8 @@
 package dev.muffin.rpgcore.rpg.classes;
 
-import dev.muffin.rpgcore.rpg.skills.Skill;
-import dev.muffin.rpgcore.rpg.skills.warrior.BluntForceSwing;
-import dev.muffin.rpgcore.rpg.skills.warrior.Cleave;
-import dev.muffin.rpgcore.rpg.skills.warrior.Shatterstrike;
+import dev.muffin.rpgcore.rpg.skills.warrior.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ClassHandler {
@@ -14,10 +10,13 @@ public class ClassHandler {
 
     public ClassHandler() {
 
+        Resistance resistance = new Resistance();
+        Fortitude fortitude = new Fortitude(resistance);
         Cleave cleave = new Cleave();
         Shatterstrike shatterstrike = new Shatterstrike();
-        BluntForceSwing bluntForceSwing = new BluntForceSwing(cleave);
-        warrior = new Warrior(new ArrayList<>(List.of(cleave, shatterstrike)), new ArrayList<>(List.of(bluntForceSwing)));
+        BrutalSlam bluntForceSwing = new BrutalSlam(cleave);
+        warrior = new Warrior(new ArrayList<>(List.of(cleave, shatterstrike)), new ArrayList<>(List.of(bluntForceSwing)),
+                new ArrayList<>(List.of(resistance)), new ArrayList<>(List.of(fortitude)));
     }
 
     public RPGClass getWarrior() {

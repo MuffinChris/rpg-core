@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.abstracts;
 
 import org.bukkit.entity.Player;
 

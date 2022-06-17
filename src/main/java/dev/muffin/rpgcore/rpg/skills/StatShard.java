@@ -2,6 +2,7 @@ package dev.muffin.rpgcore.rpg.skills;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.player.RPGPlayer;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Unlockable;
 import dev.muffin.rpgcore.rpg.utils.RPGStatShard;
 import org.bukkit.entity.Player;
 

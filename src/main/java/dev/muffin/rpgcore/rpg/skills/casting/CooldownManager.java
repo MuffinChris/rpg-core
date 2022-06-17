@@ -1,7 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
-import dev.muffin.rpgcore.rpg.skills.Skill;
-import org.bukkit.Bukkit;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 
 import java.util.ArrayList;
 import java.util.HashMap;

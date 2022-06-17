@@ -1,7 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.rpg.player.PlayerClass;
-import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import org.bukkit.entity.Player;
 
 public class SkillCaster {

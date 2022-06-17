@@ -1,4 +1,4 @@
-package dev.muffin.rpgcore.rpg.skills;
+package dev.muffin.rpgcore.rpg.skills.skillgui;
 
 public class SkillsGUIConstants {
 
@@ -8,7 +8,7 @@ public class SkillsGUIConstants {
 
     public static final int UNEQUIP_SLOT = 26;
 
-    public static final int SKILLTREE_SLOT = 10;
+    public static final int SKILLTREE_SLOT = 9;
     public static final int SKILL_ONE_SLOT = 11;
     public static final int SKILL_TWO_SLOT = 12;
     public static final int SKILL_THREE_SLOT = 13;
