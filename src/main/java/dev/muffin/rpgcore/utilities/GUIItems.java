@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.utilities;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.skills.AugmentedSkill;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -49,12 +50,20 @@ public class GUIItems {
         return item;
     }
 
-    public static ItemStack generateSkillItem(Skill skill, Player p) {
+    public static ItemStack generateSkillItem(Skill skill, Player p, boolean unlockable) {
+        Component itemName;
+        if (skill instanceof AugmentedSkill augmentedSkill) {
+        //    itemName = Component.text(augmentedSkill.getToModify().getSkillName() +  " Augment: " + skill.getSkillName(), NamedTextColor.GOLD);
+            itemName = Component.text("Skill: " + skill.getSkillName(), NamedTextColor.GOLD);
+        } else {
+            itemName = Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW);
+        }
+
         ItemStack item = generateItem(Material.EMERALD,
-                Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW),
+                itemName,
                 skill.getSkillDescription(p));
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(skill.getTexture(p, true));
+        meta.setCustomModelData(skill.getTexture(p, unlockable));
         item.setItemMeta(meta);
         return item;
     }

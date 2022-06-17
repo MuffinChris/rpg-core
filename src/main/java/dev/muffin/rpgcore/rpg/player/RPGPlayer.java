@@ -136,11 +136,11 @@ public class RPGPlayer {
             getPlayer().closeInventory();
         }
         preloadFullGUI();
-        getSkillTree().openWarriorInventory(getPlayerClass().getRpgInfo().getSkillpoints(), getSkillList().getUnlockedSkills());
+        getSkillTree().openWarriorInventory(this);
     }
 
     public void unlockSkill(int skillSlot) {
-        getSkillTree().unlockSkill(skillSlot, skillList.getUnlockedSkills(), playerClass.getRpgInfo());
+        getSkillTree().unlockSkill(skillSlot, this);
     }
 
     // Skills GUI
@@ -173,7 +173,7 @@ public class RPGPlayer {
     }
 
     public void updateSkillbar() {
-        skillbar.updateSkillbar(getCastableSkills(), skillCaster.getCooldownManager(), getPlayerClass().getStats().getMana());
+        skillbar.updateSkillbar(getCastableSkills(), skillCaster.getCooldownManager(), getPlayerClass().getCurrentStats().getMana());
     }
 
     // Skill Related

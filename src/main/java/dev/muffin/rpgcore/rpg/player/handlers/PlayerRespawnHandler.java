@@ -11,7 +11,7 @@ public class PlayerRespawnHandler implements Listener {
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e) {
         RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(e.getPlayer());
-        rpgPlayer.getPlayerClass().getStats().setMana(0);
+        rpgPlayer.getPlayerClass().getCurrentStats().setMana(0);
     }
 
 }

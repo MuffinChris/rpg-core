@@ -26,6 +26,36 @@ public class SkillList {
         return unlockedSkills;
     }
 
+
+    /**
+     * Add a skill. If it's a modified skill, replace the skill it replaces. Relies on SkillTree proper design
+     * @param skill the skill
+     */
+    public void addSkill(Skill skill) {
+        if (skill instanceof AugmentedSkill modifiedSkill) {
+            for (int i = unlockedSkills.size() - 1; i >= 0; i--) {
+                if (unlockedSkills.get(i).equals(modifiedSkill.getToModify())) {
+                    unlockedSkills.set(i, modifiedSkill);
+                    if (Arrays.asList(skillList).contains(modifiedSkill.getToModify())) {
+                        for (int z = 0; z < skillList.length; z++) {
+                            if (skillList[z] == modifiedSkill.getToModify()) {
+                                skillList[z] = modifiedSkill;
+                            }
+                        }
+                    }
+                    break;
+                }
+            }
+        } else {
+            unlockedSkills.add(skill);
+        }
+        //unlockedSkills.add(skill);
+    }
+
+    public void removeSkill(Skill skill) {
+        unlockedSkills.remove(skill);
+    }
+
     public void equipSkill(Player player, int slotToEquip, int slot) {
         if (slot == SkillsGUIConstants.UNEQUIP_SLOT) {
             skillList[slotToEquip - 1] = null;

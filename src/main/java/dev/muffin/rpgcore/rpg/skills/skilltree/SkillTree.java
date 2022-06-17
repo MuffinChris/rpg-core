@@ -2,8 +2,13 @@ package dev.muffin.rpgcore.rpg.skills.skilltree;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.SkillList;
+import dev.muffin.rpgcore.rpg.skills.StatShard;
+import dev.muffin.rpgcore.rpg.skills.Unlockable;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
+import dev.muffin.rpgcore.rpg.utils.RPGStatShard;
 import dev.muffin.rpgcore.utilities.GUIItems;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -63,29 +68,47 @@ public class SkillTree {
                 new ArrayList<>(List.of(new PathItem(PathDirection.DOWN, CLEAVE_SHATTERSTIKE_PATH_SLOT, cleave)))
         );
         warriorSkillTreePages.get(0).add(shatterstrike);
+
+        SkillTreeNode statUpgrade = new SkillTreeNode(
+                new StatShard("Stat Shard", 1,
+                        new RPGStatShard(10, 0, 0, 5, 0),
+                        STAT_SHARD_TEXTURE, STAT_SHARD_TEXTURE),
+                new ArrayList<>(List.of(shatterstrike)),
+                29,
+                new ArrayList<>(List.of(new PathItem(PathDirection.LEFT, 30, shatterstrike)))
+        );
+        warriorSkillTreePages.get(0).add(statUpgrade);
+
+        SkillTreeNode bluntForceSwing = new SkillTreeNode(
+                Main.getInstance().getClassHandler().getWarrior().getModifiedSkillList().get(0),
+                new ArrayList<>(List.of(shatterstrike)),
+                BLUNTFORCESWING_SKILL_SLOT,
+                new ArrayList<>(List.of(new PathItem(PathDirection.DOWN, 40, shatterstrike)))
+        );
+        warriorSkillTreePages.get(0).add(bluntForceSwing);
     }
 
-    public void openWarriorInventory(int skillpoints, List<Skill> unlockedSkills) {
+    public void openWarriorInventory(RPGPlayer rpgPlayer) {
         currentInventory = warriorInventory;
         player.openInventory(warriorInventory);
-        setWarriorInventory(skillpoints, unlockedSkills);
+        setWarriorInventory(rpgPlayer);
     }
 
-    private void setWarriorInventory(int skillpoints, List<Skill> unlockedSkills) {
+    private void setWarriorInventory(RPGPlayer rpgPlayer) {
         Inventory topInventory = player.getOpenInventory().getTopInventory();
         if (page == 1) {
             topInventory.setItem(4, getWarriorDescriptionItem());
         } else if (page == 2) {
             topInventory.setItem(4, getWarriorDescriptionItem());
         }
-        openPage(unlockedSkills);
-        setBottomInventory(skillpoints);
+        openPage(rpgPlayer);
+        setBottomInventory(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints());
     }
 
-    private void openPage(List<Skill> unlockedSkills) {
+    private void openPage(RPGPlayer rpgPlayer) {
         for (SkillTreeNode node : warriorSkillTreePages.get(page - 1)) {
-            node.loadSkillNodeItem(player, unlockedSkills);
-            node.loadPaths(player, unlockedSkills);
+            node.loadNodeItem(rpgPlayer);
+            node.loadPaths(rpgPlayer);
         }
     }
 
@@ -96,30 +119,30 @@ public class SkillTree {
         player.getInventory().setItem(SKILL_EQUIP_SLOT, getSkillEquipItem());
     }
 
-    public void refreshInventory(int skillpoints, List<Skill> unlockedSkills) {
+    public void refreshInventory(RPGPlayer rpgPlayer) {
         if (currentInventory.equals(warriorInventory)) {
             player.getOpenInventory().getTopInventory().clear();
-            setWarriorInventory(skillpoints, unlockedSkills);
+            setWarriorInventory(rpgPlayer);
         }
     }
 
-    public void pageDown(int skillpoints, List<Skill> unlockedSkills) {
+    public void pageDown(RPGPlayer rpgPlayer) {
         page = Math.min(WARRIOR_MAX_PAGE, page + 1);
-        refreshInventory(skillpoints, unlockedSkills);
+        refreshInventory(rpgPlayer);
     }
 
-    public void pageUp(int skillpoints, List<Skill> unlockedSkills) {
+    public void pageUp(RPGPlayer rpgPlayer) {
         page = Math.max(1, page - 1);
-        refreshInventory(skillpoints, unlockedSkills);
+        refreshInventory(rpgPlayer);
     }
 
-    public void unlockSkill(int skillSlot, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+    public void unlockSkill(int skillSlot, RPGPlayer rpgPlayer) {
         if (warriorInventory.equals(currentInventory)) {
-            unlockWarriorSkill(skillSlot, unlockedSkills, rpgInfo);
+            unlockWarriorSkill(skillSlot, rpgPlayer);
         }
     }
 
-    private void unlockWarriorSkill(int skillSlot, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
+    private void unlockWarriorSkill(int skillSlot, RPGPlayer rpgPlayer) {
         SkillTreeNode skillNodeToUnlock = null;
         for (SkillTreeNode skillNode : warriorSkillTreePages.get(page - 1)) {
             if (skillNode.getSlot() == skillSlot) {
@@ -128,30 +151,45 @@ public class SkillTree {
             }
         }
         if (skillNodeToUnlock != null) {
-            attemptUnlockSkill(skillNodeToUnlock, unlockedSkills, rpgInfo);
+            attemptUnlockSkill(skillNodeToUnlock, rpgPlayer);
         }
     }
 
-    private void attemptUnlockSkill(SkillTreeNode skillNode, List<Skill> unlockedSkills, RPGLevelInfo rpgInfo) {
-        if (unlockedSkills.contains(skillNode.getSkill())) {
-            player.sendMessage(Component.text("Skill already unlocked", NamedTextColor.RED));
+    private void attemptUnlockSkill(SkillTreeNode skillNode, RPGPlayer rpgPlayer) {
+
+        if (skillNode.getUnlockable() instanceof Skill skill) {
+            if (rpgPlayer.getSkillList().getUnlockedSkills().contains(skill)) {
+                player.sendMessage(Component.text("Skill already unlocked", NamedTextColor.RED));
+                return;
+            }
+        } else if (skillNode.getUnlockable() instanceof StatShard shard) {
+            if (rpgPlayer.getPlayerClass().hasStatShard(shard)) {
+                player.sendMessage(Component.text("Shard already unlocked", NamedTextColor.RED));
+                return;
+            }
+        }
+
+        if (!skillNode.isUnlockable(rpgPlayer)) {
+            player.sendMessage(Component.text("Requirements not met", NamedTextColor.RED));
             return;
         }
-        if (!skillNode.isUnlockable(unlockedSkills)) {
-            player.sendMessage(Component.text("Skill requirements not met, unlock the previous skills!", NamedTextColor.RED));
-            return;
-        }
-        if (rpgInfo.getSkillpoints() < skillNode.getSkill().getSkillpointCost()) {
+
+        if (rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints() < skillNode.getUnlockable().getSkillpointCost()) {
             player.sendMessage(Component.text("Not enough skillpoints", NamedTextColor.RED));
             return;
         }
 
-        rpgInfo.setSkillpoints(rpgInfo.getSkillpoints() - skillNode.getSkill().getSkillpointCost());
-        unlockedSkills.add(skillNode.getSkill());
-        player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
-        player.sendMessage(Component.text("Unlocked " + skillNode.getSkill().getSkillName(), NamedTextColor.GREEN));
+        rpgPlayer.getPlayerClass().getRpgInfo().setSkillpoints(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints() - skillNode.getUnlockable().getSkillpointCost());
 
-        refreshInventory(rpgInfo.getSkillpoints(), unlockedSkills);
+        if (skillNode.getUnlockable() instanceof Skill skill) {
+            rpgPlayer.getSkillList().addSkill(skill);
+        } else if (skillNode.getUnlockable() instanceof StatShard shard) {
+            rpgPlayer.getPlayerClass().addRPGStats(shard);
+        }
+        player.playSound(player, Sound.ENTITY_PLAYER_LEVELUP, 1.0F, 1.0F);
+        player.sendMessage(Component.text("Unlocked " + skillNode.getUnlockable().getName(), NamedTextColor.GREEN));
+
+        refreshInventory(rpgPlayer);
     }
 
     public ItemStack getSkillpointCountItem(int skillpoints) {

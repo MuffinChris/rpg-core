@@ -9,6 +9,8 @@ public class RPGSymbols {
     // Generic Symbols
     public static final TextComponent HEART_SYMBOL = Component.text().content("❤").color(NamedTextColor.RED).build();
     public static final TextComponent MANA_SYMBOL = Component.text().content("✦").color(NamedTextColor.AQUA).build();
+    public static final TextComponent ARMOR_SYMBOL = Component.text().content("⛨").color(NamedTextColor.GOLD).build();
+    public static final TextComponent MAGIC_RESIST_SYMBOL = Component.text().content("⛨").color(NamedTextColor.BLUE).build();
 
     // Generic Damage Symbols (rarely used)
     public static final TextComponent PHYSICAL_DAMAGE = HEART_SYMBOL;

@@ -58,7 +58,7 @@ public class PlayerHealthDisplayer implements Listener {
         RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(p);
 
         String hp = DecimalFormats.noDecimals.format(p.getHealth());
-        String mana = DecimalFormats.noDecimals.format(rpgPlayer.getPlayerClass().getStats().getMana());
+        String mana = DecimalFormats.noDecimals.format(rpgPlayer.getPlayerClass().getCurrentStats().getMana());
 
         String x = DecimalFormats.noDecimals.format(p.getLocation().getX());
         String direction = DirectionParser.yawToString(p.getLocation().getYaw());

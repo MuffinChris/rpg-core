@@ -86,7 +86,7 @@ public class SkillsGUI {
     }
 
     public ItemStack generateSlotSelectSkillItem(Skill skill, int slot) {
-        ItemStack item = GUIItems.generateSkillItem(skill, player);
+        ItemStack item = GUIItems.generateSkillItem(skill, player, true);
         ItemMeta meta = item.getItemMeta();
         meta.lore().add(Component.text(""));
         meta.lore().add(Component.text("Click to equip to slot ", NamedTextColor.GRAY)
@@ -97,7 +97,7 @@ public class SkillsGUI {
 
     public ItemStack getSkill(Skill[] skillList, int slot) {
         if (skillList[slot - 1] != null) {
-            return GUIItems.generateSkillItem(skillList[slot - 1], player);
+            return GUIItems.generateSkillItem(skillList[slot - 1], player, true);
         } else {
             return getUnequipped(slot);
         }

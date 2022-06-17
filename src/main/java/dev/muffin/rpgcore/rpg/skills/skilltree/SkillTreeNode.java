@@ -1,34 +1,39 @@
 package dev.muffin.rpgcore.rpg.skills.skilltree;
 
+import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
+import dev.muffin.rpgcore.rpg.skills.AugmentedSkill;
 import dev.muffin.rpgcore.rpg.skills.Skill;
+import dev.muffin.rpgcore.rpg.skills.StatShard;
+import dev.muffin.rpgcore.rpg.skills.Unlockable;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
 
 import static dev.muffin.rpgcore.utilities.GUIItems.generateItem;
+import static dev.muffin.rpgcore.utilities.GUIItems.generateSkillItem;
 
 public class SkillTreeNode {
 
-    private final Skill skill;
+    private final Unlockable unlockable;
     private final List<SkillTreeNode> requirements;
     private final int slot;
     private final List<PathItem> pathItems;
     private final boolean unlocked;
 
-    public SkillTreeNode(Skill skill, List<SkillTreeNode> requirements, int slot, List<PathItem> pathItems) {
-        this.skill = skill;
+    public SkillTreeNode(Unlockable unlockable, List<SkillTreeNode> requirements, int slot, List<PathItem> pathItems) {
+        this.unlockable = unlockable;
         this.requirements = requirements;
         this.slot = slot;
         this.pathItems = pathItems;
         unlocked = false;
     }
 
-    public Skill getSkill() {
-        return skill;
+    public Unlockable getUnlockable() {
+        return unlockable;
     }
 
     public List<SkillTreeNode> getRequirements() {
@@ -43,31 +48,57 @@ public class SkillTreeNode {
         return unlocked;
     }
 
-    public boolean isUnlocked(List<Skill> unlockedSkills) {
-        return unlockedSkills.contains(skill);
+    public boolean isUnlocked(RPGPlayer rpgPlayer) {
+
+        if (unlockable instanceof Skill skill) {
+            for (Skill sk : rpgPlayer.getSkillList().getUnlockedSkills()) {
+                if (sk instanceof AugmentedSkill augmentedSkill) {
+                    if (augmentedSkill.getToModify().equals(skill)) {
+                        return true;
+                    }
+                }
+            }
+            return rpgPlayer.getSkillList().getUnlockedSkills().contains(skill);
+        }
+
+        if (unlockable instanceof StatShard shard) {
+            return rpgPlayer.getPlayerClass().hasStatShard(shard);
+        }
+
+        return false;
     }
 
     public List<PathItem> getPathItems() {
         return pathItems;
     }
 
-    public void loadSkillNodeItem(Player p, List<Skill> unlockedSkills) {
-        ItemStack item = generateItem(Material.EMERALD,
-                Component.text("Skill: " + skill.getSkillName(), NamedTextColor.YELLOW),
-                skill.getSkillDescription(p), skill.getTexture(p, isUnlockable(unlockedSkills)));
-        p.getOpenInventory().getTopInventory().setItem(slot, item);
-    }
+    public void loadNodeItem(RPGPlayer rpgPlayer) {
+        if (unlockable instanceof Skill skill) {
+            ItemStack item = generateSkillItem(skill, rpgPlayer.getPlayer(), isUnlockable(rpgPlayer));
+            rpgPlayer.getPlayer().getOpenInventory().getTopInventory().setItem(slot, item);
+            return;
+        }
 
-    // Not all paths are on if unlocked. Path only on if successor is unlocked. Thus successor will call loadPaths
-    public void loadPaths(Player p, List<Skill> unlockedSkills) {
-        for (PathItem pathItem : pathItems) {
-            pathItem.loadItem(this, p, unlockedSkills);
+        if (unlockable instanceof StatShard shard) {
+            ItemStack item = generateItem(Material.EMERALD,
+                    Component.text("Stat Shard", NamedTextColor.YELLOW),
+                    ComponentConverter.getComponentListFromStringList(shard.getDescription(rpgPlayer.getPlayer())), shard.getTexture(rpgPlayer)
+                    );
+            rpgPlayer.getPlayer().getOpenInventory().getTopInventory().setItem(slot, item);
+            return;
         }
     }
 
-    public boolean isUnlockable(List<Skill> unlockedSkills) {
+    // Not all paths are on if unlocked. Path only on if successor is unlocked. Thus successor will call loadPaths
+    public void loadPaths(RPGPlayer rpgPlayer) {
+        for (PathItem pathItem : pathItems) {
+            pathItem.loadItem(this, rpgPlayer);
+        }
+    }
+
+    public boolean isUnlockable(RPGPlayer rpgPlayer) {
         for (SkillTreeNode skillNode : requirements) {
-            if (!skillNode.isUnlocked(unlockedSkills)) {
+            if (!skillNode.isUnlocked(rpgPlayer)) {
                 return false;
             }
         }

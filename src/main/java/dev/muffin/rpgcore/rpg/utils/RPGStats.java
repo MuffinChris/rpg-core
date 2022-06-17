@@ -10,7 +10,6 @@ public class RPGStats {
         this.armor = armor;
         this.magicResist = magicResist;
     }
-
     public double getMana() {
         return mana;
     }
@@ -33,5 +32,9 @@ public class RPGStats {
 
     public void setMagicResist(double magicResist) {
         this.magicResist = magicResist;
+    }
+
+    public String toString() {
+        return "TODO";
     }
 }

@@ -10,35 +10,30 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class Skill {
-    private final String skillName;
+public abstract class Skill extends Unlockable {
     private final double cooldown;
 
     private final double manaCost;
 
     // technically useless if using skillpoints
     private final int levelRequirement;
-    private final int skillpointCost;
     private final int unlockedTexture;
     private final int unlockableTexture;
     private final int lockedTexture;
 
     public Skill(String skillName, double cooldown, double manaCost, int levelRequirement, int skillpointCost, int unlockedTexture, int unlockableTexture, int lockedTexture) {
-        this.skillName = skillName;
+        super(skillName, skillpointCost);
         this.cooldown = cooldown;
         this.manaCost = manaCost;
         this.levelRequirement = levelRequirement;
-        this.skillpointCost = skillpointCost;
         this.unlockedTexture = unlockedTexture;
         this.unlockableTexture = unlockableTexture;
         this.lockedTexture = lockedTexture;
     }
 
     public String getSkillName() {
-        return skillName;
+        return getName();
     }
-
-    public abstract List<String> getDescription(Player caster);
 
     public double getCooldown() {
         return cooldown;
@@ -50,10 +45,6 @@ public abstract class Skill {
 
     public int getLevelRequirement() {
         return levelRequirement;
-    }
-
-    public int getSkillpointCost() {
-        return skillpointCost;
     }
 
     public int getUnlockedTexture() {

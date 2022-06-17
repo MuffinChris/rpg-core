@@ -2,12 +2,15 @@ package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.rpg.archetypes.Archetype;
 import dev.muffin.rpgcore.rpg.classes.RPGClass;
+import dev.muffin.rpgcore.rpg.skills.StatShard;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.rpg.utils.RPGStats;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.HEALTH_SCALE;
@@ -18,7 +21,8 @@ import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.HEALTH_SCALE;
 public class PlayerClass {
 
     // Stats
-    private RPGStats stats;
+    private final RPGStats currentStats;
+    private final List<StatShard> rpgStatShards;
     private final RPGLevelInfo rpgInfo;
 
     // Class Info
@@ -31,14 +35,16 @@ public class PlayerClass {
         this.player = player;
         this.rpgClass = rpgClass;
         this.rpgInfo = rpgInfo;
-        stats = new RPGStats(0, 0, 0);
+        currentStats = new RPGStats(0, 0, 0);
+
+        rpgStatShards = new ArrayList<>();
 
         player.setHealthScale(HEALTH_SCALE);
         updateStats();
     }
 
-    public RPGStats getStats() {
-        return stats;
+    public RPGStats getCurrentStats() {
+        return currentStats;
     }
 
     public RPGLevelInfo getRpgInfo() {
@@ -50,7 +56,11 @@ public class PlayerClass {
      * @return max hp
      */
     public double getMaxHP() {
-        return rpgClass.getStats().hp + rpgClass.getStats().hpPerLevel * rpgInfo.getLevel();
+        double addHp = 0;
+        for (StatShard shard : rpgStatShards) {
+            addHp+=shard.getStatChanges().hp();
+        }
+        return rpgClass.getStats().hp + rpgClass.getStats().hpPerLevel * rpgInfo.getLevel() + addHp;
     }
 
     /**
@@ -58,7 +68,11 @@ public class PlayerClass {
      * @return max mana
      */
     public double getMaxMana() {
-        return rpgClass.getStats().mana + rpgClass.getStats().manaPerLevel * rpgInfo.getLevel();
+        double addMana = 0;
+        for (StatShard shard : rpgStatShards) {
+            addMana+=shard.getStatChanges().mana();
+        }
+        return rpgClass.getStats().mana + rpgClass.getStats().manaPerLevel * rpgInfo.getLevel() + addMana;
     }
 
     /**
@@ -66,11 +80,27 @@ public class PlayerClass {
      * @return mana regen
      */
     public double getManaRegen() {
-        return rpgClass.getStats().manaRegen + rpgClass.getStats().manaRegenPerLevel * rpgInfo.getLevel();
+        double addManaRegen = 0;
+        for (StatShard shard : rpgStatShards) {
+            addManaRegen+=shard.getStatChanges().manaRegen();
+        }
+        return rpgClass.getStats().manaRegen + rpgClass.getStats().manaRegenPerLevel * rpgInfo.getLevel() + addManaRegen;
     }
 
     public RPGClass getRpgClass() {
         return rpgClass;
+    }
+
+    public void addRPGStats(StatShard shard) {
+        rpgStatShards.add(shard);
+    }
+
+    public void removeRPGStats(StatShard shard) {
+        rpgStatShards.remove(shard);
+    }
+
+    public boolean hasStatShard(StatShard shard) {
+        return rpgStatShards.contains(shard);
     }
 
     /**
@@ -80,7 +110,7 @@ public class PlayerClass {
         if (!player.isDead()) {
             AttributeInstance hp = Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH));
             player.setHealth(hp.getBaseValue());
-            stats.setMana(getMaxMana());
+            currentStats.setMana(getMaxMana());
         }
     }
 
@@ -100,7 +130,7 @@ public class PlayerClass {
 
     public void updateMana() {
         if (!player.isDead()) {
-            stats.setMana(Math.min(stats.getMana() + getManaRegen(), getMaxMana()));
+            currentStats.setMana(Math.min(currentStats.getMana() + getManaRegen(), getMaxMana()));
         }
     }
 }

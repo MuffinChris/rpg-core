@@ -40,8 +40,8 @@ public class SkillTreeHandler implements CommandExecutor, Listener {
             int slot = e.getSlot();
             if (e.getClickedInventory() == e.getView().getBottomInventory()) {
                 switch (slot) {
-                    case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints(), rpgPlayer.getSkillList().getUnlockedSkills());
-                    case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer.getPlayerClass().getRpgInfo().getSkillpoints(), rpgPlayer.getSkillList().getUnlockedSkills());
+                    case PAGE_UP_SLOT -> rpgPlayer.getSkillTree().pageUp(rpgPlayer);
+                    case PAGE_DOWN_SLOT -> rpgPlayer.getSkillTree().pageDown(rpgPlayer);
                     case SKILL_EQUIP_SLOT -> rpgPlayer.showSkillsGUI();
                 }
             } else {

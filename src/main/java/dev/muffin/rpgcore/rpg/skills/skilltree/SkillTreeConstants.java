@@ -17,6 +17,8 @@ public class SkillTreeConstants {
     public static final int SKILLPOINTS_TEXTURE = 100001;
     public static final int SKILL_EQUIP_TEXTURE = 100001;
 
+    public static final int STAT_SHARD_TEXTURE = 100009;
+
     public static final int PAGE_UP_SLOT = 12;
     public static final int PAGE_DOWN_SLOT = 14;
     public static final int SKILLPOINTS_SLOT = 13;
@@ -26,6 +28,9 @@ public class SkillTreeConstants {
     public static final int CLEAVE_SHATTERSTIKE_PATH_SLOT = 22;
 
     public static final int SHATTERSTRIKE_SKILL_SLOT = 31;
+
+    public static final int BLUNTFORCESWING_SKILL_SLOT = 49;
+
 
     public static final int WARRIOR_MAX_PAGE = 2;
 

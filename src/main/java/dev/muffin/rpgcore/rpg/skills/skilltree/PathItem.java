@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.skilltree;
 
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.Skill;
 import dev.muffin.rpgcore.utilities.GUIItems;
 import org.bukkit.entity.Player;
@@ -20,14 +21,14 @@ public class PathItem {
         this.from = from;
     }
 
-    public void loadItem(SkillTreeNode to, Player p, List<Skill> unlockedSkills) {
+    public void loadItem(SkillTreeNode to, RPGPlayer rpgPlayer) {
         int texture;
-        if (from.isUnlocked(unlockedSkills) && to.isUnlocked(unlockedSkills)) {
+        if (from.isUnlocked(rpgPlayer) && to.isUnlocked(rpgPlayer)) {
             texture = pathDirection.getOnTexture();
         } else {
             texture = pathDirection.getOffTexture();
         }
-        p.getOpenInventory().getTopInventory().setItem(slot, GUIItems.generateCustomIcon("", texture));
+        rpgPlayer.getPlayer().getOpenInventory().getTopInventory().setItem(slot, GUIItems.generateCustomIcon("", texture));
     }
 
 }

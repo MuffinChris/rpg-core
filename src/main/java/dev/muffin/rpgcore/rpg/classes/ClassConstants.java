@@ -16,6 +16,5 @@ public class ClassConstants {
     public static final double WARRIOR_MANA_PER_LEVEL = 3;
     public static final double WARRIOR_BASE_MANA_REGEN = 2;
     public static final double WARRIOR_MANA_REGEN_PER_LEVEL = 0.1;
-    public static List<Skill> WARRIOR_SKILLS = new ArrayList<>(List.of(new Cleave(), new Shatterstrike())){};
 
 }
