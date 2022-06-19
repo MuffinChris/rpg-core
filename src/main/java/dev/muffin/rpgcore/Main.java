@@ -22,6 +22,9 @@ import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public final class Main extends JavaPlugin {
 
 
@@ -87,6 +90,9 @@ public final class Main extends JavaPlugin {
 
     // Helper Methods
     public RPGPlayer getRPGPlayer(Player p) {
+        if (!playerInfoHandler.getRpgPlayerMap().containsKey(p)) {
+            return null;
+        }
         return playerInfoHandler.getRpgPlayerMap().get(p);
     }
 
@@ -96,5 +102,13 @@ public final class Main extends JavaPlugin {
 
     public ClassHandler getClassHandler() {
         return classHandler;
+    }
+
+    public List<RPGPlayer> getAllRPGPlayers() {
+        List<RPGPlayer> rpgPlayers = new ArrayList<>();
+        for (Player p : playerInfoHandler.getRpgPlayerMap().keySet()) {
+            rpgPlayers.add(playerInfoHandler.getRpgPlayerMap().get(p));
+        }
+        return rpgPlayers;
     }
 }

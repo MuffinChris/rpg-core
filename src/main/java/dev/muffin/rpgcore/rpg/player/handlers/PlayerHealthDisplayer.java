@@ -17,11 +17,13 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.*;
 
+import java.util.Objects;
+
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols.HEART_SYMBOL;
 
 public class PlayerHealthDisplayer implements Listener {
 
-    private Scoreboard healthUnderName;
+    private final Scoreboard healthUnderName;
 
     public PlayerHealthDisplayer() {
 
@@ -31,8 +33,8 @@ public class PlayerHealthDisplayer implements Listener {
 
         new BukkitRunnable() {
             public void run() {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    updateHealthBar(p);
+                for (RPGPlayer rpgPlayer : Main.getInstance().getAllRPGPlayers()) {
+                    updateHealthBar(rpgPlayer);
                 }
             }
         }.runTaskTimer(Main.getInstance(), 1L, 2L);
@@ -46,7 +48,7 @@ public class PlayerHealthDisplayer implements Listener {
     @EventHandler (priority = EventPriority.HIGHEST)
     public void updateHealthOnDamage(EntityDamageEvent e) {
         if (e.getEntity() instanceof Player p) {
-            updateHealthBar(p);
+            updateHealthBar(Objects.requireNonNull(Main.getInstance().getRPGPlayer(p)));
         }
     }
 
@@ -54,15 +56,13 @@ public class PlayerHealthDisplayer implements Listener {
      * Update a player's action bar with relevant information
      * @param p the player
      */
-    public void updateHealthBar(Player p) {
-        RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(p);
-
-        String hp = DecimalFormats.noDecimals.format(p.getHealth());
+    public void updateHealthBar(RPGPlayer rpgPlayer) {
+        String hp = DecimalFormats.noDecimals.format(rpgPlayer.getPlayer().getHealth());
         String mana = DecimalFormats.noDecimals.format(rpgPlayer.getPlayerClass().getCurrentStats().getMana());
 
-        String x = DecimalFormats.noDecimals.format(p.getLocation().getX());
-        String direction = DirectionParser.yawToString(p.getLocation().getYaw());
-        String z = DecimalFormats.noDecimals.format(p.getLocation().getZ());
+        String x = DecimalFormats.noDecimals.format(rpgPlayer.getPlayer().getLocation().getX());
+        String direction = DirectionParser.yawToString(rpgPlayer.getPlayer().getLocation().getYaw());
+        String z = DecimalFormats.noDecimals.format(rpgPlayer.getPlayer().getLocation().getZ());
 
         Component actionBarMessage = Component
                 .text().append(HEART_SYMBOL)
@@ -75,7 +75,7 @@ public class PlayerHealthDisplayer implements Listener {
                 .append(Component.text().content(" " + mana).color(NamedTextColor.AQUA))
                 .build();
 
-        p.sendActionBar(actionBarMessage);
+        rpgPlayer.getPlayer().sendActionBar(actionBarMessage);
     }
 
 }

@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -11,9 +12,9 @@ public class CastingRunnables {
 
         new BukkitRunnable() {
             public void run() {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    Main.getInstance().getRPGPlayer(p).getSkillCaster().getCooldownManager().updateCooldowns();
-                    Main.getInstance().getRPGPlayer(p).updateSkillbar();
+                for (RPGPlayer rpgPlayer : Main.getInstance().getAllRPGPlayers()) {
+                    rpgPlayer.getSkillCaster().getCooldownManager().updateCooldowns();
+                    rpgPlayer.updateSkillbar();
                 }
             }
         }.runTaskTimer(Main.getInstance(), 1L, 1L);

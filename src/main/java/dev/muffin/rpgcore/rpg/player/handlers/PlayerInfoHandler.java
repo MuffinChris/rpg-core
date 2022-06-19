@@ -47,12 +47,14 @@ public class PlayerInfoHandler {
      * Remove a player's RPGPlayer before logoff
      */
     public void removePlayer(Player p) {
-        rpgPlayerMap.get(p).close();
-        rpgPlayerMap.remove(p);
+        if (rpgPlayerMap.containsKey(p)) {
+            rpgPlayerMap.get(p).close();
+            rpgPlayerMap.remove(p);
+        }
     }
 
     /**
-     * Force closure of all RPGPlayers, DANGEROUS!
+     * Force closure of all RPGPlayers for all online players
      */
     public void removePlayers() {
         for (Player p : Bukkit.getOnlinePlayers()) {
@@ -64,13 +66,13 @@ public class PlayerInfoHandler {
      * Update all RPGPlayers
      */
     public void updateAll() {
-        for (Player p : Bukkit.getOnlinePlayers()) {
+        for (Player p : rpgPlayerMap.keySet()) {
             rpgPlayerMap.get(p).updatePlayerInfo();
         }
     }
 
     public void manaRegen() {
-        for (Player p : Bukkit.getOnlinePlayers()) {
+        for (Player p : rpgPlayerMap.keySet()) {
             rpgPlayerMap.get(p).getPlayerClass().updateMana();
         }
     }

@@ -17,18 +17,17 @@ public class LevelBarHandler implements Listener {
     public LevelBarHandler() {
         new BukkitRunnable() {
             public void run() {
-                for (Player p : Bukkit.getOnlinePlayers()) {
-                    updateLevelBar(p);
+                for (RPGPlayer rpgPlayer : Main.getInstance().getAllRPGPlayers()) {
+                    updateLevelBar(rpgPlayer);
                 }
             }
         }.runTaskTimer(Main.getInstance(), 1L, 1L);
     }
 
-    public void updateLevelBar(Player p) {
-        RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(p);
-        p.setLevel(rpgPlayer.getPlayerClass().getRpgInfo().getLevel());
+    public void updateLevelBar(RPGPlayer rpgPlayer) {
+        rpgPlayer.getPlayer().setLevel(rpgPlayer.getPlayerClass().getRpgInfo().getLevel());
         double percent = rpgPlayer.getPlayerClass().getRpgInfo().getExp() / RPGConstants.LEVEL_EXP_MAP.get(rpgPlayer.getPlayerClass().getRpgInfo().getLevel());
-        p.setExp(Math.min((float) percent, 0.999999999f));
+        rpgPlayer.getPlayer().setExp(Math.min((float) percent, 0.999999999f));
     }
 
     @EventHandler

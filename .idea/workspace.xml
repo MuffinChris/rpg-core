@@ -5,14 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageInstance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageStack.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/MagicDamageInstance.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/PhysicalDamageInstance.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/DeveloperNotes" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/LevelBarHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/LevelBarHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerHealthDisplayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerHealthDisplayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerInfoHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/handlers/PlayerInfoHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/CastingRunnables.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/skills/casting/CastingRunnables.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
