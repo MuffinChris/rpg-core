@@ -31,8 +31,6 @@ public class RPGPlayer {
     private final SkillTree skillTree;
     private final SkillsGUI skillsGUI;
     private final SkillList skillList;
-
-
     private final InventoryManager inventoryManager;
 
     public RPGPlayer(Player p) {
@@ -48,58 +46,30 @@ public class RPGPlayer {
         skillList = new SkillList(p, new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
     }
 
-    /**
-     * Get UUID of owner of the RPGPlayer
-     * @return UUID of owner
-     */
     public UUID getUUID() {
         return playerUUID;
     }
-
-    /**
-     * Get Player of the RPGPlayer
-     * @return the player
-     */
     public Player getPlayer() {
         return Bukkit.getPlayer(playerUUID);
     }
-
-    /**
-     * Get the playerClass object of the RPGPlayer
-     * @return the playerClass
-     */
     public PlayerClass getPlayerClass() {
         return playerClass;
     }
-
-    /**
-     * Get player's skillbar
-     * @return skillbar
-     */
     public Skillbar getSkillbar() {
         return skillbar;
     }
-
-    /**
-     * Get skill caster
-     * @return skill caster
-     */
     public SkillCaster getSkillCaster() {
         return skillCaster;
     }
-
     public SkillTree getSkillTree() {
         return skillTree;
     }
-
     public SkillsGUI getSkillsGUI() {
         return skillsGUI;
     }
-
     public SkillList getSkillList() {
         return skillList;
     }
-
     public InventoryManager getInventoryManager() {
         return inventoryManager;
     }

@@ -1,9 +1,10 @@
 Current Todo:
 
-PassiveSkill
+Damage!
 
-Swapping Classes change level / stats
-SkillTree different classes
+
+Classes
+Need to be able to swap / reset. Will be implemented with database
 
 Skills
 no damage ticks important for skill damage
