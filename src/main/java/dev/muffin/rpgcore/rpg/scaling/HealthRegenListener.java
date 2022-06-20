@@ -20,7 +20,7 @@ public class HealthRegenListener implements Listener {
                 e.setAmount(0.5 * (e.getAmount() / HEALTH_SCALE) * Objects.requireNonNull(p.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue());
             }
 
-            Main.getInstance().getPlayerHealthDisplayer().updateHealthBar(p);
+            Main.getInstance().getPlayerHealthDisplayer().updateHealthBar(Objects.requireNonNull(Main.getInstance().getRPGPlayer(p)));
         }
     }
 

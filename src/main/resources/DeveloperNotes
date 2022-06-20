@@ -5,6 +5,7 @@ Damage!
 
 Classes
 Need to be able to swap / reset. Will be implemented with database
+Class info / stats command? (also picker. no class class. perhaps handle logic by being null)
 
 Skills
 no damage ticks important for skill damage

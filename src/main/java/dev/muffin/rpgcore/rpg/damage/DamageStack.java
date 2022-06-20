@@ -1,5 +1,7 @@
 package dev.muffin.rpgcore.rpg.damage;
 
+import org.bukkit.entity.Entity;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,26 @@ public class DamageStack {
 
     public DamageStack() {
         this.damageInstances = new ArrayList<>();
-        // generate per event?. then use helper methods here to show holograms, etc.
-        // store in players. review old therift. system was decent. just revise it. store damages and just handle them over and over.
     }
+
+    public void bufferDamage(DamageInstance damageInstance) {
+        damageInstances.add(damageInstance);
+    }
+    public List<DamageInstance> getDamageInstancesForTarget(Entity e) {
+        List<DamageInstance> damageInstancesForTarget = new ArrayList<>();
+        for (DamageInstance damageInstance : damageInstances) {
+            if (damageInstance.target() == e) {
+                damageInstancesForTarget.add(damageInstance);
+            }
+        }
+        return damageInstancesForTarget;
+    }
+
+    /*
+    On damage, create a damage instance with the target.
+    If the target matches along with the person doing the damage, that is a damage event. Should damage be compared to check validity?
+    Dont know, that is old rift mechanism. Can perhaps instead combine damage instances. Maybe do some testing.
+    Combining safest! Or not even combining but just displaying all individually, from the list!
+     */
+
 }

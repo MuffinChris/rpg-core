@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.damage.DamageStack;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.skills.SkillList;
 import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTree;
@@ -31,6 +32,7 @@ public class RPGPlayer {
     private final SkillTree skillTree;
     private final SkillsGUI skillsGUI;
     private final SkillList skillList;
+    private final DamageStack damageStack;
     private final InventoryManager inventoryManager;
 
     public RPGPlayer(Player p) {
@@ -44,6 +46,7 @@ public class RPGPlayer {
         skillTree = new SkillTree(p);
         skillsGUI = new SkillsGUI(p);
         skillList = new SkillList(p, new Skill[NUM_USABLE_SKILLS], new ArrayList<>());
+        damageStack = new DamageStack();
     }
 
     public UUID getUUID() {
@@ -72,6 +75,9 @@ public class RPGPlayer {
     }
     public InventoryManager getInventoryManager() {
         return inventoryManager;
+    }
+    public DamageStack getDamageStack() {
+        return damageStack;
     }
 
     /**

@@ -1,21 +1,7 @@
 package dev.muffin.rpgcore.rpg.damage;
 
-public class DamageInstance {
+import org.bukkit.entity.Entity;
 
-    private final PhysicalDamageInstance physicalDamageInstance;
-    private final MagicDamageInstance magicDamageInstance;
-
-
-    public DamageInstance(PhysicalDamageInstance physicalDamageInstance, MagicDamageInstance magicDamageInstance) {
-        this.physicalDamageInstance = physicalDamageInstance;
-        this.magicDamageInstance = magicDamageInstance;
-    }
-
-    public PhysicalDamageInstance getPhysicalDamageInstance() {
-        return physicalDamageInstance;
-    }
-    public MagicDamageInstance getMagicDamageInstance() {
-        return magicDamageInstance;
-    }
+public record DamageInstance(Entity target, PhysicalDamageInstance physicalDamageInstance, MagicDamageInstance magicDamageInstance) {
 
 }
