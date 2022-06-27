@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
@@ -39,11 +40,11 @@ public class Resistance extends PassiveSkill {
     }
 
     @Override
-    public void castSkill(Player caster) {
+    public void castSkill(RPGPlayer rpgPlayer) {
     }
 
     @Override
-    public List<String> getDescription(Player player) {
+    public List<String> getDescription(RPGPlayer rpgPlayer) {
         List<String> description = new ArrayList<>();
         description.add("&7Permanently gain Resistance 1.");
         return description;

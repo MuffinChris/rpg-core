@@ -1,5 +1,8 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
+import dev.muffin.rpgcore.rpg.damage.DamageInstance;
+import dev.muffin.rpgcore.rpg.damage.PhysicalDamageInstance;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import org.bukkit.Sound;
@@ -20,7 +23,7 @@ public class Cleave extends Skill {
     }
 
     @Override
-    public List<String> getDescription(Player caster) {
+    public List<String> getDescription(RPGPlayer rpgPlayer) {
         List<String> description = new ArrayList<>();
         description.add("&7Swing in a wide arc in front of you.");
         description.add("&7Deals &c60% ATK &7as &c" + RPGSymbols.SLASH_DAMAGE.content() + " Slash &7damage.");
@@ -28,11 +31,12 @@ public class Cleave extends Skill {
     }
 
     @Override
-    public void castSkill(Player caster) {
+    public void castSkill(RPGPlayer rpgPlayer) {
+        Player caster = rpgPlayer.getPlayer();
         caster.getWorld().playSound(caster, Sound.ENTITY_ENDER_DRAGON_FLAP, 1.2F, 0.25F);
         for (Entity e : caster.getNearbyEntities(caster.getLocation().getX(), caster.getLocation().getY(), caster.getLocation().getZ())) {
-            if (e instanceof LivingEntity && e != caster && e.getLocation().distance(caster.getLocation()) <= 3) {
-                ((LivingEntity) e).damage(25);
+            if (e instanceof LivingEntity ent && e != caster && e.getLocation().distance(caster.getLocation()) <= 3) {
+                rpgPlayer.doDamage(new DamageInstance(ent, new PhysicalDamageInstance(0, 0, 0, 25), false));
                 caster.getWorld().playSound(e, Sound.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
             }
         }

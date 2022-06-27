@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedPassiveSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
@@ -41,11 +42,11 @@ public class Fortitude extends AugmentedPassiveSkill {
     }
 
     @Override
-    public void castSkill(Player caster) {
+    public void castSkill(RPGPlayer rpgPlayer) {
     }
 
     @Override
-    public List<String> getDescription(Player player) {
+    public List<String> getDescription(RPGPlayer rpgPlayer) {
         List<String> description = new ArrayList<>();
         description.add("&7Permanently gain Resistance 3.");
         return description;

@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.utilities;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
@@ -51,7 +52,7 @@ public class GUIItems {
         return item;
     }
 
-    public static ItemStack generateSkillItem(Skill skill, Player p, boolean unlockable) {
+    public static ItemStack generateSkillItem(Skill skill, RPGPlayer rpgPlayer, boolean unlockable) {
         Component itemName;
         if (skill instanceof PassiveSkill) {
             itemName = Component.text("Passive: " + skill.getSkillName(), NamedTextColor.GOLD);
@@ -64,9 +65,9 @@ public class GUIItems {
 
         ItemStack item = generateItem(Material.EMERALD,
                 itemName,
-                skill.getSkillDescription(p));
+                skill.getSkillDescription(rpgPlayer));
         ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(skill.getTexture(p, unlockable));
+        meta.setCustomModelData(skill.getTexture(rpgPlayer, unlockable));
         item.setItemMeta(meta);
         return item;
     }

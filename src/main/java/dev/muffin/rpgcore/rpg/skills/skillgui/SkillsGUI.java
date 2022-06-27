@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.skillgui;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.PassiveSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.utilities.GUIItems;
@@ -52,25 +53,25 @@ public class SkillsGUI {
         return slotToEquip;
     }
 
-    public void openSkillsGui(Skill[] skillList) {
+    public void openSkillsGui(Skill[] skillList, RPGPlayer rpgPlayer) {
         player.openInventory(skillsGui);
-        setSkillsGui(skillList);
+        setSkillsGui(skillList, rpgPlayer);
     }
 
-    public void setSkillsGui(Skill[] skillList) {
+    public void setSkillsGui(Skill[] skillList, RPGPlayer rpgPlayer) {
         Inventory currentInventory = player.getOpenInventory().getTopInventory();
 
         currentInventory.clear();
 
         currentInventory.setItem(SKILLTREE_SLOT, generateSkillTreeItem());
-        currentInventory.setItem(SKILL_ONE_SLOT, getSkill(skillList, 1));
-        currentInventory.setItem(SKILL_TWO_SLOT, getSkill(skillList, 2));
-        currentInventory.setItem(SKILL_THREE_SLOT, getSkill(skillList, 3));
-        currentInventory.setItem(SKILL_FOUR_SLOT, getSkill(skillList, 4));
-        currentInventory.setItem(SKILL_FIVE_SLOT, getSkill(skillList, 5));
+        currentInventory.setItem(SKILL_ONE_SLOT, getSkill(skillList, 1, rpgPlayer));
+        currentInventory.setItem(SKILL_TWO_SLOT, getSkill(skillList, 2, rpgPlayer));
+        currentInventory.setItem(SKILL_THREE_SLOT, getSkill(skillList, 3, rpgPlayer));
+        currentInventory.setItem(SKILL_FOUR_SLOT, getSkill(skillList, 4, rpgPlayer));
+        currentInventory.setItem(SKILL_FIVE_SLOT, getSkill(skillList, 5, rpgPlayer));
     }
 
-    public void setSkillSelectGui(List<Skill> unlockedSkills, int slot) {
+    public void setSkillSelectGui(List<Skill> unlockedSkills, int slot, RPGPlayer rpgPlayer) {
         Inventory currentInventory = player.getOpenInventory().getTopInventory();
 
         currentInventory.clear();
@@ -80,15 +81,15 @@ public class SkillsGUI {
 
         int slotCounter = 0;
         for (Skill skill : unlockedSkills) {
-            currentInventory.setItem(slotCounter, generateSlotSelectSkillItem(skill, slot));
+            currentInventory.setItem(slotCounter, generateSlotSelectSkillItem(skill, slot, rpgPlayer));
             slotCounter+=1;
         }
 
         currentInventory.setItem(UNEQUIP_SLOT, generateUnequipSkillItem());
     }
 
-    public ItemStack generateSlotSelectSkillItem(Skill skill, int slot) {
-        ItemStack item = GUIItems.generateSkillItem(skill, player, true);
+    public ItemStack generateSlotSelectSkillItem(Skill skill, int slot, RPGPlayer rpgPlayer) {
+        ItemStack item = GUIItems.generateSkillItem(skill, rpgPlayer, true);
         ItemMeta meta = item.getItemMeta();
         if (skill instanceof PassiveSkill) {
             meta.lore().add(Component.text(""));
@@ -102,9 +103,9 @@ public class SkillsGUI {
         return item;
     }
 
-    public ItemStack getSkill(Skill[] skillList, int slot) {
+    public ItemStack getSkill(Skill[] skillList, int slot, RPGPlayer rpgPlayer) {
         if (skillList[slot - 1] != null) {
-            return GUIItems.generateSkillItem(skillList[slot - 1], player, true);
+            return GUIItems.generateSkillItem(skillList[slot - 1], rpgPlayer, true);
         } else {
             return getUnequipped(slot);
         }

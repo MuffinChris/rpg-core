@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.warrior;
 
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.AugmentedSkill;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
@@ -20,7 +21,7 @@ public class BrutalSlam extends AugmentedSkill {
     }
 
     @Override
-    public List<String> getDescription(Player caster) {
+    public List<String> getDescription(RPGPlayer rpgPlayer) {
         List<String> description = new ArrayList<>();
         description.add("&7Slam your weapon into nearby opponents.");
         description.add("&7Deals &c100% ATK &7as &c" + RPGSymbols.IMPACT_DAMAGE.content() + " Impact &7damage.");
@@ -29,7 +30,8 @@ public class BrutalSlam extends AugmentedSkill {
     }
 
     @Override
-    public void castSkill(Player caster) {
+    public void castSkill(RPGPlayer rpgPlayer) {
+        Player caster = rpgPlayer.getPlayer();
         caster.getWorld().playSound(caster, Sound.BLOCK_ANVIL_PLACE, 1.2F, 0.8F);
         for (Entity e : caster.getNearbyEntities(caster.getLocation().getX(), caster.getLocation().getY(), caster.getLocation().getZ())) {
             if (e instanceof LivingEntity && e != caster && e.getLocation().distance(caster.getLocation()) <= 3) {

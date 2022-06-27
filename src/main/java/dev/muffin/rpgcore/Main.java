@@ -5,6 +5,7 @@ import dev.muffin.rpgcore.chat.ChatMessageListener;
 import dev.muffin.rpgcore.chat.JoinMessageListener;
 import dev.muffin.rpgcore.chat.Motd;
 import dev.muffin.rpgcore.rpg.classes.ClassHandler;
+import dev.muffin.rpgcore.rpg.damage.DamageListener;
 import dev.muffin.rpgcore.rpg.player.*;
 import dev.muffin.rpgcore.rpg.player.commands.GiveExpCommand;
 import dev.muffin.rpgcore.rpg.player.handlers.PlayerHealthDisplayer;
@@ -62,6 +63,7 @@ public final class Main extends JavaPlugin {
         getLogger().info("registering rpg damage events");
         getServer().getPluginManager().registerEvents(new EnvironmentalDamageListener(), this);
         getServer().getPluginManager().registerEvents(new HealthRegenListener(), this);
+        getServer().getPluginManager().registerEvents(new DamageListener(), this);
 
         getLogger().info("registering rpg class events");
         classHandler = new ClassHandler();

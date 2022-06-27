@@ -73,7 +73,7 @@ public class SkillTreeNode {
 
     public void loadNodeItem(RPGPlayer rpgPlayer) {
         if (unlockable instanceof Skill skill) {
-            ItemStack item = generateSkillItem(skill, rpgPlayer.getPlayer(), isUnlockable(rpgPlayer));
+            ItemStack item = generateSkillItem(skill, rpgPlayer, isUnlockable(rpgPlayer));
             rpgPlayer.getPlayer().getOpenInventory().getTopInventory().setItem(slot, item);
             return;
         }
@@ -81,7 +81,7 @@ public class SkillTreeNode {
         if (unlockable instanceof StatShard shard) {
             ItemStack item = generateItem(Material.EMERALD,
                     Component.text("Stat Shard", NamedTextColor.YELLOW),
-                    ComponentConverter.getComponentListFromStringList(shard.getDescription(rpgPlayer.getPlayer())), shard.getTexture(rpgPlayer)
+                    ComponentConverter.getComponentListFromStringList(shard.getDescription(rpgPlayer)), shard.getTexture(rpgPlayer)
                     );
             rpgPlayer.getPlayer().getOpenInventory().getTopInventory().setItem(slot, item);
             return;

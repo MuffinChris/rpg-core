@@ -2,6 +2,8 @@ package dev.muffin.rpgcore.rpg.skills.abstracts;
 
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.damage.DamageInstance;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.utils.constants.RPGSymbols;
 import dev.muffin.rpgcore.utilities.DecimalFormats;
 import net.kyori.adventure.text.Component;
@@ -59,8 +61,8 @@ public abstract class Skill extends Unlockable {
         return lockedTexture;
     }
 
-    public int getTexture(Player caster, boolean unlockable) {
-        if (Main.getInstance().getRPGPlayer(caster).getSkillList().getUnlockedSkills().contains(this)) {
+    public int getTexture(RPGPlayer rpgPlayer, boolean unlockable) {
+        if (rpgPlayer.getSkillList().getUnlockedSkills().contains(this)) {
             return unlockedTexture;
         } else if (unlockable) {
             return unlockableTexture;
@@ -69,10 +71,10 @@ public abstract class Skill extends Unlockable {
         }
     }
 
-    public abstract void castSkill(Player caster);
+    public abstract void castSkill(RPGPlayer rpgPlayer);
 
-    public List<Component> getSkillDescription(Player caster) {
-        List<String> description = getDescription(caster);
+    public List<Component> getSkillDescription(RPGPlayer rpgPlayer) {
+        List<String> description = getDescription(rpgPlayer);
 
         if (this instanceof PassiveSkill) {
             description.add("");
@@ -83,9 +85,9 @@ public abstract class Skill extends Unlockable {
             description.add("");
         }
 
-        if (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).contains(this)) {
-            description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(Main.getInstance().getRPGPlayer(caster).getSkillList().getEquippedSkills()).indexOf(this) + 1) + "&7)");
-        } else if (Main.getInstance().getRPGPlayer(caster).getSkillList().getUnlockedSkills().contains(this)) {
+        if (Arrays.asList(rpgPlayer.getSkillList().getEquippedSkills()).contains(this)) {
+            description.add("&eSkill Equipped &7(&fSlot " + (Arrays.asList(rpgPlayer.getSkillList().getEquippedSkills()).indexOf(this) + 1) + "&7)");
+        } else if (rpgPlayer.getSkillList().getUnlockedSkills().contains(this)) {
             description.add("&aSkill Unlocked");
         } else {
             description.add("&7Skillpoint Cost: &e" + getSkillpointCost());

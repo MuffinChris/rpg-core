@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.casting;
 
 import dev.muffin.rpgcore.rpg.player.PlayerClass;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import org.bukkit.entity.Player;
 
@@ -23,7 +24,8 @@ public class SkillCaster {
      * @param skill the skill to cast
      * @return status of cast
      */
-    public CastResponse cast(Skill skill, PlayerClass playerClass) {
+    public CastResponse cast(Skill skill, RPGPlayer rpgPlayer) {
+        PlayerClass playerClass = rpgPlayer.getPlayerClass();
         if (skill == null) {
             return CastResponse.NOT_EQUIPPED;
         }
@@ -34,7 +36,7 @@ public class SkillCaster {
             return CastResponse.NO_MANA;
         }
         playerClass.getCurrentStats().setMana(playerClass.getCurrentStats().getMana() - skill.getManaCost());
-        skill.castSkill(player);
+        skill.castSkill(rpgPlayer);
         cooldownManager.putOnCooldown(skill);
         return CastResponse.SUCCESS;
     }

@@ -1,5 +1,6 @@
 package dev.muffin.rpgcore.rpg.skills.abstracts;
 
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import org.bukkit.entity.Player;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public abstract class Unlockable {
         return skillpointCost;
     }
 
-    public abstract List<String> getDescription(Player player);
+    public abstract List<String> getDescription(RPGPlayer rpgPlayer);
 
     public String getName() {
         return name;

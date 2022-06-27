@@ -41,7 +41,7 @@ public class SkillsGUIHandler implements CommandExecutor, Listener {
             if (rpgPlayer.getSkillsGUI().isSelecting()) {
                 rpgPlayer.equipSkill(slot);
                 rpgPlayer.getSkillsGUI().close();
-                rpgPlayer.getSkillsGUI().setSkillsGui(rpgPlayer.getSkillList().getEquippedSkills());
+                rpgPlayer.getSkillsGUI().setSkillsGui(rpgPlayer.getSkillList().getEquippedSkills(), rpgPlayer);
             } else {
                 switch (slot) {
                     case SKILL_ONE_SLOT -> rpgPlayer.showSelectableSkillsGUI(1);

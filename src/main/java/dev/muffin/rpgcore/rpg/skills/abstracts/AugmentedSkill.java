@@ -1,6 +1,7 @@
 package dev.muffin.rpgcore.rpg.skills.abstracts;
 
 import dev.muffin.rpgcore.chat.utils.ComponentConverter;
+import dev.muffin.rpgcore.rpg.player.RPGPlayer;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;
 
@@ -20,8 +21,8 @@ public abstract class AugmentedSkill extends Skill {
     }
 
     @Override
-    public List<Component> getSkillDescription(Player caster) {
-        List<Component> skillDescription = super.getSkillDescription(caster);
+    public List<Component> getSkillDescription(RPGPlayer rpgPlayer) {
+        List<Component> skillDescription = super.getSkillDescription(rpgPlayer);
 
         skillDescription.add(0, ComponentConverter.getComponentFromString("&8Skill replaces &e" + toModify.getSkillName()));
         return skillDescription;

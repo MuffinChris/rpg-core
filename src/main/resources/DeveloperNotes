@@ -1,5 +1,8 @@
 Current Todo:
 
+For Skills. If we are choosing to pass in the RPGPlayer every time, should just pass that and only that. Can access skilllist
+from it etc.
+
 Damage!
 
 

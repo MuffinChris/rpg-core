@@ -1,7 +1,10 @@
 package dev.muffin.rpgcore.rpg.player;
 
 import dev.muffin.rpgcore.Main;
+import dev.muffin.rpgcore.rpg.damage.DamageInstance;
 import dev.muffin.rpgcore.rpg.damage.DamageStack;
+import dev.muffin.rpgcore.rpg.damage.MagicDamageInstance;
+import dev.muffin.rpgcore.rpg.damage.PhysicalDamageInstance;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.skills.SkillList;
 import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTree;
@@ -12,6 +15,7 @@ import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -128,11 +132,11 @@ public class RPGPlayer {
         if (getInventoryManager().isOpen()) {
             getPlayer().closeInventory();
         }
-        getSkillsGUI().openSkillsGui(skillList.getEquippedSkills());
+        getSkillsGUI().openSkillsGui(skillList.getEquippedSkills(), this);
     }
 
     public void showSelectableSkillsGUI(int slot) {
-        getSkillsGUI().setSkillSelectGui(skillList.getUnlockedSkills(), slot);
+        getSkillsGUI().setSkillSelectGui(skillList.getUnlockedSkills(), slot, this);
     }
 
     public void equipSkill(int slot) {
@@ -158,7 +162,7 @@ public class RPGPlayer {
     // Skill Related
 
     public CastResponse castSkill(Skill skill) {
-        CastResponse castResponse = getSkillCaster().cast(skill, playerClass);
+        CastResponse castResponse = getSkillCaster().cast(skill, this);
         return castResponse;
     }
 
@@ -168,6 +172,18 @@ public class RPGPlayer {
      */
     public Skill[] getCastableSkills() {
         return skillList.getEquippedSkills();
+    }
+
+    // Damage Related
+    public void basicAttack(LivingEntity target, double damage) {
+        damageStack.bufferDamage(new DamageInstance(target,
+                new PhysicalDamageInstance(damage, 0, 0, 0),
+                new MagicDamageInstance(0, 0, 0, 0, 0, 0, 0),
+                true));
+    }
+
+    public void doDamage(DamageInstance damageInstance) {
+        damageStack.bufferDamage(damageInstance);
     }
 
 }

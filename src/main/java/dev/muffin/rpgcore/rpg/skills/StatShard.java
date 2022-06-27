@@ -35,13 +35,13 @@ public class StatShard extends Unlockable {
     }
 
     @Override
-    public List<String> getDescription(Player player) {
+    public List<String> getDescription(RPGPlayer rpgPlayer) {
         List<String> description = new ArrayList<>();
         description.add("");
         description.add("&7Changes stats by the following:");
         description.add(statChanges.toString());
         description.add("");
-        if (Main.getInstance().getRPGPlayer(player).getPlayerClass().hasStatShard(this)) {
+        if (rpgPlayer.getPlayerClass().hasStatShard(this)) {
             description.add("&aStat Shard Unlocked");
         } else {
             description.add("&7Skillpoint Cost: &e" + getSkillpointCost());
