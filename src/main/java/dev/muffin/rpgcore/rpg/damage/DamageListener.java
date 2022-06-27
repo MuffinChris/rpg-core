@@ -13,6 +13,9 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageListener implements Listener {
     @EventHandler (priority = EventPriority.HIGHEST)
     public void handleDamageEvent (EntityDamageByEntityEvent e) {
+        if (e.isCancelled()) {
+            return;
+        }
         if (e.getDamager() instanceof Player damager && e.getEntity() instanceof LivingEntity target) {
             RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(damager);
             if (rpgPlayer == null) {
@@ -29,6 +32,10 @@ public class DamageListener implements Listener {
     public void normalDamageEvent (EntityDamageByEntityEvent e) {
         if (!(e.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK
                 || e.getCause() == EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK)) {
+            return;
+        }
+
+        if (e.isCancelled()) {
             return;
         }
 

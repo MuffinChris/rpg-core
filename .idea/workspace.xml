@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2014a01b-c794-42ce-aefb-6a30b735ed3d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/holograms/Hologram.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/holograms/HologramManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/holograms/HologramType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageStack.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/damage/DamageStack.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dev/muffin/rpgcore/rpg/player/RPGPlayer.java" afterDir="false" />

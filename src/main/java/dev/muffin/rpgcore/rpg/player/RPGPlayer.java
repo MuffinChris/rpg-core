@@ -198,12 +198,13 @@ public class RPGPlayer {
     }
 
     public void doDamage(double damage, LivingEntity target, boolean knockback) {
-        if (knockback) {
+        double knockbackResistance = Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).getBaseValue();
+        if (!knockback) {
             Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
         }
         target.setNoDamageTicks(0);
         target.damage(damage, getPlayer());
-        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0.0);
+        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(knockbackResistance);
     }
 
 }

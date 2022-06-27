@@ -6,6 +6,7 @@ import dev.muffin.rpgcore.chat.JoinMessageListener;
 import dev.muffin.rpgcore.chat.Motd;
 import dev.muffin.rpgcore.rpg.classes.ClassHandler;
 import dev.muffin.rpgcore.rpg.damage.DamageListener;
+import dev.muffin.rpgcore.rpg.damage.holograms.HologramManager;
 import dev.muffin.rpgcore.rpg.player.*;
 import dev.muffin.rpgcore.rpg.player.commands.GiveExpCommand;
 import dev.muffin.rpgcore.rpg.player.handlers.PlayerHealthDisplayer;
@@ -37,6 +38,7 @@ public final class Main extends JavaPlugin {
     private PlayerInfoHandler playerInfoHandler;
     private PlayerHealthDisplayer playerHealthDisplayer;
     private ClassHandler classHandler;
+    private HologramManager hologramManager;
 
     @Override
     public void onEnable() {
@@ -64,6 +66,10 @@ public final class Main extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new EnvironmentalDamageListener(), this);
         getServer().getPluginManager().registerEvents(new HealthRegenListener(), this);
         getServer().getPluginManager().registerEvents(new DamageListener(), this);
+
+        getLogger().info("registering holograms");
+        hologramManager = new HologramManager();
+        getServer().getPluginManager().registerEvents(hologramManager, this);
 
         getLogger().info("registering rpg class events");
         classHandler = new ClassHandler();
@@ -104,6 +110,10 @@ public final class Main extends JavaPlugin {
 
     public ClassHandler getClassHandler() {
         return classHandler;
+    }
+
+    public HologramManager getHologramManager() {
+        return hologramManager;
     }
 
     public List<RPGPlayer> getAllRPGPlayers() {

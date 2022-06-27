@@ -37,6 +37,7 @@ public class Cleave extends Skill {
         for (Entity e : caster.getNearbyEntities(caster.getLocation().getX(), caster.getLocation().getY(), caster.getLocation().getZ())) {
             if (e instanceof LivingEntity ent && e != caster && e.getLocation().distance(caster.getLocation()) <= 3) {
                 rpgPlayer.bufferDamageInstance(new DamageInstance(ent, new PhysicalDamageInstance(0, 0, 0, 2), false));
+                rpgPlayer.bufferDamageInstance(new DamageInstance(ent, new PhysicalDamageInstance(0, 0, 0, 4), false));
                 caster.getWorld().playSound(e, Sound.ENTITY_IRON_GOLEM_ATTACK, 1.0F, 1.0F);
             }
         }
