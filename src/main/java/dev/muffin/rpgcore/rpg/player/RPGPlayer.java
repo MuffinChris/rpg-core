@@ -3,8 +3,6 @@ package dev.muffin.rpgcore.rpg.player;
 import dev.muffin.rpgcore.Main;
 import dev.muffin.rpgcore.rpg.damage.DamageInstance;
 import dev.muffin.rpgcore.rpg.damage.DamageStack;
-import dev.muffin.rpgcore.rpg.damage.MagicDamageInstance;
-import dev.muffin.rpgcore.rpg.damage.PhysicalDamageInstance;
 import dev.muffin.rpgcore.rpg.skills.abstracts.Skill;
 import dev.muffin.rpgcore.rpg.skills.SkillList;
 import dev.muffin.rpgcore.rpg.skills.skilltree.SkillTree;
@@ -15,10 +13,13 @@ import dev.muffin.rpgcore.rpg.skills.casting.Skillbar;
 import dev.muffin.rpgcore.rpg.utils.RPGLevelInfo;
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.UUID;
 
 import static dev.muffin.rpgcore.rpg.utils.constants.RPGConstants.BASE_LEVEL;
@@ -175,15 +176,34 @@ public class RPGPlayer {
     }
 
     // Damage Related
-    public void basicAttack(LivingEntity target, double damage) {
-        damageStack.bufferDamage(new DamageInstance(target,
-                new PhysicalDamageInstance(damage, 0, 0, 0),
-                new MagicDamageInstance(0, 0, 0, 0, 0, 0, 0),
-                true));
+
+    /**
+     * Handle basic attack to a target
+     * Needs to be called after event to be buffered properly
+     * Difference is it does not need to damage again
+     * @param damageInstance the damage Instance
+     */
+    public void bufferBasicAttack(DamageInstance damageInstance) {
+        bufferDamageInstance(damageInstance);
     }
 
-    public void doDamage(DamageInstance damageInstance) {
+    /**
+     * Buffer a regular damage instance
+     * Will run its own damage method
+     * @param damageInstance the damage instance
+     */
+    public void bufferDamageInstance(DamageInstance damageInstance) {
         damageStack.bufferDamage(damageInstance);
+        doDamage(damageInstance.getTotalDamage(), damageInstance.getTarget(), damageInstance.isKnockback());
+    }
+
+    public void doDamage(double damage, LivingEntity target, boolean knockback) {
+        if (knockback) {
+            Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
+        }
+        target.setNoDamageTicks(0);
+        target.damage(damage, getPlayer());
+        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0.0);
     }
 
 }

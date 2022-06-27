@@ -2,7 +2,6 @@ package dev.muffin.rpgcore.rpg.damage;
 
 import dev.muffin.rpgcore.utilities.PluginLogger;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 
 import java.util.ArrayList;
@@ -20,8 +19,7 @@ public class DamageStack {
         damageInstances.add(damageInstance);
     }
 
-    public double runDamageForTarget(LivingEntity target, LivingEntity source) {
-
+    public double processDamageForTarget(LivingEntity target, LivingEntity source) {
         double totalDamage = 0;
 
         List<DamageInstance> damageInstances = getDamageInstancesForTarget(target);
@@ -34,18 +32,7 @@ public class DamageStack {
 
     private double processDamageInstance(DamageInstance damageInstance, LivingEntity target, LivingEntity source) {
         PluginLogger.getLogger().info("Damage Instance processed for " + target.getType() + " from source " + source.getType() + " for damage " + damageInstance.getTotalDamage());
-        //doDamage(damageInstance.getTotalDamage(), target, source, damageInstance.isKnockback());
-        // holograms?
         return damageInstance.getTotalDamage();
-    }
-
-    public void doDamage(double damage, LivingEntity target, LivingEntity source, boolean knockback) {
-        if (knockback) {
-             Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(1.0);
-        }
-        target.setNoDamageTicks(0);
-        target.damage(damage, source);
-        Objects.requireNonNull(target.getAttribute(Attribute.GENERIC_KNOCKBACK_RESISTANCE)).setBaseValue(0.0);
     }
 
     public List<DamageInstance> getDamageInstancesForTarget(LivingEntity target) {

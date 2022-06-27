@@ -13,18 +13,15 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class DamageListener implements Listener {
     @EventHandler (priority = EventPriority.HIGHEST)
     public void handleDamageEvent (EntityDamageByEntityEvent e) {
-        if (e.getDamager() instanceof Player damager && e.getEntity() instanceof LivingEntity entity) {
+        if (e.getDamager() instanceof Player damager && e.getEntity() instanceof LivingEntity target) {
             RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(damager);
             if (rpgPlayer == null) {
                 return;
             }
 
-            double damage = rpgPlayer.getDamageStack().runDamageForTarget(entity, damager);
+            double damage = rpgPlayer.getDamageStack().processDamageForTarget(target, damager);
 
             e.setDamage(damage);
-
-            currently not handling knockback or nodamageticks. doesnt make sense to call damage event from here,
-            should set damage. knockback should be handled by other sources
         }
     }
 
@@ -35,20 +32,22 @@ public class DamageListener implements Listener {
             return;
         }
 
-        if (e.getDamager() instanceof Player damager && e.getEntity() instanceof LivingEntity entity) {
+        if (e.getDamager() instanceof Player damager && e.getEntity() instanceof LivingEntity target) {
             RPGPlayer rpgPlayer = Main.getInstance().getRPGPlayer(damager);
             if (rpgPlayer == null) {
                 return;
             }
 
             // Block repeated damage events off this event. Unlikely to be wrongly triggered? needs testing
-            if (!rpgPlayer.getDamageStack().getDamageInstancesForTarget(entity).isEmpty()) {
+            // Can test by calling back to back damage events.
+            if (!rpgPlayer.getDamageStack().getDamageInstancesForTarget(target).isEmpty()) {
                 return;
             }
 
-            rpgPlayer.basicAttack(entity, e.getDamage());
-
-            e.setCancelled(true);
+            rpgPlayer.bufferBasicAttack(new DamageInstance(target,
+                    new PhysicalDamageInstance(e.getDamage(), 0, 0, 0),
+                    new MagicDamageInstance(0, 0, 0, 0, 0, 0, 0),
+                    true));
         }
     }
 
